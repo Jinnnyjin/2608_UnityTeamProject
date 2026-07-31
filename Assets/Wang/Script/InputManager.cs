@@ -28,7 +28,6 @@ public class InputManager : MonoBehaviour
     private tInputInfo m_tInputInfo;
     public tInputInfo InputInfo => m_tInputInfo;
 
-    // 다른 시스템이 프레임마다 폴링하지 않고 "눌린 순간"을 구독할 수 있게
     public event Action OnSpaceDown;
     public event Action OnClickDown;
 
@@ -75,7 +74,6 @@ public class InputManager : MonoBehaviour
     }
 
     // 여러 이동 소스 중 크기가 가장 큰 입력을 선택 (덮어쓰기 버그 방지)
-    // normalized 대신 ClampMagnitude로 아날로그 크기 유지
     private Vector2 ReadMove()
     {
         Vector2 Best = Vector2.zero;
@@ -122,9 +120,9 @@ public class InputManager : MonoBehaviour
             list[i].action.Disable();
     }
 
-    private static void Subscribe(List<InputActionReference> list, Action<InputAction.CallbackContext> cb)
+    private static void Subscribe(List<InputActionReference> list, Action<InputAction.CallbackContext> CallBack)
     {
         for (int i = 0; i < list.Count; ++i)
-            list[i].action.performed += cb;
+            list[i].action.performed += CallBack;
     }
 }

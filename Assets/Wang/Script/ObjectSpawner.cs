@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Unity.VisualScripting;
@@ -11,62 +12,61 @@ using UnityEngine;
  *///////////////////////////////////////////
 public class ObjectSpawner : MonoBehaviour
 {
-    private PriorityQueue<tSpawnData> m_PQObject;
+    private PriorityQueue<SpawnData> m_PQObject;
 
     public int RemainObject => m_PQObject.Count;
-    private struct tSpawnData
+    private struct SpawnData
     {
-        public float fSpawnTime;
-        public GameObject refSpawnObject; //Prefab
-        public Vector3 vPosition;
+        public float SpawnTime;
+        public PoolObject SpawnObject; //Prefab
+        public Vector3 Position;
 
-        public tSpawnData(float _fTime, GameObject _refSpawnObj, Vector3 _vPosition)
+        public SpawnData(float _Time, PoolObject _SpawnObj, Vector3 _Position)
         {
-            fSpawnTime = _fTime;
-            refSpawnObject = _refSpawnObj;
-            vPosition = _vPosition;
+            SpawnTime = _Time;
+            SpawnObject = _SpawnObj;
+            Position = _Position;
         }
     }
-    private struct tSpawnTimeComparer : IComparer<tSpawnData>
+    private struct SpawnTimeComparer : IComparer<SpawnData>
     {
-        public int Compare(tSpawnData x, tSpawnData y)
+        public int Compare(SpawnData x, SpawnData y)
         {
-            return x.fSpawnTime.CompareTo(y.fSpawnTime);
+            return x.SpawnTime.CompareTo(y.SpawnTime);
         }
     }
 
     private void Awake()
     {
-        m_PQObject = new PriorityQueue<tSpawnData>(new tSpawnTimeComparer());
+        m_PQObject = new PriorityQueue<SpawnData>(new SpawnTimeComparer());
     }
 
     private void Update()
     {
-        if (m_PQObject.Count <= 0)
-            return;
+        while(m_PQObject.Count > 0)
+        {
+            var SpawnOption = m_PQObject.Peek();
+            if (SpawnOption.SpawnTime - Time.time > 0.0f)
+                return;
 
-        var tSpawn = m_PQObject.Peek();
-        if (tSpawn.fSpawnTime - Time.time > 0.0f)
-            return;
-           
-
-        m_PQObject.Dequeue();
-        //SpawnObject(tSpawn.refSpawnObject, tSpawn.vPosition);
+            m_PQObject.Dequeue();
+            SpawnObject(SpawnOption.SpawnObject, SpawnOption.Position);
+        }
     }
 
    
-    public void AddSpawnObject(float _fNextSpawnTime, GameObject _refPoolData, Vector3 _vPosition = default)//default를 쓰면 컴파일 타임 상수로
+    public void AddSpawnObject(float _fNextSpawnTime, PoolObject _PoolData, Vector3 _vPosition = default)//default를 쓰면 컴파일 타임 상수로
     {
-        tSpawnData tData = new tSpawnData(Time.time + _fNextSpawnTime, _refPoolData, _vPosition);
-        m_PQObject.Enqueue(tData);
+        SpawnData spawnData = new SpawnData(Time.time + _fNextSpawnTime, _PoolData, _vPosition);
+        m_PQObject.Enqueue(spawnData);
     }
 
-    //private void SpawnObject(GameObject _refSpawnObject, Vector3 _vPosition)
-    //{
-    //    GameObject refGameObject = ObjectPoolManager.m_Instance.GetObject(_refSpawnObject);
-    //    if (refGameObject == null)
-    //        return;
-    //
-    //    refGameObject.transform.position = _vPosition;
-    //}
+    private void SpawnObject(PoolObject _SpawnObject, Vector3 _vPosition)
+    {
+        GameObject refGameObject = ObjectPoolManager.m_Instance.GetObject(_SpawnObject.PoolKey);
+        if (refGameObject == null)
+            return;
+    
+        refGameObject.transform.position = _vPosition;
+    }
 }
