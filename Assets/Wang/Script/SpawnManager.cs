@@ -34,8 +34,8 @@ public class MonsterManager : MonoBehaviour
 
     private void Spawn(PoolObject _Monster)
     {
-        float RandomX = UnityEngine.Random.Range(0f, 1f);
-        float RandomY = (float)UnityEngine.Random.Range(-1, 2);
+        float RandomX = UnityEngine.Random.Range(-0.1f, 1.1f);
+        float RandomY = (UnityEngine.Random.value > 0.5f) ? 1.1f : -0.1f;
         Vector3 viewportPoint = new Vector3(RandomX, RandomY, Camera.main.nearClipPlane);
 
         // 2. Viewport 좌표를 World 좌표로 변환
