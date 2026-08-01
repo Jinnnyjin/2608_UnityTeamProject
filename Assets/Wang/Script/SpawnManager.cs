@@ -13,7 +13,7 @@ public class MonsterManager : MonoBehaviour
 
     //[SerializeField] private List<SOMonsterInfo> m_listMonsterInfo;
     [SerializeField] private List<PoolObject> m_Monsters;
-
+    [SerializeField] private MonsterData m_testMonsterData;
 
     [SerializeField] private float m_fSpawnTime = 2.0f;
 
@@ -43,6 +43,11 @@ public class MonsterManager : MonoBehaviour
 
         GameObject Monster = ObjectPoolManager.m_Instance.GetObject(_Monster.PoolKey);
         Monster.transform.position = worldPos;
+
+        // 테스트용 코드
+        Monster.GetComponent<Monster>().SetData(m_testMonsterData);
+        Monster.GetComponent<MonsterAIMove>().SetData(m_testMonsterData);
+        Monster.GetComponent<MonsterAIMove>().SetTarget(TestPlayer.PlayerTransform);
     }
 
 
