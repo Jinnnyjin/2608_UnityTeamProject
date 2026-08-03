@@ -4,15 +4,13 @@ using UnityEngine;
 [RequireComponent(typeof(PoolObject))]
 public class Monster : MonoBehaviour
 {
-    //[SerializeField] SOMonsterData;
-    private float m_Hp;
-    // private PoolObject m_poolObject;
-    private int m_ExpReward;
-
-    [Header("")]
+    [Header("몬스터 데이터")]
     private MonsterInfo m_monsterInfo = null;
     [SerializeField] private SOMonsterInfo m_SOMonsterInfo = null;
     public static event Action<int> onMonsterDied;
+
+    public MonsterInfo Info => m_monsterInfo;
+    public SOMonsterInfo BaseInfo => m_SOMonsterInfo;
 
     private void Awake()
     {
@@ -20,20 +18,13 @@ public class Monster : MonoBehaviour
         m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
         m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
-        // m_poolObject = GetComponent<PoolObject>();
-    }
-
-    public void SetData(MonsterData _data)
-    {
-        m_Hp = _data.Hp;
-        m_ExpReward = _data.ExpReward;
     }
 
     public void TakeDamage(float _damage)
     {
-        m_Hp -= _damage;
+        m_monsterInfo.HP -= _damage;
 
-        if(m_Hp <= 0)
+        if(m_monsterInfo.HP <= 0)
         {
             Die();
         }
@@ -42,8 +33,7 @@ public class Monster : MonoBehaviour
     private void Die()
     {
         // 테스트용 경험치
-        onMonsterDied?.Invoke(m_ExpReward);
-
+        onMonsterDied?.Invoke(m_SOMonsterInfo.ExpReward);
 
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }

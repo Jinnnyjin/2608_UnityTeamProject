@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum MonsterType
@@ -25,7 +26,11 @@ public class SOMonsterInfo : ScriptableObject
     [SerializeField] private float m_baseAttack;
     public float BaseAttack => m_baseAttack;
 
-   
+    [SerializeField] private int m_expReward;
+    public int ExpReward => m_expReward;
+
+    [SerializeField] private List<SOMonsterSkillData> m_skills;
+    public List<SOMonsterSkillData> Skills => m_skills;
 }
 
 public class MonsterInfo

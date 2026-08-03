@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class MonsterSkillData : SOData
+public class SOMonsterSkillData : SOData
 {
     public float SkillAttackPower;
     public float SkillRange;
+    public float SkillCoolTime;
+
 }
