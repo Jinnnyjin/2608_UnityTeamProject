@@ -1,9 +1,11 @@
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class MonsterAIMove : MonoBehaviour
 {
     // 주변 타 몬스터와의 반경 
-    [SerializeField] private float m_checkRadius = 1.0f;
+    // 테스트 기준 0.2에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
+    [SerializeField] private float m_checkRadius = 0.2f;
 
     private Rigidbody2D m_monsterRb;
     private Collider2D m_myCollider;
@@ -22,6 +24,13 @@ public class MonsterAIMove : MonoBehaviour
         m_contactFilter.useTriggers = true;
     }
 
+    
+    
+    private void OnEnable()
+    {
+        m_player = GameManager.m_Instance.Player.transform;
+    }
+    
     private void FixedUpdate()
     {
         if( m_player == null) return;
@@ -34,12 +43,6 @@ public class MonsterAIMove : MonoBehaviour
         // 스피드 직접 받아옴, 스피드 디버프 혹시모르니..
         m_monsterRb.MovePosition(m_monsterRb.position + finalDir * m_monster.Info.Speed * Time.fixedDeltaTime);
 
-    }
-
-    // 생성될때 플레이어 위치와 데이터 받아옴
-    public void SetTarget(Transform _playerTransform)
-    {
-        m_player = _playerTransform;
     }
 
     private Vector2 GetSeparateDir()

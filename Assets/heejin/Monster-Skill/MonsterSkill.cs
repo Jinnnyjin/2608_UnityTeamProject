@@ -29,8 +29,10 @@ public class MonsterSkill : MonoBehaviour
 
     public void DoAction(int _skillIndex)
     {
+        SOMonsterSkillData skill = m_monster.BaseInfo.Skills[_skillIndex];
         // 스킬 로직
-
+        Debug.Log($"{_skillIndex}번째 스킬 사용");
+        Debug.Log($"{gameObject.name}의 스킬 발동! 공격력: {skill.SkillAttackPower} / 공격범위: {skill.SkillRange} / 쿨타임: {skill.SkillCoolTime} ");
         // 인덱스 번호 추가
         m_currentSkillIndex = (m_currentSkillIndex + 1) % m_monster.BaseInfo.Skills.Count;
 
