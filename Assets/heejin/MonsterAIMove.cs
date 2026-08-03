@@ -8,15 +8,18 @@ public class MonsterAIMove : MonoBehaviour
     private Rigidbody2D m_monsterRb;
     private Collider2D m_myCollider;
     private Transform m_player;
-    private float m_moveSpeed;
     private Collider2D[] m_overlapBuffer = new Collider2D[10];
     private Monster m_monster;
+    private ContactFilter2D m_contactFilter;
 
     private void Awake()
     {
         m_monsterRb = GetComponent<Rigidbody2D>();
         m_myCollider = GetComponent<Collider2D>();
         m_monster = GetComponent<Monster>();
+
+        m_contactFilter = ContactFilter2D.noFilter;
+        m_contactFilter.useTriggers = true;
     }
 
     private void FixedUpdate()
@@ -44,7 +47,7 @@ public class MonsterAIMove : MonoBehaviour
         Vector2 separation = Vector2.zero;
 
         // 
-        int count = Physics2D.OverlapCircleNonAlloc(transform.position, m_checkRadius, m_overlapBuffer);
+        int count = Physics2D.OverlapCircle(transform.position, m_checkRadius, m_contactFilter ,m_overlapBuffer);
 
         for (int i = 0; i< count; i++)
         {

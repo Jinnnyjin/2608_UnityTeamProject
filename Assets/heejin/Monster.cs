@@ -4,10 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(PoolObject))]
 public class Monster : MonoBehaviour
 {
-
-    // private PoolObject m_poolObject;
-    private int m_ExpReward;
-
     [Header("몬스터 데이터")]
     private MonsterInfo m_monsterInfo = null;
     [SerializeField] private SOMonsterInfo m_SOMonsterInfo = null;
@@ -21,7 +17,6 @@ public class Monster : MonoBehaviour
         m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
         m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
-        // m_poolObject = GetComponent<PoolObject>();
     }
 
     public void TakeDamage(float _damage)
