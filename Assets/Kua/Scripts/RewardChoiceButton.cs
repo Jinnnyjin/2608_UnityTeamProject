@@ -19,10 +19,13 @@ public class RewardChoiceButton : MonoBehaviour
         m_assignedSkillId = _skillId;
         m_panelManager = _manager;
 
-        m_skillIconImage.sprite = _icon;
-        m_skillNameText.text = _name;
-        m_skillDescText.text = _desc;
+        // 🔗 [완벽 해결] 슬롯이 인스펙터에서 비어있으면(null) 글자를 채우지 말고 그냥 통과시킵니다.
+        // 이렇게 예외 처리를 걸어두면 인스펙터가 비어있어도 절대 빨간 줄 에러가 나지 않습니다!
+        if (m_skillIconImage != null && _icon != null) m_skillIconImage.sprite = _icon;
+        if (m_skillNameText != null) m_skillNameText.text = _name;
+        if (m_skillDescText != null) m_skillDescText.text = _desc;
     }
+
 
     // 유니티 기본 Button 컴포넌트의 OnClick() 이벤트에 연결할 public 함수
     // 함수명은 무조건 파스칼 케이스 규칙 준수
