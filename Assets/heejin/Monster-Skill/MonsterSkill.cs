@@ -9,7 +9,6 @@ public enum SkillType
 public class MonsterSkill : MonoBehaviour
 {
     private Monster m_monster;
-    //private SOMonsterSkillData m_SOMonsterSkillData;
 
     private int m_currentSkillIndex;
     private float m_cooltimer;
@@ -17,13 +16,15 @@ public class MonsterSkill : MonoBehaviour
     private void Awake()
     {
         m_monster = GetComponent<Monster>();
-        //m_SOmonsterSkillData[] = 
     }
 
     private void Update()
     {
+        // 예외처리
+        if (m_monster.BaseInfo.Skills.Count == 0) return;
+        
+        // 쿨타임 타이머
         m_cooltimer += Time.deltaTime;
-
         
         if (m_cooltimer >= m_monster.BaseInfo.Skills[m_currentSkillIndex].SkillCoolTime)
         {

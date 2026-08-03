@@ -11,9 +11,10 @@ public class PlayerMovement : MonoBehaviour
     public void Update()
     {
         // WASD 및 방향키 입력 받기
-        m_movementInput.x = Input.GetAxisRaw("Horizontal");
-        m_movementInput.y = Input.GetAxisRaw("Vertical");
-
+       // m_movementInput.x = Input.GetAxis("Horizontal");
+       // m_movementInput.y = Input.GetAxis("Vertical");
+        m_movementInput = InputManager.m_Instance.InputInfo.MoveDir;
+        Debug.Log(m_movementInput);
         // 대각선 이동 시 빨라지지 않도록 벡터 정규화(Normalize)
         if (m_movementInput.sqrMagnitude > 1f)
         {
