@@ -1,107 +1,178 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
+/*/////////////////////////////////////////
+ *            MonsterStageInfo
+ *기능 : 어떤 스테이지(시간 기반에 따라 생성되는 스테이지)에 따라 어떤 몬스터가 몇 초마다 생성되는지 정보를 담는 데이터
+ */////////////////////////////////////////
+[Serializable]
+public class MonsterStageInfo
+{
+    [Serializable]
+    public class SpawnMonsterData
+    {
+        //해당 step에 맞게 몬스터 랜덤 스폰
+        [SerializeField] private List<PoolObject> m_monsterPrefabs;
+        public IReadOnlyList<PoolObject> MonsterPrefabs => m_monsterPrefabs;
+
+        [SerializeField] private float m_spawnStep = 0.5f;
+        public float SpawnStep => m_spawnStep;
+    }
+
+    [SerializeField] private float m_stageStep = 300.0f;
+    public float StageStep => m_stageStep;
+
+
+    [SerializeField] private List<SpawnMonsterData> m_spawnMonsterDatas;
+    
+    public SpawnMonsterData SpawnDatas 
+    { 
+        get
+        {
+            int maxIdx = m_spawnMonsterDatas.Count;
+            if (m_StageLevel >= maxIdx)
+                return m_spawnMonsterDatas[maxIdx - 1];
+
+            return m_spawnMonsterDatas[m_StageLevel];
+        } 
+    }
+
+    public int m_StageLevel = 0;
+    public int StageLevel => m_StageLevel;
+
+    public int MaxStageLevel => m_spawnMonsterDatas.Count;  
+}
+
 public class StageManager : MonoBehaviour
 {
-    public static StageManager m_Instance = null;
+    //public static StageManager m_Instance = null;
 
-    [SerializeField] private ObjectSpawner m_Spawner;
-
-    private int m_CurrentStageIdx = 0;
-    private int m_RemainMonsterCount = 0;
-    private bool m_BossSpawned = false;
+    [SerializeField] private ObjectSpawner m_spawner;
 
     //[SerializeField] private List<SOStage> m_listStage = new List<SOStage>();
 
+    //Camera.main을 매번 호출 부담
+    [SerializeField] private Camera m_mainCam;
 
-    private void Awake()
+    [SerializeField] private int m_LimitSpanwer = 100;
+    private int m_SpawnCount = 0;
+    [SerializeField] private MonsterStageInfo m_stageInfo;
+    [SerializeField] private PoolObject m_StargeBoss;
+
+    private Coroutine m_spawnCoroutine = null;
+    private Coroutine m_stageCoroutine = null;
+
+    private WaitForSeconds m_waitStageTime = null;   //다음 스테이지까지 대기 시간
+    private WaitForSeconds m_waitSpawnTime = null;  //다음 스폰까지 대기 시간
+
+    //private void Awake()
+    //{
+    //    if (m_Instance != null)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //
+    //    m_Instance = this;
+    //
+    //    DontDestroyOnLoad(gameObject);
+    //}
+
+    private void Start()
     {
-        if (m_Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        m_Instance = this;
-
-        DontDestroyOnLoad(gameObject);
+        StartStage();
     }
 
-    private void OnDestroy()
-    {
-        if (m_Instance == this)
-            m_Instance = null;
-    }
+    //private void OnDestroy()
+    //{
+    //    if (m_Instance == this)
+    //        m_Instance = null;
+    //}
 
     private void OnEnable()
     {
-        //Monster.OnMonsterDied += MonsterDead;
+        Monster.onMonsterDied += MonsterDead;
     }
 
     private void OnDisable()
     {
-        //Monster.OnMonsterDied -= MonsterDead;
+        Monster.onMonsterDied -= MonsterDead;
     }
 
-    //public void StartStage(int _StageIdx)
-    //{
-    //    if (_StageIdx >= m_listStage.Count)
-    //    {
-    //        Debug.Log("던전 클리어 : DungeonManager");
-    //        GameSceneManager.m_Instance.LoadFirstScene();
-    //        return;
-    //    }
-
-    //    m_CurrentStageIdx = _StageIdx;
-    //    m_BossSpawned = false;
-
-    //    SOStage refStage = m_listStage[_StageIdx];
-    //    m_RemainMonsterCount = refStage.ListSpawnEntry.Count;
-
-    //    for (int i = 0; i < refStage.ListSpawnEntry.Count; ++i)
-    //    {
-    //        var tEntry = refStage.ListSpawnEntry[i];
-    //        m_Spawner.AddSpawnObject(tEntry.fSpawnTime, tEntry.MonsterPrefab, tEntry.vPosition);
-    //    }
-    //}
-
-    public void StartStage()
+    private void StartStage()
     {
-        float RandomX = UnityEngine.Random.Range(0f, 1f);
-        float RandomY = (float)UnityEngine.Random.Range(-1, 2);
-        Vector3 ViewportPoint = new Vector3(RandomX, RandomY, Camera.main.nearClipPlane);
+        m_stageCoroutine = StartCoroutine(MoveNextStageCoroutine());
+        m_spawnCoroutine = StartCoroutine(SpawnCoroutine());
+    }
 
-        //Viewport 좌표를 World 좌표로 변환
-        Vector3 WorldPos = Camera.main.ViewportToWorldPoint(ViewportPoint);
-        
+    private IEnumerator MoveNextStageCoroutine()
+    {
+        //다음으로 넘길 스테이지 시간
+        while(m_stageInfo.MaxStageLevel > m_stageInfo.m_StageLevel)
+        {
+            float fStageStepTime = m_stageInfo.StageStep;
 
-        //PoolObject refMon = ObjectPoolManager.m_Instance.GetObject(_refMon, WorldPos, Quaternion.identity);
-        //int idx = UnityEngine.Random.Range(0, m_listMonsterInfo.Count);
+            m_waitSpawnTime = new WaitForSeconds(m_stageInfo.SpawnDatas.SpawnStep);
+            m_waitStageTime = new WaitForSeconds(fStageStepTime);
+
+            yield return m_waitStageTime;
+
+            //시간이 끝났다면 다음 스테이지로
+            ++m_stageInfo.m_StageLevel;
+            //if(m_stageInfo.m_StageLevel)
+        }
+
+        m_stageCoroutine = null;
+    }
+    private IEnumerator SpawnCoroutine()
+    {
+        while (m_stageInfo.MaxStageLevel > m_stageInfo.m_StageLevel)
+        {
+            if (m_SpawnCount >= m_LimitSpanwer)
+            {
+                yield return null;
+                continue;
+            }
+
+            //선 예약
+            ++m_SpawnCount;
+            var spawnDatas = m_stageInfo.SpawnDatas;
+            var prefabs = spawnDatas.MonsterPrefabs;
+            int idx = UnityEngine.Random.Range(0, prefabs.Count);
+            m_spawner.AddSpawnObject(spawnDatas.SpawnStep,prefabs[idx], GetSpawnWrold());
+
+            yield return m_waitSpawnTime;
+        }
+
+        m_spawnCoroutine = null;
+    }
+
+    private Vector3 GetSpawnWrold()
+    {
+        float RandomX = UnityEngine.Random.Range(-0.1f, 1.1f);
+        float RandomY = (UnityEngine.Random.value > 0.5f) ? 1.1f : -0.1f;
+        Vector3 viewportPoint = new Vector3(RandomX, RandomY, m_mainCam.nearClipPlane);
+
+        // 2. Viewport 좌표를 World 좌표로 변환
+        Vector3 worldPos = m_mainCam.ViewportToWorldPoint(viewportPoint);
+        return worldPos;
     }
 
     private void MonsterDead(int _iExpReward)
     {
-        if (m_BossSpawned == true)
-        {
-            // 보스는 마지막 스테이지에서만 등장하므로, 보스가 죽었다는 건 곧 던전 클리어
-            //StartStage(m_CurrentStageIdx + 1);
-            return;
-        }
+        --m_SpawnCount;
 
-        --m_RemainMonsterCount;
-        if (m_RemainMonsterCount <= 0 && m_Spawner.RemainObject <= 0)
-            SpawnBoss();
+        //ToDo아이템 떨구기
     }
 
     // 그 스테이지의 일반 몬스터를 다 처치했을 때 호출: 마지막 스테이지면 보스 등장, 아니면 다음 스테이지로
 
     private void SpawnBoss()
     {
-        m_BossSpawned = true;
-
-        //SOStage refStage = m_listStage[m_CurrentStageIdx];
-        //m_Spawner.AddSpawnObject(0.0f, refStage.BossPrefab, refStage.BossSpawnPosition);
+        
     }
 }
