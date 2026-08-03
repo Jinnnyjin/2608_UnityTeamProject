@@ -10,6 +10,7 @@ public class Monster : MonoBehaviour
     public static event Action<int> onMonsterDied;
 
     public MonsterInfo Info => m_monsterInfo;
+    public SOMonsterInfo BaseInfo => m_SOMonsterInfo;
 
     private void Awake()
     {
