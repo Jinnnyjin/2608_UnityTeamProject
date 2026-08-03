@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using static MonsterStageInfo;
 
 /*/////////////////////////////////////////
  *            MonsterStageInfo
@@ -13,11 +14,19 @@ using UnityEngine;
 public class MonsterStageInfo
 {
     [Serializable]
+    public struct WeightedMonster
+    {
+        public PoolObject Prefab;
+        [Range(0, 100)] public int Weight;
+    }
+
+
+    [Serializable]
     public class SpawnMonsterData
     {
         //해당 step에 맞게 몬스터 랜덤 스폰
-        [SerializeField] private List<PoolObject> m_monsterPrefabs;
-        public IReadOnlyList<PoolObject> MonsterPrefabs => m_monsterPrefabs;
+        [SerializeField] private List<WeightedMonster> m_monsterPrefabs;
+        public IReadOnlyList<WeightedMonster> MonsterPrefabs => m_monsterPrefabs;
 
         [Min(0.5f)][SerializeField] private float m_spawnStep = 0.5f;
         public float SpawnStep => m_spawnStep;
@@ -153,12 +162,37 @@ public class StageManager : MonoBehaviour
             var spawnDatas = m_stageInfo.SpawnDatas;
             var prefabs = spawnDatas.MonsterPrefabs;
             int idx = UnityEngine.Random.Range(0, prefabs.Count);
-            m_spawner.AddSpawnObject(spawnDatas.SpawnStep,prefabs[idx], GetSpawnWrold());
+
+            m_spawner.AddSpawnObject(spawnDatas.SpawnStep, GetWeightedMonster(spawnDatas), GetSpawnWrold());
 
             yield return m_waitSpawnTime;
         }
 
         m_spawnCoroutine = null;
+    }
+
+
+    private PoolObject GetWeightedMonster(SpawnMonsterData _spawnData)
+    {
+        var monsters = _spawnData.MonsterPrefabs;
+        if (monsters.Count == 0) return null;   // 빈 리스트 방어
+
+        int total = 0;
+        for (int i = 0; i < monsters.Count; i++)
+            total += monsters[i].Weight;
+
+        if (total <= 0)                          // 가중치 전부 0/음수 방어
+            return monsters[0].Prefab;
+
+        int roll = UnityEngine.Random.Range(0, total);
+        int acc = 0;
+        for (int i = 0; i < monsters.Count; i++)
+        {
+            acc += monsters[i].Weight;
+            if (roll < acc)
+                return monsters[i].Prefab;
+        }
+        return monsters[monsters.Count - 1].Prefab;   // 부동소수 아닌 int라 사실상 안 탐
     }
 
     private Vector3 GetSpawnWrold()
@@ -167,7 +201,7 @@ public class StageManager : MonoBehaviour
         float RandomY = (UnityEngine.Random.value > 0.5f) ? 1.1f : -0.1f;
         Vector3 viewportPoint = new Vector3(RandomX, RandomY, m_mainCam.nearClipPlane);
 
-        // 2. Viewport 좌표를 World 좌표로 변환
+        //Viewport 좌표를 World 좌표로 변환
         Vector3 worldPos = m_mainCam.ViewportToWorldPoint(viewportPoint);
         return worldPos;
     }
@@ -181,6 +215,8 @@ public class StageManager : MonoBehaviour
 
     private void SpawnBoss()
     {
+        if (m_StargeBoss == null)
+            return;
         m_spawner.AddSpawnObject(0.0f, m_StargeBoss, GetSpawnWrold());
     }
 }
