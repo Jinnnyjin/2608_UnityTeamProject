@@ -183,7 +183,8 @@ MonoBehaviour:
     m_stageStep: 300
     m_spawnMonsterDatas:
     - m_monsterPrefabs:
-      - {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+      - Prefab: {fileID: 0}
+        Weight: 0
       m_spawnStep: 0.5
     m_StageLevel: 0
   m_StargeBoss: {fileID: 0}
