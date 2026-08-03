@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour
     private void Die()
     {
         // 테스트용 경험치
-        onMonsterDied?.Invoke(m_ExpReward);
+        onMonsterDied?.Invoke(m_SOMonsterInfo.ExpReward);
 
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
