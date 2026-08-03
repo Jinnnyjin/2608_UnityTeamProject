@@ -206,6 +206,8 @@ public class StageManager : MonoBehaviour
 
         //Viewport 좌표를 World 좌표로 변환
         Vector3 worldPos = m_mainCam.ViewportToWorldPoint(viewportPoint);
+
+        worldPos.z = 0f;
         return worldPos;
     }
 
