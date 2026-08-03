@@ -14,7 +14,16 @@ public class GameManager : MonoBehaviour
         m_Instance = this;
     }
 
+    [SerializeField] private TestPlayer m_Player;
+    public TestPlayer Player => m_Player;
 
 
 
+
+
+    //나중에 콜백으로 연결해두기
+    public void EndGame()
+    {
+
+    }
 }
