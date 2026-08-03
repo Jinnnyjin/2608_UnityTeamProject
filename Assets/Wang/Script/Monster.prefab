@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34be9d3ea96db7249904d9fd63f430ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
+  m_SOMonsterInfo: {fileID: 11400000, guid: 6fc4470450c53604f973f8be2cd869c8, type: 2}
 --- !u!114 &61893681361995741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ea60e27bfb4f64c816a2b2e20d939c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterAIMove
-  m_checkRadius: 0.7
+  m_checkRadius: 0.2
 --- !u!50 &5458249152975261522
 Rigidbody2D:
   serializedVersion: 5

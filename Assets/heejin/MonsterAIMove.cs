@@ -9,6 +9,7 @@ public class MonsterAIMove : MonoBehaviour
     private Collider2D m_myCollider;
     private Transform m_player;
     private float m_moveSpeed;
+    private Collider2D[] m_overlapBuffer = new Collider2D[10];
 
     private void Awake()
     {
@@ -44,20 +45,18 @@ public class MonsterAIMove : MonoBehaviour
     {
         Vector2 separation = Vector2.zero;
 
-        // 주변 타 몬스터와 겹치지 않도록
-        Collider2D[] nearbyMonsters = Physics2D.OverlapCircleAll(transform.position, m_checkRadius);
+        // 
+        int count = Physics2D.OverlapCircleNonAlloc(transform.position, m_checkRadius, m_overlapBuffer);
 
-        // 자신 제외
-        foreach (Collider2D other in nearbyMonsters)
+        for (int i = 0; i< count; i++)
         {
-            if (other == m_myCollider)
-            {
-                continue;
-            }
+            Collider2D other = m_overlapBuffer[i];
+
+            if (other == m_myCollider) continue;
 
             separation += new Vector2
-                (m_monsterRb.position.x - other.transform.position.x,
-                m_monsterRb.position.y - other.transform.position.y);
+                (m_monsterRb.position.x - other.attachedRigidbody.position.x,
+                m_monsterRb.position.y - other.attachedRigidbody.position.y);
         }
 
         return separation.normalized;
