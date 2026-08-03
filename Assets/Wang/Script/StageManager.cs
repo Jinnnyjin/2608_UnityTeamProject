@@ -19,7 +19,7 @@ public class MonsterStageInfo
         [SerializeField] private List<PoolObject> m_monsterPrefabs;
         public IReadOnlyList<PoolObject> MonsterPrefabs => m_monsterPrefabs;
 
-        [SerializeField] private float m_spawnStep = 0.5f;
+        [Min(0.5f)][SerializeField] private float m_spawnStep = 0.5f;
         public float SpawnStep => m_spawnStep;
     }
 
@@ -43,6 +43,7 @@ public class MonsterStageInfo
 
     public int m_StageLevel = 0;
     public int StageLevel => m_StageLevel;
+    public bool IsLastStage => m_StageLevel >= m_spawnMonsterDatas.Count - 1;
 
     public int MaxStageLevel => m_spawnMonsterDatas.Count;  
 }
@@ -69,6 +70,7 @@ public class StageManager : MonoBehaviour
     private WaitForSeconds m_waitStageTime = null;   //다음 스테이지까지 대기 시간
     private WaitForSeconds m_waitSpawnTime = null;  //다음 스폰까지 대기 시간
 
+    private bool m_bossSpawned = false; // 보스는 한 번만 로드
     //private void Awake()
     //{
     //    if (m_Instance != null)
@@ -123,7 +125,15 @@ public class StageManager : MonoBehaviour
 
             //시간이 끝났다면 다음 스테이지로
             ++m_stageInfo.m_StageLevel;
-            //if(m_stageInfo.m_StageLevel)
+            if (m_stageInfo.IsLastStage)
+            {
+                // 마지막 스테이지 도달 → 보스 한 번만
+                if (!m_bossSpawned)
+                {
+                    m_bossSpawned = true;
+                    SpawnBoss();
+                }
+            }
         }
 
         m_stageCoroutine = null;
@@ -162,17 +172,15 @@ public class StageManager : MonoBehaviour
         return worldPos;
     }
 
-    private void MonsterDead(int _iExpReward)
+    private void MonsterDead(int _ExpReward)
     {
         --m_SpawnCount;
-
-        //ToDo아이템 떨구기
     }
 
     // 그 스테이지의 일반 몬스터를 다 처치했을 때 호출: 마지막 스테이지면 보스 등장, 아니면 다음 스테이지로
 
     private void SpawnBoss()
     {
-        
+        m_spawner.AddSpawnObject(0.0f, m_StargeBoss, GetSpawnWrold());
     }
 }

@@ -128,7 +128,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 90674781}
-  - component: {fileID: 90674780}
+  - component: {fileID: 90674783}
+  - component: {fileID: 90674782}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -136,22 +137,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &90674780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90674779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 993839e510e693f45843b94188b2e3cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterManager
-  m_Monsters:
-  - {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
-  m_testMonsterData: {fileID: 11400000, guid: a0dfa2f30ac4c674582b4aaf8e6ab6d9, type: 2}
-  m_fSpawnTime: 0.34
 --- !u!4 &90674781
 Transform:
   m_ObjectHideFlags: 0
@@ -167,6 +152,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &90674782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90674779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f516ba915b333b24ca82c4a16a642084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
+--- !u!114 &90674783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90674779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ace10ec456b168439f3ffd621743cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageManager
+  m_spawner: {fileID: 90674782}
+  m_mainCam: {fileID: 519420031}
+  m_LimitSpanwer: 100
+  m_stageInfo:
+    m_stageStep: 300
+    m_spawnMonsterDatas:
+    - m_monsterPrefabs:
+      - {fileID: 0}
+      m_spawnStep: 0.5
+    m_StageLevel: 0
+  m_StargeBoss: {fileID: 0}
 --- !u!1 &256722829
 GameObject:
   m_ObjectHideFlags: 0
