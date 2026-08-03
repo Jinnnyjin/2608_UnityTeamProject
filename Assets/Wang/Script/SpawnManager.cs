@@ -42,9 +42,6 @@ public class MonsterManager : MonoBehaviour
 
         GameObject Monster = ObjectPoolManager.m_Instance.GetObject(_Monster.PoolKey);
         Monster.transform.position = worldPos;
-
-        // 테스트용 코드
-        Monster.GetComponent<MonsterAIMove>().SetTarget(TestPlayer.PlayerTransform);
     }
 
 
