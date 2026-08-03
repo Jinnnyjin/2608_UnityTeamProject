@@ -18,7 +18,7 @@ public class ChunkManager : MonoBehaviour
 
     private IObjectPool<GameObject> m_tilePool;
 
-    // 멤버 변수는 m_ 접두사 + 카멜 케이스 규칙 준수
+    // private 멤버 변수는 m_ 접두사 + 카멜 케이스 규칙 준수
     private Dictionary<Vector2Int, MapTile> m_activeTiles = new Dictionary<Vector2Int, MapTile>();
     private List<Vector2Int> m_tilesToRemove = new List<Vector2Int>();
     private Vector2Int m_lastPlayerGridPos = new Vector2Int(-9999, -9999);
