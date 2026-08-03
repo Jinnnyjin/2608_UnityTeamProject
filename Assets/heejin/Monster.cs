@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PoolObject))]
 public class Monster : MonoBehaviour
 {
-
+    //[SerializeField] SOMonsterData;
     private float m_Hp;
     private PoolObject m_poolObject;
     private int m_ExpReward;
