@@ -10,11 +10,13 @@ public class MonsterAIMove : MonoBehaviour
     private Transform m_player;
     private float m_moveSpeed;
     private Collider2D[] m_overlapBuffer = new Collider2D[10];
+    private Monster m_monster;
 
     private void Awake()
     {
         m_monsterRb = GetComponent<Rigidbody2D>();
         m_myCollider = GetComponent<Collider2D>();
+        m_monster = GetComponent<Monster>();
     }
 
     private void FixedUpdate()
@@ -26,7 +28,8 @@ public class MonsterAIMove : MonoBehaviour
 
         Vector2 finalDir = (chaseDir + separateDir).normalized;
 
-        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * m_moveSpeed * Time.fixedDeltaTime);
+        // 스피드 직접 받아옴, 스피드 디버프 혹시모르니..
+        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * m_monster.Info.Speed * Time.fixedDeltaTime);
 
     }
 
@@ -34,11 +37,6 @@ public class MonsterAIMove : MonoBehaviour
     public void SetTarget(Transform _playerTransform)
     {
         m_player = _playerTransform;
-    }
-
-    public void SetData(MonsterData _data)
-    {
-        m_moveSpeed = _data.MoveSpeed;
     }
 
     private Vector2 GetSeparateDir()
