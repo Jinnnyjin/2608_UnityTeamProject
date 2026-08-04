@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class SkillSelectUIManager : MonoBehaviour
 {
+
     [SerializeField] private GameObject m_rewardPanelObject;
     [SerializeField] private RewardChoiceButton[] m_choiceButtons;  // 통일된 새 변수명
     [SerializeField] private Sprite[] m_dummyIcons;
 
+    
     public void OpenLevelUpPanel()
     {
         Time.timeScale = 0f;
