@@ -4,6 +4,7 @@ public class SM_MoveForward : SkillMovement
 {
     public override void Update()
     {
-        Position += this.transform.right.normalized * SkillObject.Skill.Data.Speed * Time.deltaTime;
+        base.Update();
+        Position += this.transform.right.normalized * SkillObject.Skill.Data.ProjSpeed * Time.deltaTime;
     }
 }

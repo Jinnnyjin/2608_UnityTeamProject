@@ -80,12 +80,13 @@ public class CoolTimer
             ci.cur += Time.deltaTime;
             if(ci.cur >= ci.cool)
             {
-                if(ci.callBack != null) ci.callBack();
                 if(ci.IsOnce) DeleteCool(pair.Key);
+                if(ci.callBack != null) ci.callBack();
             }
         }
     }
     public Dictionary<string,CoolInfo> coolDic;
+    [Serializable]
     public class CoolInfo
     {
         public CoolInfo(float c, float co, Action action, bool io)
