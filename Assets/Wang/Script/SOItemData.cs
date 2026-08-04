@@ -13,18 +13,25 @@ public enum WorldItemType
     END,
 }
 
-[Serializable]
-public struct ItemInfo
+/*
+ 가장 기본이 되는 아이템 능력치
+ 최종 적용 능력치 = 기본 능력치 + 아이템 동적 능력치
+ */
+//[Serializable]
+public class ItemInfo
 {
     public WorldItemType Type;
     public float Value;
 }
+
 public class SOItemData : SOData
 {
     [SerializeField] private Sprite m_icon;
     public Sprite Icon => m_icon;
 
-    [SerializeField] private ItemInfo m_itemInfo;
-    public ItemInfo ItemInfo => m_itemInfo;
+    [SerializeField] private WorldItemType m_itemType;
+    public WorldItemType ItemType => m_itemType;
+    //[SerializeField] private ItemInfo m_baseItemInfo;
+    //public ItemInfo BaseItemInfo => m_baseItemInfo;
 
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 
 /*////////////////////////////////////////
@@ -15,12 +16,12 @@ public class ItemWorldObject : MonoBehaviour
     private SOItemData m_itemData;
 
     private Action<ItemWorldObject> onExecute;
+
+    private ItemInfo m_itemInfo = new ItemInfo();
     public void Execute()
     {
-        var itemData = m_itemData.ItemInfo;
         
-        
-        switch (itemData.Type)
+        switch (m_itemData.ItemType)
         {
             case WorldItemType.EXP:
                 {
@@ -33,10 +34,13 @@ public class ItemWorldObject : MonoBehaviour
         onExecute?.Invoke(this);
     }
 
-    public void Init(SOItemData _itemData, Action<ItemWorldObject> _callExecuteBack)
+    public void Init(SOItemData _itemData, float _itemValue, Action<ItemWorldObject> _callExecuteBack)
     {
         m_itemData = _itemData;
         onExecute = _callExecuteBack;
         m_ItemSpriteRenderer.sprite = m_itemData.Icon;
+
+        m_itemInfo.Value = _itemValue;
+        m_itemInfo.Type = m_itemData.ItemType;
     }
 }
