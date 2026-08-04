@@ -1,14 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 
-[Serializable]
-public class PoolInfo
-{
-    public int iPoolCount;
-    public GameObject refGameObject;
-}
 
 /*///////////////////////////////////////////
                ObjectPoolManager
@@ -18,77 +14,71 @@ public class PoolInfo
 public class ObjectPoolManager : MonoBehaviour
 {
     public static ObjectPoolManager m_Instance = null;
-    private Dictionary<string, Queue<GameObject>> m_hashPool = new Dictionary<string, Queue<GameObject>>();
-
-    [SerializeField] private List<PoolInfo> m_listPoolObject = new List<PoolInfo>();
+    private Dictionary<GameObject, Queue<GameObject>> m_hashPool = new Dictionary<GameObject, Queue<GameObject>>();
+    //Prefab을 Key로
 
     private void Awake()
     {
         if (m_Instance != null)
             Destroy(this);
 
+
         m_Instance = this;
         DontDestroyOnLoad(this);
     }
 
-    private void Start()
+  
+
+    public GameObject GetObject(GameObject _gaemObject)
     {
-        for (int i = 0; i < m_listPoolObject.Count; ++i)
+        if (m_hashPool.TryGetValue(_gaemObject, out var queValue) == false)
         {
-            PoolInfo refPool = m_listPoolObject[i];
-            PoolObject refPrefabPoolObj = refPool.refGameObject.GetComponent<PoolObject>();
-
-            if (refPrefabPoolObj == null)
-            {
-                Debug.Log("풀 프리팹 미설정 : ObjectPool");
-                return;
-            }
-
-            Queue<GameObject> queGameObject = new Queue<GameObject>();
-            m_hashPool.Add(refPrefabPoolObj.PoolKey, queGameObject);
-
-            for (int j = 0; j < refPool.iPoolCount; ++j)
-            {
-                GameObject refInstance = Instantiate(refPrefabPoolObj.gameObject);
-                PushObject(refInstance);
-            }
+            queValue = new Queue<GameObject>();
+            m_hashPool.Add(_gaemObject, queValue);
         }
-    }
 
-    public GameObject GetObject(string _PoolKey)
-    {
-       
-        if (m_hashPool.TryGetValue(_PoolKey, out var queValue) == false)
-            return null;
+        GameObject retValue = null;
+        if (queValue.TryPeek(out retValue) == false)
+        {
+            retValue = GameObject.Instantiate(_gaemObject);
+            retValue.GetComponent<PoolObject>().SetOriginKey(_gaemObject);
+        }
+        else
+            queValue.Dequeue();
 
-        if (queValue.Count == 0)
-            return null;
-
-        GameObject refObject = queValue.Dequeue();
-        PoolObject PoolObject = refObject.GetComponent<PoolObject>();
+        //처음 Push를 할 때
+        PoolObject PoolObject = retValue.GetComponent<PoolObject>();
         if (PoolObject == null)
         {
             Debug.Log("오브젝트 풀에 이상한 오류 있음");
             return null;
         }
 
-        refObject.transform.SetParent(null);
+        retValue.transform.SetParent(null);
         PoolObject.Pop();
-        refObject.gameObject.SetActive(true);
-        return refObject;
+        retValue.gameObject.SetActive(true);
+        return retValue;
     }
 
+    
     public void PushObject(GameObject _refGameObj)
     {
         PoolObject refPoolObj = _refGameObj.GetComponent<PoolObject>();
         if (refPoolObj == null)
+        {
+            Debug.Log("오브젝트에 PoolObject 컴포넌트가 없음");
+            Utils.ForceCrash(ForcedCrashCategory.AccessViolation);
+            return;
+        }
+
+        if (refPoolObj.PushFlag > 0)
             return;
 
-        if (m_hashPool.TryGetValue(refPoolObj.PoolKey, out var queValue) == false)
-            return;
-
-        if (refPoolObj.PushCount > 0)
-            return;
+        if (m_hashPool.TryGetValue(refPoolObj.OriginPrefab, out var queValue) == false)
+        {
+            queValue = new Queue<GameObject>();
+            m_hashPool.Add(refPoolObj.OriginPrefab, queValue);
+        }
 
         refPoolObj.Push();
         _refGameObj.transform.SetParent(transform);
@@ -97,9 +87,9 @@ public class ObjectPoolManager : MonoBehaviour
         queValue.Enqueue(_refGameObj);
     }
 
-    public int GetObjectCount(string _PoolKey)
+    public int GetObjectCount(GameObject _gaemObject)
     {
-        if (m_hashPool.TryGetValue(_PoolKey, out var queValue) == false)
+        if (m_hashPool.TryGetValue(_gaemObject, out var queValue) == false)
             return -1;
 
         return queValue.Count;

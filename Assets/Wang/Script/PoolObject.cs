@@ -5,7 +5,7 @@ using UnityEngine.Events;
 //public interface IPoolable
 //{
 //    public string PoolKey { get; }
-//    public int PushCount { get; }
+//    public int PushFlag { get; }
 
 //    public void Push();
 //    public void Pop();
@@ -15,14 +15,15 @@ public class PoolObject : MonoBehaviour
 {
     [SerializeField] private string m_originalPoolKey;
 
+    private GameObject m_orioginalPrefab = null;
+    public GameObject OriginPrefab => m_orioginalPrefab;
+
     private int m_iPushCount = 0;
-    public int PushCount { get { return m_iPushCount; } }
-    public string PoolKey { get { return m_originalPoolKey; } }
+    public int PushFlag { get { return m_iPushCount; } }
 
 
     public event Action OnPush;
     public event Action OnPop;
-
 
     [SerializeField] private float m_fAliveTime = 10.0f;
     private float m_fSettingAliveTime = 0.0f;
@@ -51,6 +52,11 @@ public class PoolObject : MonoBehaviour
     {
         m_fAliveTime = PushTime;
         m_fSettingAliveTime = m_fAliveTime;
+    }
+
+    public void SetOriginKey(GameObject _orginPrefab)
+    {
+        m_orioginalPrefab = _orginPrefab;
     }
 
     //동적으로 키를 바꿀 이유가 있다면 
