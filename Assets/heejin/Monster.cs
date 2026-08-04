@@ -7,7 +7,7 @@ public class Monster : MonoBehaviour
     [Header("몬스터 데이터")]
     private MonsterInfo m_monsterInfo = null;
     [SerializeField] private SOMonsterInfo m_SOMonsterInfo = null;
-    public static event Action<int> onMonsterDied;
+    public static event Action<Monster> onMonsterDied;
 
     public MonsterInfo Info => m_monsterInfo;
     public SOMonsterInfo BaseInfo => m_SOMonsterInfo;
@@ -33,7 +33,7 @@ public class Monster : MonoBehaviour
     private void Die()
     {
         // 테스트용 경험치
-        onMonsterDied?.Invoke(m_SOMonsterInfo.ExpReward);
+        onMonsterDied?.Invoke(this);
 
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
