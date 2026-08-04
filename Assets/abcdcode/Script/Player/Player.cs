@@ -68,6 +68,8 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public int ProjCount => 0 + GetPValue<int,Skill>(0,(a,b) => a += b.Data.ProjCount);
     
 
+
+
     private const float BaseHp = 100;
     private const float BaseSpeed = 5;
     [SerializeField]private PlayerController m_Controller;
