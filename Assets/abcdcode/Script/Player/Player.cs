@@ -21,12 +21,22 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     {
         throw new System.NotImplementedException();
     }
-
+    public void RegisterSkill(SkillData skillData)
+    {
+        throw new NotImplementedException();
+    }
+    public void RegisterSkill(string skillId)
+    {
+        throw new NotImplementedException();
+    }
     public void UnRegisterSkill(Skill skill)
     {
         SkillList.Remove(skill);
     }
-
+    public void UnRegisterSkill(SkillData skill)
+    {
+        throw new NotImplementedException();
+    }
     public void UnRegisterSkill(string skillId)
     {
         var skill = SkillList.Find(x => x.Data.Name == skillId);
@@ -53,6 +63,11 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     {
         return SkillList.FindAll(x => x.Data.SkillType == SkillType.Passive).GetEach<R,Skill>(func,start);
     }
+
+    
+
+    
+
     private float m_currenHp;
     public float Hp => Mathf.Clamp((BaseHp + GetPValue<float>(0,(a,b)=> a+=b.Data.Hp)) * HpMult,1,9999);
     public float HpMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.Data.HpMult);
