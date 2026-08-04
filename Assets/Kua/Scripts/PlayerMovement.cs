@@ -2,19 +2,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Public 대신 [SerializeField]를 사용하여 인스펙터에서 조절 가능하게 설정
     [SerializeField] private float m_moveSpeed = 5f;
 
-    // Private 멤버 변수
     private Vector2 m_movementInput;
+    private Rigidbody2D m_rigidbody; // 리지드바디 참조 변수 추가
+
+    void Start()
+    {
+        // 시작할 때 오브젝트에 붙어있는 Rigidbody2D를 자동으로 가져옴
+        m_rigidbody = GetComponent<Rigidbody2D>();
+    }
 
     public void Update()
     {
-        // WASD 및 방향키 입력 받기
         m_movementInput.x = Input.GetAxisRaw("Horizontal");
         m_movementInput.y = Input.GetAxisRaw("Vertical");
 
-        // 대각선 이동 시 빨라지지 않도록 벡터 정규화(Normalize)
         if (m_movementInput.sqrMagnitude > 1f)
         {
             m_movementInput.Normalize();
@@ -23,9 +26,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void FixedUpdate()
     {
-        // 물리 연산이 아닌 단순 뼈대 이동이므로 Translate 사용 (알파 테스트용으로 가장 빠름)
-        // 2D 탑다운 게임이므로 X, Y 축으로 이동
-        Vector3 moveDirection = new Vector3(m_movementInput.x, m_movementInput.y, 0f);
-        transform.Translate(moveDirection * m_moveSpeed * Time.fixedDeltaTime);
+        // [수정 완료] transform.Translate 대신 Rigidbody2D의 속도(velocity)를 직접 제어합니다.
+        // 이 방식을 써야 유니티 물리 엔진이 실시간으로 부딪힘을 감지합니다.
+        if (m_rigidbody != null)
+        {
+            m_rigidbody.linearVelocity = m_movementInput * m_moveSpeed;
+        }
     }
 }
