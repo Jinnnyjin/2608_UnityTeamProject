@@ -211,7 +211,7 @@ public class StageManager : MonoBehaviour
         return worldPos;
     }
 
-    private void MonsterDead(int _ExpReward)
+    private void MonsterDead(Monster _monster)
     {
         --m_SpawnCount;
     }
