@@ -18,6 +18,7 @@ public class DefaultShootSkillData : SkillData
         var ptsd = Instantiate(Prefab).GetComponent<ProjectTileSkillObj>();
         ptsd.Position = skill.Owner.Obj.Position;
         ptsd.Init(skill);
+        skill.CoolTimer.SetCool(Cool,CoolTime,0,true,() =>Shoot(skill));
     }
     private const string Cool = "Cool";
 }

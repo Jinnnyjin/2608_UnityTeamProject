@@ -17,7 +17,7 @@ public class Player : BSObj, IDamageable,ISkillOwner
     {
         throw new System.NotImplementedException();
     }
-        public void RegisterSkill(Skill skill)
+    public void RegisterSkill(Skill skill)
     {
         throw new System.NotImplementedException();
     }
@@ -39,7 +39,6 @@ public class Player : BSObj, IDamageable,ISkillOwner
     {
         get => m_Controller;
     }
-
     public BSObj Obj => this;
 
     [SerializeField]private PlayerController m_Controller;
