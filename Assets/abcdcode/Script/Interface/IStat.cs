@@ -37,6 +37,10 @@ public interface IStat
     /// </summary>
     public float ProjSpeedMult{get;}
     /// <summary>
+    /// 투사체 개수. 액티브 스킬이면 자체 투사체 개수. 패시브 스킬이면 수치만큼 최종 투사체 개수 증감
+    /// </summary>
+    public int ProjCount{get;}
+    /// <summary>
     /// 액티브 스킬 쿨타임. 액티브 스킬이면 자체 스킬 쿨타임. 패시브 스킬이면 수치만큼 최종 쿨타임 배율 증감
     /// </summary>
     public float CoolTime{get;}

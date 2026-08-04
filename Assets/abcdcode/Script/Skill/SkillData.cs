@@ -33,6 +33,7 @@ public abstract class SkillData : SOData, IStat
     public virtual float SpeedMult => 1;
     public virtual float ProjSpeed => 0;
     public virtual float ProjSpeedMult => 1;
+    public int ProjCount => 0;
 
     
     public virtual Sprite Icon =>m_icon;

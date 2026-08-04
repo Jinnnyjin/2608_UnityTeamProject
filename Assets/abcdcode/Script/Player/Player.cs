@@ -65,6 +65,8 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public float DmgMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.DmgMult);
     public float ProjSpeed => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.ProjSpeed);
     public float ProjSpeedMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.ProjSpeedMult);
+    public int ProjCount => 0 + GetPValue<int,Skill>(0,(a,b) => a += b.Data.ProjCount);
+    
 
 
 
