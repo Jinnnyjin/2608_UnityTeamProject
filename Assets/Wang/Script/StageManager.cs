@@ -190,8 +190,11 @@ public class StageManager : MonoBehaviour
         {
             acc += monsters[i].Weight;
             if (roll < acc)
+            {
                 return monsters[i].Prefab;
+            }
         }
+
         return monsters[monsters.Count - 1].Prefab;   // 부동소수 아닌 int라 사실상 안 탐
     }
 
@@ -203,6 +206,8 @@ public class StageManager : MonoBehaviour
 
         //Viewport 좌표를 World 좌표로 변환
         Vector3 worldPos = m_mainCam.ViewportToWorldPoint(viewportPoint);
+
+        worldPos.z = 0f;
         return worldPos;
     }
 

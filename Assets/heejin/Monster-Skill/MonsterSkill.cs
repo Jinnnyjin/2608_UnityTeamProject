@@ -1,9 +1,14 @@
 using UnityEngine;
 
+public enum SkillType
+{
+    RangeAttack,
+    Dash
+}
+
 public class MonsterSkill : MonoBehaviour
 {
     private Monster m_monster;
-    //private SOMonsterSkillData m_SOMonsterSkillData;
 
     private int m_currentSkillIndex;
     private float m_cooltimer;
@@ -11,13 +16,15 @@ public class MonsterSkill : MonoBehaviour
     private void Awake()
     {
         m_monster = GetComponent<Monster>();
-        //m_SOmonsterSkillData[] = 
     }
 
     private void Update()
     {
+        // 예외처리
+        if (m_monster.BaseInfo.Skills.Count == 0) return;
+        
+        // 쿨타임 타이머
         m_cooltimer += Time.deltaTime;
-
         
         if (m_cooltimer >= m_monster.BaseInfo.Skills[m_currentSkillIndex].SkillCoolTime)
         {
@@ -30,11 +37,37 @@ public class MonsterSkill : MonoBehaviour
     public void DoAction(int _skillIndex)
     {
         SOMonsterSkillData skill = m_monster.BaseInfo.Skills[_skillIndex];
-        // 스킬 로직
-        Debug.Log($"{_skillIndex}번째 스킬 사용");
-        Debug.Log($"{gameObject.name}의 스킬 발동! 공격력: {skill.SkillAttackPower} / 공격범위: {skill.SkillRange} / 쿨타임: {skill.SkillCoolTime} ");
+        
+        switch(skill.Type)
+        {
+            case SkillType.RangeAttack:
+                DoRangeAttack(skill);
+                break;
+            case SkillType.Dash:
+                DoDashAttack(skill);
+                break;
+        }
+
         // 인덱스 번호 추가
         m_currentSkillIndex = (m_currentSkillIndex + 1) % m_monster.BaseInfo.Skills.Count;
 
+    }
+
+    private void DoRangeAttack(SOMonsterSkillData _skill)
+    {
+        float distance = (transform.position - GameManager.m_Instance.Player.transform.position).magnitude;
+
+        if(distance <= _skill.SkillRange)
+        {
+            // 데미지
+
+            // 테스트용 디버그 로그
+            Debug.Log($"데미지: {_skill.SkillAttackPower}");
+        }
+    }
+
+    private void DoDashAttack(SOMonsterSkillData _skill)
+    {
+        // 돌진 스킬 구현 예정
     }
 }

@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
         m_Instance = this;
     }
 
-    [SerializeField] private TestPlayer m_Player;
-    public TestPlayer Player => m_Player;
+    [SerializeField] private PlayerMovement m_Player;
+    public PlayerMovement Player => m_Player;
 
     
 

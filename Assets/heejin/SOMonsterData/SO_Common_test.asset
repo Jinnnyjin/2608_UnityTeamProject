@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
   m_monsterType: 0
   m_maxHp: 100
-  m_baseSpeed: 5
+  m_baseSpeed: 3
   m_baseAttack: 5
   m_expReward: 3
   m_skills: []

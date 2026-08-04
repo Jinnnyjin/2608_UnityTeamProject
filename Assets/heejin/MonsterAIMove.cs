@@ -1,11 +1,10 @@
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class MonsterAIMove : MonoBehaviour
 {
     // 주변 타 몬스터와의 반경 
     // 테스트 기준 0.2에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
-    [SerializeField] private float m_checkRadius = 0.2f;
+    [SerializeField] private float m_checkRadius = 0.5f;
 
     private Rigidbody2D m_monsterRb;
     private Collider2D m_myCollider;
@@ -14,11 +13,16 @@ public class MonsterAIMove : MonoBehaviour
     private Monster m_monster;
     private ContactFilter2D m_contactFilter;
 
+    private AnimTable m_animTable;
+    private Animator m_animator;
+
     private void Awake()
     {
         m_monsterRb = GetComponent<Rigidbody2D>();
         m_myCollider = GetComponent<Collider2D>();
         m_monster = GetComponent<Monster>();
+        m_animTable = GetComponent<AnimTable>();
+        m_animator = GetComponent<Animator>();
 
         m_contactFilter = ContactFilter2D.noFilter;
         m_contactFilter.useTriggers = true;
@@ -42,6 +46,18 @@ public class MonsterAIMove : MonoBehaviour
 
         // 스피드 직접 받아옴, 스피드 디버프 혹시모르니..
         m_monsterRb.MovePosition(m_monsterRb.position + finalDir * m_monster.Info.Speed * Time.fixedDeltaTime);
+
+        bool isMoving = finalDir.sqrMagnitude > 0.01f;
+        if (m_animTable != null)
+        {
+            m_animTable.SetBool(eEntityState.Run, isMoving);
+        }
+
+        if (m_animator != null)
+        {
+            m_animator.SetFloat("Horizontal", finalDir.x);
+            m_animator.SetFloat("Vertical", finalDir.y);
+        }
 
     }
 
