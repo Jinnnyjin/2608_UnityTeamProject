@@ -38,16 +38,36 @@ public class TempPlayerUIController : MonoBehaviour
     {
         currentEXP += expAmount;
 
-        // 레벨업 처리 루프 (경험치가 최대치를 넘기면 이월)
+        // 🌟 경험치가 최대치를 넘기는 순간 (레벨업 달성!)
         if (currentEXP >= maxEXP)
         {
+            // 1. 경험치 초기화 및 남은 수치 이월
             currentEXP -= maxEXP;
-            Debug.Log("[UI 반영] ★레벨업!★ 경험치 초기화 및 이월");
+
+            // 2. 레벨 수치 증가 (이후 밸런스를 위해 요구량도 증가)
+            // currentLevel++; // 레벨 변수가 있다면 주석 해제
+            // maxEXP = currentLevel * 50f; 
+
+            Debug.Log("[시스템] ★레벨업 달성!★ 경험치 게이지 충족 완료.");
+
+            // 3. 🔗 [최종 연계 핵심] 아까 만든 스킬 보상 선택 UI 매니저를 직접 찌릅니다!
+            if (SkillSelectUIManager.Instance != null)
+            {
+                // 레벨업 전용 패널(항상 3개 슬롯 뜨는 정석 함수)을 자동으로 호출합니다.
+                SkillSelectUIManager.Instance.OpenLevelUpPanel();
+                Debug.Log("[연계 성공] SkillSelectUIManager의 OpenLevelUpPanel() 자동 호출 완료!");
+            }
+            else
+            {
+                Debug.LogWarning("[연계 경고] 씬에 SkillSelectUIManager(Canvas)가 비활성화되어 있거나 찾을 수 없습니다.");
+            }
         }
 
+        // 슬라이더 바 화면 갱신
         UpdateEXPSlider();
         Debug.Log($"[UI 반영] 경험치 획득! 현재 경험치: {currentEXP}/{maxEXP}");
     }
+
 
     // --------------------------------------------------
     // [ 내부 UI 슬라이더 갱신 함수 ]

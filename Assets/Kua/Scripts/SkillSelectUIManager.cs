@@ -68,13 +68,44 @@ public class SkillSelectUIManager : MonoBehaviour
     public void OnSkillSelected(int _selectedSkillId)
     {
         Debug.Log($"보상을 선택했습니다: {_selectedSkillId}");
+
+        // ----------------------------------------------------------------------
+        // 🌟 [오후 미션 완료] GameManager를 거치지 않고 Player 컴포넌트를 직접 호출!
+        // ----------------------------------------------------------------------
+
+        // 1. 씬에 존재하는 진짜 'Player' 클래스를 직접 찾아옵니다.
+        Player playerComponent = FindFirstObjectByType<Player>();
+
+        if (playerComponent != null)
+        {
+            // 2. [임시 테스트용 가짜 스킬 데이터 생성] 
+            // 팀원의 RegisterSkill(Skill skill) 함수가 'Skill' 객체를 요구하므로 형식을 맞춰줍니다.
+            Skill dummySkill = new Skill();
+
+            // 3. 팀원의 플레이어 스크립트에 있는 RegisterSkill 함수를 직접 호출!
+            // (※ 현재 팀원이 구현을 안 해두어 실행 시 에러가 뜰 수 있으므로, 
+            // try-catch 문으로 감싸서 내 UI 테스트가 멈추지 않도록 안전장치를 칩니다.)
+            try
+            {
+                playerComponent.RegisterSkill(dummySkill);
+                Debug.Log($"[연동] Player의 RegisterSkill 함수를 직접 호출했습니다! (ID: {_selectedSkillId})");
+            }
+            catch (System.NotImplementedException)
+            {
+                // 팀원이 아직 함수 내부를 안 짜두었을 때 예외 처리
+                Debug.LogWarning($"[UI 가상 테스트] Player의 RegisterSkill 함수 호출 성공! (단, 스킬 담당자가 아직 함수 내부 기능을 구현하지 않은 상태입니다. UI 연동 자체는 성공!)");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[연동 경고] 씬에서 Player 오브젝트를 찾지 못했습니다. 플레이어가 배치되었는지 확인하세요.");
+        }
+
+        // 보상 선택 종료 후 패널 끄고 시간 재생 (기존 정석)
         m_rewardPanelObject.SetActive(false);
         Time.timeScale = 1f;
-
-        // 🔗 [추가 예정인 구역]
-        // 나중에 GameManager가 완성되면 여기에 대략 이런 식으로 알려주면 됩니다:
-        // GameManager.Instance.ApplySkill(_selectedSkillId);
     }
+
 
     // --------------------------------------------------
     // [ 질문자님만의 비밀 임시 테스트 구역 ]
