@@ -20,8 +20,10 @@ public class ObjectPoolManager : MonoBehaviour
     private void Awake()
     {
         if (m_Instance != null)
+        {
             Destroy(this);
-
+            return;
+        }
 
         m_Instance = this;
         DontDestroyOnLoad(this);
@@ -39,18 +41,16 @@ public class ObjectPoolManager : MonoBehaviour
 
         GameObject retValue = null;
         if (queValue.TryPeek(out retValue) == false)
-        {
             retValue = GameObject.Instantiate(_gaemObject);
-            retValue.GetComponent<PoolObject>().SetOriginKey(_gaemObject);
-        }
         else
             queValue.Dequeue();
 
         //처음 Push를 할 때
         PoolObject PoolObject = retValue.GetComponent<PoolObject>();
-        if (PoolObject == null)
+        if (PoolObject == null || PoolObject.OriginPrefab == null)
         {
-            Debug.Log("오브젝트 풀에 이상한 오류 있음");
+            Debug.Log("풀 오브젝트 컴포넌트나 키 값이 설정되지 않음");
+            Utils.ForceCrash(ForcedCrashCategory.AccessViolation);
             return null;
         }
 
@@ -73,6 +73,13 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (refPoolObj.PushFlag > 0)
             return;
+
+        if (refPoolObj.OriginPrefab == null)
+        {
+            Debug.Log("PoolObject의 OriginPrefab이 설정되지 않음 (GetObject를 거치지 않고 생성된 오브젝트)");
+            Utils.ForceCrash(ForcedCrashCategory.AccessViolation);
+            return;
+        }
 
         if (m_hashPool.TryGetValue(refPoolObj.OriginPrefab, out var queValue) == false)
         {
