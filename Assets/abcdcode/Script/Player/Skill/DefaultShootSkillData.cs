@@ -3,7 +3,7 @@ public class DefaultShootSkillData : SkillData
     public float m_Damage;
     public float m_Speed;
     public override float Damage => m_Damage;
-    public override float Speed => m_Speed;
+    public override float ProjSpeed => m_Speed;
     public override void Init(Skill skill)
     {
         base.Init(skill);
@@ -15,7 +15,9 @@ public class DefaultShootSkillData : SkillData
     }
     public virtual void Shoot(Skill skill)
     {
-        var ptsd = Instantiate(Prefab).GetComponent<ProjectTileSkillObj>();
+
+        //var ptsd = Instantiate(Prefab).GetComponent<ProjectTileSkillObj>();
+        var ptsd = ObjectPoolManager.m_Instance.GetObject(Prefab).GetComponent<ProjectTileSkillObj>();
         ptsd.Position = skill.Owner.Obj.Position;
         ptsd.Init(skill);
         skill.CoolTimer.SetCool(Cool,CoolTime,0,true,() =>Shoot(skill));
