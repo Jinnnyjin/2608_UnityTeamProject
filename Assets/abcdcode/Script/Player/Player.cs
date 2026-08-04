@@ -51,7 +51,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     }
     private float m_currenHp;
     public float Hp => BaseHp;
-
+    
     public float Damage => 1;
 
     public float Speed => BaseSpeed;
@@ -61,6 +61,10 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public float Def => 0;
 
     public float ReduceDmg => 0;
+
+    public float HpMult => throw new System.NotImplementedException();
+
+    public float DmgMult => throw new System.NotImplementedException();
 
     private const float BaseHp = 100;
     private const float BaseSpeed = 5;
