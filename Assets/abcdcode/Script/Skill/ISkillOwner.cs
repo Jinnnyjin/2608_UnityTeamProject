@@ -6,7 +6,7 @@ public interface ISkillOwner
     /// <summary>
     /// 보유한 스킬 목록
     /// </summary>
-    public List<Skill> SkillList{get;set;}
+    public List<Skill> SkillList{get;}
     /// <summary>
     /// 스킬 등록
     /// </summary>

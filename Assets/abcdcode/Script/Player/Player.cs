@@ -7,7 +7,7 @@ public class Player : BSObj, IDamageable,ISkillOwner
     {
         SkillList = new List<Skill>();
     } 
-    public List<Skill> SkillList { get; set; }
+    public List<Skill> SkillList { get; private set; }
 
     public bool IsDead()
     {
@@ -24,12 +24,16 @@ public class Player : BSObj, IDamageable,ISkillOwner
 
     public void UnRegisterSkill(Skill skill)
     {
-        throw new System.NotImplementedException();
+        SkillList.Remove(skill);
     }
 
     public void UnRegisterSkill(string skillId)
     {
-        throw new System.NotImplementedException();
+        var skill = SkillList.Find(x => x.Data.Name == skillId);
+        if(skill != null)
+        {
+            UnRegisterSkill(skill);
+        }
     }
     public PlayerController Controller
     {
