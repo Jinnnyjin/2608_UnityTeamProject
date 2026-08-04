@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,6 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     {
         SkillList = new List<Skill>();
     } 
-    public List<Skill> Actives{get;private set;}
-    public List<Skill> Passives{get;private set;}
 
     public bool IsDead()
     {
@@ -50,28 +49,24 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
             m_currenHp = Mathf.Clamp(value,0,Hp);
         }
     }
+    private R GetPValue<R,T>(float start,Func<R,T,R> func)
+    {
+        return SkillList.FindAll(x => x.Data.SkillType == SkillType.Passive).GetEach(func,start);
+    }
     private float m_currenHp;
-    public float Hp => BaseHp;
-    
-    public float Damage => 1;
+    public float Hp => BaseHp + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Hp);
+    public float HpMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.HpMult);
+    public float Damage => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Damage);
+    public float Speed => BaseSpeed + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Speed);
+    public float SpeedMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.SpeedMult);
+    public float CoolTime => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.CoolTime);
+    public float Def => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Def);
+    public float ReduceDmg => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.ReduceDmg);
+    public float DmgMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.DmgMult);
+    public float ProjSpeed => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.ProjSpeed);
+    public float ProjSpeedMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.ProjSpeedMult);
 
-    public float Speed => BaseSpeed;
 
-    public float CoolTime => 1;
-
-    public float Def => 0;
-
-    public float ReduceDmg => 0;
-
-    public float HpMult => 1;
-
-    public float DmgMult => 1;
-
-    public float SpeedMult => 1;
-
-    public float ProjSpeed => 0;
-
-    public float ProjSpeedMult => 1;
 
     private const float BaseHp = 100;
     private const float BaseSpeed = 5;
