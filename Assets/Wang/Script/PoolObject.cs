@@ -13,9 +13,8 @@ using UnityEngine.Events;
 
 public class PoolObject : MonoBehaviour
 {
-    [SerializeField] private string m_originalPoolKey;
 
-    private GameObject m_orioginalPrefab = null;
+    [SerializeField] private GameObject m_orioginalPrefab = null;
     public GameObject OriginPrefab => m_orioginalPrefab;
 
     private int m_iPushCount = 0;

@@ -231,13 +231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac1fc600dd1e0647a5914890a38ceac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
-  m_listPoolObject:
-  - iPoolCount: 100
-    refGameObject: {fileID: 2667062276481925001, guid: baef0fad93ff614419b645cbec006893, type: 3}
-  - iPoolCount: 100
-    refGameObject: {fileID: 2667062276481925001, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-  - iPoolCount: 200
-    refGameObject: {fileID: 5046365558764765107, guid: f681f284c8adc8240a1b52853d39f78c, type: 3}
 --- !u!4 &482952465
 Transform:
   m_ObjectHideFlags: 0
@@ -316,7 +309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &511558171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,6 +910,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63f770563ee7c947b55cce793c83483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  m_expSlider: {fileID: 0}
+  m_hPSlider: {fileID: 0}
+  m_currentExp: 0
+  m_maxExp: 0
+  m_maxHP: 0
   m_Player: {fileID: 484410329}
 --- !u!4 &1495853338
 Transform:
