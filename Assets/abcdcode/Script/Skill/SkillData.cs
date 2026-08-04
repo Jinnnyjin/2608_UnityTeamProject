@@ -27,9 +27,14 @@ public abstract class SkillData : SOData, IStat
     public virtual float Speed => 0;
     public virtual float CoolTime => m_CoolTime;
     public virtual float Def => 0;
-    public virtual float ReduceDmg => 0;
+    public virtual float ReduceDmg => 1;
     public virtual float HpMult => 1;
     public virtual float DmgMult => 1;
+    public float SpeedMult => 1;
+
+    public float ProjSpeed => 0;
+
+    public float ProjSpeedMult => 1;
 
     
     public virtual Sprite Icon =>m_icon;
@@ -38,7 +43,7 @@ public abstract class SkillData : SOData, IStat
 
     
 }
-public enum SkillTyp
+public enum SkillType
 {
     Active,
     Passive

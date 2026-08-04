@@ -7,7 +7,8 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     {
         SkillList = new List<Skill>();
     } 
-    
+    public List<Skill> Actives{get;private set;}
+    public List<Skill> Passives{get;private set;}
 
     public bool IsDead()
     {
@@ -62,9 +63,15 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
 
     public float ReduceDmg => 0;
 
-    public float HpMult => throw new System.NotImplementedException();
+    public float HpMult => 1;
 
-    public float DmgMult => throw new System.NotImplementedException();
+    public float DmgMult => 1;
+
+    public float SpeedMult => 1;
+
+    public float ProjSpeed => 0;
+
+    public float ProjSpeedMult => 1;
 
     private const float BaseHp = 100;
     private const float BaseSpeed = 5;
