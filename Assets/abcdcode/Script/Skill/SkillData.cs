@@ -21,6 +21,14 @@ public abstract class SkillData : SOData, IStat
         }
         */
     }
+    public virtual void RegisterSkill(Skill skill)
+    {
+        
+    }
+    public virtual void UnRegisterSkill(Skill skill)
+    {
+        
+    }
 
     public virtual float Hp => 0;
     public virtual float HpMult => 1;
@@ -33,7 +41,7 @@ public abstract class SkillData : SOData, IStat
     public virtual float SpeedMult => 1;
     public virtual float ProjSpeed => 0;
     public virtual float ProjSpeedMult => 1;
-    public int ProjCount => 0;
+    public virtual int ProjCount => 0;
 
     
     public virtual Sprite Icon =>m_icon;
