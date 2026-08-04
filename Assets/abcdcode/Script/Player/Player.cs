@@ -1,13 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : BSObj, IDamageable,ISkillOwner
+public class Player : BSObj, IDamageable,ISkillOwner,IStat
 {
     public void Start()
     {
         SkillList = new List<Skill>();
     } 
-    public List<Skill> SkillList { get; private set; }
 
     public bool IsDead()
     {
@@ -40,6 +40,37 @@ public class Player : BSObj, IDamageable,ISkillOwner
         get => m_Controller;
     }
     public BSObj Obj => this;
+    public List<Skill> SkillList { get; private set; }
+    public float CurrentHp
+    {
+        get => m_currenHp;
+        private set
+        {
+            m_currenHp = Mathf.Clamp(value,0,Hp);
+        }
+    }
+    private R GetPValue<R,T>(float start,Func<R,T,R> func)
+    {
+        return SkillList.FindAll(x => x.Data.SkillType == SkillType.Passive).GetEach(func,start);
+    }
+    private float m_currenHp;
+    public float Hp => Mathf.Clamp((BaseHp + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Hp)) * HpMult,1,9999);
+    public float HpMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.HpMult);
+    public float Damage => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Damage);
+    public float Speed => BaseSpeed + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Speed);
+    public float SpeedMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.SpeedMult);
+    public float CoolTime => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.CoolTime);
+    public float Def => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Def);
+    public float ReduceDmg => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.ReduceDmg);
+    public float DmgMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.DmgMult);
+    public float ProjSpeed => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.ProjSpeed);
+    public float ProjSpeedMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.ProjSpeedMult);
+    public int ProjCount => 0 + GetPValue<int,Skill>(0,(a,b) => a += b.Data.ProjCount);
+    
 
+
+
+    private const float BaseHp = 100;
+    private const float BaseSpeed = 5;
     [SerializeField]private PlayerController m_Controller;
 }

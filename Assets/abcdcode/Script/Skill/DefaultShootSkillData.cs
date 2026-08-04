@@ -3,7 +3,7 @@ public class DefaultShootSkillData : SkillData
     public float m_Damage;
     public float m_Speed;
     public override float Damage => m_Damage;
-    public override float Speed => m_Speed;
+    public override float ProjSpeed => m_Speed;
     public override void Init(Skill skill)
     {
         base.Init(skill);
