@@ -15,4 +15,6 @@ public class Skill
     public CoolTimer CoolTimer;
     public ISkillOwner Owner{get;private set;}
     public SkillData Data{get;private set;}
+
+    
 }
