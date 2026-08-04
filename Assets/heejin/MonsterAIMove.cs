@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class MonsterAIMove : MonoBehaviour
 {
-    // 주변 타 몬스터와의 반경 
-    // 테스트 기준 0.2에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
-    [SerializeField] private float m_checkRadius = 0.5f;
-
     private Rigidbody2D m_monsterRb;
     private Collider2D m_myCollider;
     private Transform m_player;
@@ -15,6 +11,13 @@ public class MonsterAIMove : MonoBehaviour
 
     private AnimTable m_animTable;
     private Animator m_animator;
+    
+    // 주변 타 몬스터와의 반경 
+    // 테스트 기준 0.2에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
+    [SerializeField] private float m_checkRadius = 0.5f;
+
+    // 플레이
+    public bool IsOverridden { get; set; }
 
     private void Awake()
     {
@@ -28,8 +31,6 @@ public class MonsterAIMove : MonoBehaviour
         m_contactFilter.useTriggers = true;
     }
 
-    
-    
     private void OnEnable()
     {
         m_player = GameManager.m_Instance.Player.transform;
@@ -38,6 +39,9 @@ public class MonsterAIMove : MonoBehaviour
     private void FixedUpdate()
     {
         if( m_player == null) return;
+
+        // 대쉬 스킬 중에는 방향 무효
+        if (IsOverridden) return;
 
         Vector2 chaseDir = GetChaseDIr();
         Vector2 separateDir = GetSeparateDir();

@@ -1,16 +1,20 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PoolObject))]
-public class Monster : MonoBehaviour
+public class Monster : BSObj, IDamageable, ISkillOwner
 {
-    [Header("몬스터 데이터")]
     private MonsterInfo m_monsterInfo = null;
     [SerializeField] private SOMonsterInfo m_SOMonsterInfo = null;
     public static event Action<Monster> onMonsterDied;
 
+    public BSObj Obj => this;
     public MonsterInfo Info => m_monsterInfo;
     public SOMonsterInfo BaseInfo => m_SOMonsterInfo;
+
+    private List<Skill> m_skillList = new List<Skill>();
+    public List<Skill> SkillList { get => m_skillList;}
 
     private void Awake()
     {
@@ -20,14 +24,19 @@ public class Monster : MonoBehaviour
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
     }
 
-    public void TakeDamage(float _damage)
+    public void TakeDamage(DamageInfo _damage)
     {
-        m_monsterInfo.HP -= _damage;
+        m_monsterInfo.HP -= _damage.Dmg;
 
-        if(m_monsterInfo.HP <= 0)
+        if(IsDead())
         {
             Die();
         }
+    }
+
+    public bool IsDead()
+    {
+        return m_monsterInfo.HP <= 0; 
     }
 
     private void Die()
@@ -38,4 +47,18 @@ public class Monster : MonoBehaviour
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
 
+    public void RegisterSkill(Skill skill)
+    {
+        SkillList.Add(skill);
+    }
+
+    public void UnRegisterSkill(Skill skill)
+    {
+        SkillList.Remove(skill);
+    }
+
+    public void UnRegisterSkill(string skillId)
+    {
+        m_skillList.RemoveAll(skill => skill.Data.Name == skillId);
+    }
 }
