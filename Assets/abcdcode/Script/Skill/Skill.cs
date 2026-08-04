@@ -6,6 +6,7 @@ public class Skill
         CoolTimer = new CoolTimer();
         Owner = owner;
         Data = data;
+        Data.Init(this);
     }
     public void GameUpdate()
     {
