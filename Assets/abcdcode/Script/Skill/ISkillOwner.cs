@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 public interface ISkillOwner
 {
+    public BSObj Obj{get;}
     /// <summary>
     /// 보유한 스킬 목록
     /// </summary>
@@ -15,4 +16,5 @@ public interface ISkillOwner
     /// </summary>
     public void UnRegisterSkill(Skill skill);
     public void UnRegisterSkill(string skillId);
+
 }

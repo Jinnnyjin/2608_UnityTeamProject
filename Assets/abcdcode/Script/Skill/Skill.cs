@@ -1,5 +1,5 @@
 using UnityEngine;
-public class Skill
+public class Skill : IStat
 {
     public void Init(ISkillOwner owner,SkillData data)
     {
@@ -12,7 +12,16 @@ public class Skill
         CoolTimer.Update();
         Data.GameUpdate(this);
     }
+    public float Hp => 0;
+
+    public float Damage => Data.Damage;
+
+    public float Speed => Data.Speed;
+
+    public float CoolTime => Data.CoolTime;
     public CoolTimer CoolTimer;
     public ISkillOwner Owner{get;private set;}
     public SkillData Data{get;private set;}
+
+    
 }

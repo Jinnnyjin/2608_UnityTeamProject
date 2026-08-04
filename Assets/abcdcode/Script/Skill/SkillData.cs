@@ -1,9 +1,18 @@
 using UnityEngine;
-public abstract class SkillData : SOData
+public abstract class SkillData : SOData, IStat
 {
-    public float CoolTime;
+    public float m_CoolTime;
     public GameObject Prefab;
-    public SkillType type;
+    public SkillType m_type;
+
+    public virtual float Hp => 0;
+
+    public virtual float Damage => 0;
+
+    public virtual float Speed => 0;
+
+    public virtual float CoolTime => CoolTime;
+
     public virtual void Init(Skill skill)
     {
         //skill.coolTimer.SetCool("Attack",1,0,false,null);
@@ -19,7 +28,7 @@ public abstract class SkillData : SOData
         */
     }
 }
-public enum SkillType
+public enum SkillTyp
 {
     Active,
     Passive

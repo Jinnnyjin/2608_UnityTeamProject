@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable,ISkillOwner
+public class Player : BSObj, IDamageable,ISkillOwner
 {
     public void Start()
     {
@@ -31,4 +31,12 @@ public class Player : MonoBehaviour, IDamageable,ISkillOwner
     {
         throw new System.NotImplementedException();
     }
+    public PlayerController Controller
+    {
+        get => m_Controller;
+    }
+
+    public BSObj Obj => this;
+
+    [SerializeField]private PlayerController m_Controller;
 }
