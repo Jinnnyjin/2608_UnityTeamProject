@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PoolObject))]
-public class Monster : MonoBehaviour, IDamageable, ISkillOwner
+public class Monster : BSObj, IDamageable, ISkillOwner
 {
-    [Header("몬스터 데이터")]
     private MonsterInfo m_monsterInfo = null;
     [SerializeField] private SOMonsterInfo m_SOMonsterInfo = null;
     public static event Action<Monster> onMonsterDied;
 
+    public BSObj Obj => this;
     public MonsterInfo Info => m_monsterInfo;
     public SOMonsterInfo BaseInfo => m_SOMonsterInfo;
 
     private List<Skill> m_skillList = new List<Skill>();
-    public List<Skill> skillList { get => m_skillList; set => m_skillList = value; }
+    public List<Skill> SkillList { get => m_skillList;}
 
     private void Awake()
     {
@@ -49,12 +49,12 @@ public class Monster : MonoBehaviour, IDamageable, ISkillOwner
 
     public void RegisterSkill(Skill skill)
     {
-        skillList.Add(skill);
+        SkillList.Add(skill);
     }
 
     public void UnRegisterSkill(Skill skill)
     {
-        skillList.Remove(skill);
+        SkillList.Remove(skill);
     }
 
     public void UnRegisterSkill(string skillId)
