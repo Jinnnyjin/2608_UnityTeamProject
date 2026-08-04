@@ -12,7 +12,7 @@ public class ProjectTileSkillObj : SkillObject
     }
     public virtual void Delete()
     {
-        Destroy(this.gameObject);
+        
     }
     private const string Cool = "Cool";
     [SerializeField]private float m_duration;

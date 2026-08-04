@@ -11,10 +11,13 @@ public interface ISkillOwner
     /// 스킬 등록
     /// </summary>
     public void RegisterSkill(Skill skill);
+    public void RegisterSkill(SkillData skillData);
+    public void RegisterSkill(string skillId);
     /// <summary>
     /// 스킬 해제
     /// </summary>
     public void UnRegisterSkill(Skill skill);
+    public void UnRegisterSkill(SkillData skill);
     public void UnRegisterSkill(string skillId);
 
 }
