@@ -12,7 +12,7 @@ public abstract class SkillObject : BSObj
     }
     public override void Update()
     {
-        
+        base.Update();
     }
     public Skill Skill{get;private set;}
 }
