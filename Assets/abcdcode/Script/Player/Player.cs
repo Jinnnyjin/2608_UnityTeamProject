@@ -54,7 +54,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
         return SkillList.FindAll(x => x.Data.SkillType == SkillType.Passive).GetEach(func,start);
     }
     private float m_currenHp;
-    public float Hp => BaseHp + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Hp);
+    public float Hp => Mathf.Clamp((BaseHp + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Hp)) * HpMult,1,9999);
     public float HpMult => 1 * GetPValue<float,Skill>(1,(a,b)=> a*=b.Data.HpMult);
     public float Damage => 0 + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Damage);
     public float Speed => BaseSpeed + GetPValue<float,Skill>(0,(a,b)=> a+=b.Data.Speed);
