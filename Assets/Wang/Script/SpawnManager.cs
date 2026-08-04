@@ -40,7 +40,7 @@ public class MonsterManager : MonoBehaviour
         // 2. Viewport 좌표를 World 좌표로 변환
         Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewportPoint);
 
-        GameObject Monster = ObjectPoolManager.m_Instance.GetObject(_Monster.PoolKey);
+        GameObject Monster = ObjectPoolManager.m_Instance.GetObject(_Monster.gameObject);
         Monster.transform.position = worldPos;
     }
 
