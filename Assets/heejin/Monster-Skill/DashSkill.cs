@@ -13,20 +13,22 @@ public class DashSkill : SkillData
 
     public override void GameUpdate(Skill _skill)
     {
-        Debug.Log("DashSkill GameUpdate 호출됨");
 
         if (_skill.CoolTimer.IsCoolComp("Dash_Skill"))
         {
+            UnityEngine.Debug.Log("Dash Active");
             Monster monster = _skill.Owner as Monster;
             if (monster == null)  return;
 
-            // 몬스터 -> 플레이어 방향
-            Vector2 direction = (GameManager.m_Instance.Player.Position - monster.Position).normalized;
+            monster.GetComponent<MonsterAIMove>().m_IsDashing = true;
+            //// 몬스터 -> 플레이어 방향
+            //Vector2 direction = (GameManager.m_Instance.Player.Position - monster.Position).normalized;
 
-            // 대시스킬 함수 호출
-            monster.StartCoroutine(monster.GetComponent<MonsterAIMove>().DoDash(direction, m_speed, m_duration));
+            //// 대시스킬 함수 호출
+            //monster.StartCoroutine(monster.GetComponent<MonsterAIMove>().DoDash(direction, m_speed, m_duration));
 
             _skill.CoolTimer.RefreshCool("Dash_Skill");
+            //monster.GetComponent<MonsterAIMove>().m_IsDashing = false;
         }
     }
 }
