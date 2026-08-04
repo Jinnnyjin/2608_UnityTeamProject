@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : BSObj, IDamageable,ISkillOwner
+public class Player : BSObj, IDamageable,ISkillOwner,IStat
 {
     public void Start()
     {
         SkillList = new List<Skill>();
     } 
-    public List<Skill> SkillList { get; private set; }
+    
 
     public bool IsDead()
     {
@@ -40,6 +40,29 @@ public class Player : BSObj, IDamageable,ISkillOwner
         get => m_Controller;
     }
     public BSObj Obj => this;
+    public List<Skill> SkillList { get; private set; }
+    public float CurrentHp
+    {
+        get => m_currenHp;
+        private set
+        {
+            m_currenHp = Mathf.Clamp(value,0,Hp);
+        }
+    }
+    private float m_currenHp;
+    public float Hp => BaseHp;
 
+    public float Damage => 1;
+
+    public float Speed => BaseSpeed;
+
+    public float CoolTime => 1;
+
+    public float Def => 0;
+
+    public float ReduceDmg => 0;
+
+    private const float BaseHp = 100;
+    private const float BaseSpeed = 5;
     [SerializeField]private PlayerController m_Controller;
 }
