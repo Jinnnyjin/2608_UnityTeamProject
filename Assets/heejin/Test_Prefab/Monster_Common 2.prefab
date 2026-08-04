@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e65143c4896094cbb89c7ee5ae1d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PoolObject
-  m_originalPoolKey: mon1
+  m_orioginalPrefab: {fileID: 2667062276481925001}
   m_fAliveTime: 8821
 --- !u!114 &6831775161974754388
 MonoBehaviour:
