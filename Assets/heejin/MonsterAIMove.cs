@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MonsterAIMove : MonoBehaviour
@@ -13,7 +14,7 @@ public class MonsterAIMove : MonoBehaviour
     private Animator m_animator;
     
     // 주변 타 몬스터와의 반경 
-    // 테스트 기준 0.2에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
+    // 테스트 기준 0.5에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
     [SerializeField] private float m_checkRadius = 0.5f;
 
     // 플레이
@@ -93,5 +94,25 @@ public class MonsterAIMove : MonoBehaviour
             m_player.position.y - m_monsterRb.position.y).normalized;
 
         return move;
+    }
+
+    public IEnumerator DoDash(Vector2 direction, float speed, float duration)
+    {
+        IsOverridden = true;
+
+        Debug.Log("대쉬!");
+
+        float time = 0f;
+        // 스킬 지속시간동안에만 유지 (여러 프레임에 걸쳐서)
+        while (time < duration)
+        {
+            m_monsterRb.MovePosition(m_monsterRb.position + direction * speed * Time.fixedDeltaTime);
+            time += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+
+        }
+
+        // 스킬 사용 종료 후 
+        IsOverridden = false;
     }
 }
