@@ -52,9 +52,11 @@ public class DashSkill : SkillData
         _monster.MonsterMove.LockDir = true;
 
         yield return m_waitSecond;
-        _monster.MonsterMove.MoveWeight = fStartWeight;
-        _monster.MonsterMove.LockDir = false;
-
+        if(_monster.Info.HP > 0.0f)
+        {
+            _monster.MonsterMove.MoveWeight = fStartWeight;
+            _monster.MonsterMove.LockDir = false;
+        }
         m_dashCoroutine = null;
     }
 }

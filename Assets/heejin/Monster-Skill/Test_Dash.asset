@@ -15,10 +15,10 @@ MonoBehaviour:
   Name: Test_Dash
   m_CoolTime: 3
   Prefab: {fileID: 0}
-  m_type: 0
   m_icon: {fileID: 0}
   m_title: 
   m_desc: 
+  m_levelData: []
   m_speed: 10
   m_moveweight: 2
-  m_duration: 1.5
+  m_duration: 0.4

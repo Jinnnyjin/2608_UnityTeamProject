@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SO_Common_test
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
   m_monsterType: 0
-  m_maxHp: 100
+  m_maxHp: 20
   m_baseSpeed: 3
   m_baseAttack: 5
+  m_baseAttackRange: 0
   m_expReward: 3
   m_skills: []

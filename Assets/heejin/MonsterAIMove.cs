@@ -41,14 +41,21 @@ public class MonsterAIMove : MonoBehaviour
 
         m_contactFilter = ContactFilter2D.noFilter;
         m_contactFilter.useTriggers = true;
+        m_contactFilter.useLayerMask = true;
+        m_contactFilter.layerMask = LayerMask.GetMask("Monster");
     }
 
-    private void OnEnable()
+    //private void OnEnable()
+    //{
+    //    m_player = GameManager.m_Instance.Player.transform;
+    //    m_prevDirection = GetChaseDIr();
+    //}
+    private void Start()
     {
         m_player = GameManager.m_Instance.Player.transform;
         m_prevDirection = GetChaseDIr();
     }
-    
+
     private void FixedUpdate()
     {
         if( m_player == null) return;
@@ -90,7 +97,7 @@ public class MonsterAIMove : MonoBehaviour
  
     private void dkanrjsk()
     {
-
+                                                            
     }
 
     private Vector2 GetSeparateDir()
@@ -100,7 +107,7 @@ public class MonsterAIMove : MonoBehaviour
         //
         int count = Physics2D.OverlapCircle(transform.position, m_checkRadius, m_contactFilter ,m_overlapBuffer);
 
-        for (int i = 0; i< count; i++)
+        for (int i = 0; i< count; i++)  
         {
             Collider2D other = m_overlapBuffer[i];
 

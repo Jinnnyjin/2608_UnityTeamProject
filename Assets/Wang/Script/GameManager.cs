@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SkillSelectUIManager m_skillSelectUI;
     private float m_weightExp = 0.5f;
 
-    [SerializeField] private GameObject m_refPre;
+    //[SerializeField] private GameObject m_refPre;
     private int m_iCurrentLevel = 0;
 
     [SerializeField] private Player m_player;
@@ -32,24 +33,40 @@ public class GameManager : MonoBehaviour
         m_Instance = this;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            //AddExp(10.0f);
-            ObjectPoolManager.m_Instance.GetObject(m_refPre);
-        }
-    }
     private void Start()
     {
+        Monster.onMonsterDied += MonsterDead;
+        m_expSlider.value = 0.0f;
         TakeDamage(-1);
     }
+    private void OnDestroy()
+    {
+        Monster.onMonsterDied += MonsterDead;
+
+    }
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    //AddExp(10.0f);
+        //    ObjectPoolManager.m_Instance.GetObject(m_refPre);
+        //}
+    }
+   
 
     public void TakeDamage(float _damage)
     {
         float currentHP = m_player.CurrentHp;
         float maxHP = m_player.Hp;
         m_hPSlider.value = currentHP / maxHP;
+    }
+
+    private void MonsterDead(Monster _monster)
+    {
+        if (_monster == null)
+            return;
+
+        AddExp(_monster.BaseInfo.ExpReward);
     }
 
     private void AddExp(float _amount)

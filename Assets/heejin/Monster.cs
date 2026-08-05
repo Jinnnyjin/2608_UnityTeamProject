@@ -34,9 +34,9 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
-        m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
-        m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
-        m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
+        //m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
+        //m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
+        //m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
 
         m_monsterMove = GetComponent<MonsterAIMove>();
         m_renderer = GetComponent<SpriteRenderer>();
@@ -45,6 +45,12 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_originColor = m_renderer.color;
     }
 
+    private void OnEnable()
+    {
+        m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
+        m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
+        m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
+    }
     public void TakeDamage(DamageInfo _damage)
     {
         m_monsterInfo.HP -= _damage.Dmg;
@@ -78,7 +84,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     {
         // 테스트용 경험치
         onMonsterDied?.Invoke(this);
-
+        m_renderer.color = m_originColor;
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
 

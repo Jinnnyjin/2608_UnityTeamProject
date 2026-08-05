@@ -44,7 +44,10 @@ public class MonsterStageInfo
         {
             int maxIdx = m_spawnMonsterDatas.Count;
             if (m_StageLevel >= maxIdx)
+            {
+                Debug.Log("Test");
                 return m_spawnMonsterDatas[maxIdx - 1];
+            }
 
             return m_spawnMonsterDatas[m_StageLevel];
         } 
