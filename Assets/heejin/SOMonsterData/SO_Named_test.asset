@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_Named_test
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
   m_monsterType: 1
-  m_maxHp: 30
+  m_maxHp: 500
   m_baseSpeed: 4
   m_baseAttack: 5
   m_baseAttackRange: 0

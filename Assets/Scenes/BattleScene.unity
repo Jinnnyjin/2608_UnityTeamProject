@@ -2010,7 +2010,9 @@ MonoBehaviour:
     m_spawnMonsterDatas:
     - m_monsterPrefabs:
       - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-        Weight: 38
+        Weight: 20
+      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+        Weight: 61
       m_spawnStep: 0.79
     m_StageLevel: 0
   m_StargeBoss: {fileID: 0}
