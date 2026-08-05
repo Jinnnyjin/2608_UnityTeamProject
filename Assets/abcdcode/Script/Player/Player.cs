@@ -121,5 +121,4 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     private const float BaseSpeed = 5;
     [SerializeField]private PlayerController m_Controller;
     [SerializeField]private SkillData TestSkill;
-    public List<Skill> TestList;
 }

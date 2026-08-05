@@ -40,7 +40,7 @@ public class DefaultShootSkillData : SkillData
             ptsd.Position = skill.Owner.Obj.Position;
             ptsd.Init(skill);
             skill.CoolTimer.SetCool(Cool,CoolTime,0,true,() =>Shoot(skill));
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
         yield break;
     }

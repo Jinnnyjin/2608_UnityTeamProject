@@ -89,7 +89,7 @@ MonoBehaviour:
   m_duration: 2
   m_InitType: 3
   skillMovement: {fileID: 4791559452354137227}
-  skillHit: {fileID: 0}
+  skillHit: {fileID: -2480772882078878752}
 --- !u!114 &4791559452354137227
 MonoBehaviour:
   m_ObjectHideFlags: 0

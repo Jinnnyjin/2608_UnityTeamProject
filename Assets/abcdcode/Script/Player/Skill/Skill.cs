@@ -5,7 +5,7 @@ public class Skill : IStat
 {
     public void Init(ISkillOwner owner,SkillData data)
     {
-        SkillLevel = 1;
+        SkillLevel = 3;
         CoolTimer = new CoolTimer();
         Owner = owner;
         Data = data;
@@ -26,7 +26,7 @@ public class Skill : IStat
         }
         set
         {
-            Mathf.Clamp(value,1,MaxSkillLevel);
+            m_skillLevel = Mathf.Clamp(value,1,MaxSkillLevel);
         }
     }
 
