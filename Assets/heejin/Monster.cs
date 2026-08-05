@@ -61,4 +61,19 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     {
         m_skillList.RemoveAll(skill => skill.Data.Name == skillId);
     }
+
+    public void RegisterSkill(SkillData skillData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RegisterSkill(string skillId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UnRegisterSkill(SkillData skill)
+    {
+        throw new NotImplementedException();
+    }
 }

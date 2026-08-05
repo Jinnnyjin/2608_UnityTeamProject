@@ -11,7 +11,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
         SkillList = new List<Skill>();
         TestList = SkillList;
         CurrentHp = Hp;
-        RegisterSkill(TestSkill);
+        //RegisterSkill(TestSkill);
     }
     public void Update()
     {

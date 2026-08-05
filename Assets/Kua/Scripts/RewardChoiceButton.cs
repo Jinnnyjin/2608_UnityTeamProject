@@ -1,37 +1,42 @@
 using UnityEngine;
+using TMPro; // 🌟 TextMeshPro를 제어하기 위해 반드시 필요한 치트키 네임스페이스
 using UnityEngine.UI;
-using TMPro; // 인스펙터에서 텍스트 컴포넌트 제어를 위해 네임스페이스 추가
 
 public class RewardChoiceButton : MonoBehaviour
 {
-    // private 멤버 변수는 m_ 접두사 + 카멜 케이스 규칙 준수
-    [SerializeField] private Image m_skillIconImage;
-    [SerializeField] private TextMeshProUGUI m_skillNameText;
-    [SerializeField] private TextMeshProUGUI m_skillDescText;
+    // [인스펙터 칸 생성] 내 자식에 있는 진짜 텍스트 글자들을 연결할 변수들
+    [Header("[ 버튼 내부 컴포넌트들 ]")]
+    [SerializeField] private TextMeshProUGUI m_titleText; // 제목 텍스트 칸
+    [SerializeField] private TextMeshProUGUI m_descText;  // 설명 텍스트 칸
+    [SerializeField] private Image m_iconImage;          // 아이콘 이미지 칸
 
-    private int m_assignedSkillId;
-    private SkillSelectUIManager m_panelManager;
+    //스크립터블 오브젝트
+    private SkillData m_randomSkill = null;
+    private int m_skillId;
+    private SkillSelectUIManager m_uiManager;
 
-    // 총관리자(매니저)가 버튼을 활성화할 때 스킬 정보를 주입해주는 함수
-    // 매개 변수는 무조건 _ 접두사 사용 규칙 반영 (_skillId, _icon, _name, _desc, _manager)
-    public void InitButton(int _skillId, Sprite _icon, string _name, string _desc, SkillSelectUIManager _manager)
+    /// <summary>
+    /// 🌟 [핵심] UI 매니저가 랜덤으로 뽑아낸 3개의 예시 데이터를 이 버튼에 찔러넣어 주는 함수
+    /// </summary>
+    /// 
+    int count =0;
+    public void InitButton(SkillData _randomSkill)
     {
-        m_assignedSkillId = _skillId;
-        m_panelManager = _manager;
+        m_randomSkill = _randomSkill;
+        m_iconImage.sprite = _randomSkill.Icon;
+        m_iconImage.gameObject.SetActive(true);
+        m_descText.text = _randomSkill.Desc;
 
-        m_skillIconImage.sprite = _icon;
-        m_skillNameText.text = _name;
-        m_skillDescText.text = _desc;
+        Debug.Log($"{count}는 {m_randomSkill.Icon.name}");
+        //TODO 스킬 ID에 스킬 설명을 넣는다
     }
-
-    // 유니티 기본 Button 컴포넌트의 OnClick() 이벤트에 연결할 public 함수
-    // 함수명은 무조건 파스칼 케이스 규칙 준수
-    public void OnClickSelect()
+    
+    // 마우스로 이 보상 버튼을 클릭했을 때 실행되는 함수 (기존 연동용)
+    public void OnClickButton()
     {
-        if (m_panelManager != null)
-        {
-            // 총관리자(백화점 점장님)에게 내가 몇 번 스킬 보상인지 최종 보고합니다.
-            m_panelManager.OnSkillSelected(m_assignedSkillId);
-        }
+        Debug.Log($"눌린 얘는 {m_randomSkill.Icon.name}");
+
+        GameManager.m_Instance.Player.RegisterSkill(m_randomSkill);
+        SkillSelectUIManager.Instance.OnSkillSelected(m_randomSkill);
     }
 }

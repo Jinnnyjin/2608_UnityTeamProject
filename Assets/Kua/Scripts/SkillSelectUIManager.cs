@@ -1,58 +1,80 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // 🌟 이미지 컴포넌트 제어를 위해 추가
+
 
 public class SkillSelectUIManager : MonoBehaviour
 {
+    public static SkillSelectUIManager Instance { get; private set; }
+
+    [Header("[ UI 컴포넌트 연결 ]")]
     [SerializeField] private GameObject m_rewardPanelObject;
-    [SerializeField] private RewardChoiceButton[] m_choiceButtons;  // 통일된 새 변수명
-    [SerializeField] private Sprite[] m_dummyIcons;
+    [SerializeField] private RewardChoiceButton[] m_choiceButtons;
+
+    [Header("[ 🌟 추가: 메인 화면의 스킬 패널 슬롯들 ]")]
+    // 📌 여기에 메인 화면에 상시 떠 있는 스킬 슬롯 이미지들을 연결할 겁니다! (예: 3~4개 개수만큼)
+    [SerializeField] private Image[] m_mainSkillSlots;
+    private int m_equippedSkillCount = 0; // 현재 장착된 스킬 개수를 세는 카운터 변수
+
+
+    [SerializeField] private List<SkillData> m_preLoadSkill;
+
+    private List<int> randomIndices = new List<int>();
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     public void OpenLevelUpPanel()
     {
         Time.timeScale = 0f;
         m_rewardPanelObject.SetActive(true);
-
         SetButtonChoices(3);
-    }
-
-    public void OpenBoxPanel()
-    {
-        Time.timeScale = 0f;
-        m_rewardPanelObject.SetActive(true);
-
-        int randomSlotCount = Random.Range(0, 100) < 10 ? 5 : 3;
-
-        SetButtonChoices(randomSlotCount);
     }
 
     private void SetButtonChoices(int _choiceCount)
     {
-        // [수정] m_uiButtons를 전부 m_choiceButtons로 변경 완료했습니다.
-        for (int i = 0; i < m_choiceButtons.Length; i++)
+        if (m_choiceButtons == null || m_choiceButtons.Length == 0) return;
+
+        randomIndices.Clear();
+       
+        while (randomIndices.Count < _choiceCount)
         {
-            if (i < _choiceCount)
+            int randIndex = Random.Range(0, m_preLoadSkill.Count);
+            if (!randomIndices.Contains(randIndex))
             {
-                m_choiceButtons[i].gameObject.SetActive(true);
-
-                // 임시로 무작위 스프라이트와 ID를 주입하는 로직 예시 (에러 방지용)
-                int randomSkillId = Random.Range(100, 200);
-                Sprite randomIcon = m_dummyIcons[Random.Range(0, m_dummyIcons.Length)];
-                string dummyName = $"스킬 보상 {i + 1}";
-                string dummyDesc = $"공격력을 강화합니다. (ID: {randomSkillId})";
-
-                m_choiceButtons[i].InitButton(randomSkillId, randomIcon, dummyName, dummyDesc, this);
+                randomIndices.Add(randIndex);
             }
-            else
-            {
-                m_choiceButtons[i].gameObject.SetActive(false);
-            }
+        }
+        
+
+        for(int i = 0; i< randomIndices.Count; ++i)
+        {
+            int randomIdx = randomIndices[i];
+
+            m_choiceButtons[i].gameObject.SetActive(true);
+            m_choiceButtons[i].InitButton(m_preLoadSkill[randomIdx]);
         }
     }
 
-    public void OnSkillSelected(int _selectedSkillId)
+    /// <summary>
+    /// 🌟 [최종 연계 핵심] 보상 버튼을 클릭했을 때 실행되는 함수
+    /// </summary>
+    /// 
+    public void OnSkillSelected(SkillData _selectSkill)
     {
-        Debug.Log($"보상을 선택했습니다: {_selectedSkillId}");
+        Time.timeScale = 1.0f;
+        for (int i = 0; i< m_mainSkillSlots.Length; ++i)
+        {
+            if (m_mainSkillSlots[i].sprite == null)
+            {
+                m_mainSkillSlots[i].sprite = _selectSkill.Icon;
+                break;
+            }
+        }
         m_rewardPanelObject.SetActive(false);
-        Time.timeScale = 1f;
     }
+  
 }
