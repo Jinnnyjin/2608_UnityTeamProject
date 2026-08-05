@@ -9,9 +9,8 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public void Start()
     {
         SkillList = new List<Skill>();
-        TestList = SkillList;
         CurrentHp = Hp;
-        //RegisterSkill(TestSkill);
+        RegisterSkill(TestSkill);
     }
     public void Update()
     {
@@ -122,5 +121,4 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     private const float BaseSpeed = 5;
     [SerializeField]private PlayerController m_Controller;
     [SerializeField]private SkillData TestSkill;
-    public List<Skill> TestList;
 }

@@ -1,13 +1,18 @@
 using UnityEngine;
+[RequireComponent(typeof(SkillMovement),typeof(SkillHit))]
 public class ProjectTileSkillObj : SkillObject
 {
     public override void Init(Skill skill)
     {
         base.Init(skill);
+        skillMovement = GetComponent<SkillMovement>();
+        skillHit = GetComponent<SkillHit>();
         m_Timer.SetCool(Cool,m_duration,0,true,Delete);
         switch(m_InitType)
         {
             case ProjectTileInitType.Forward:
+                var p = skill.Owner as Player;
+                transform.SetAngle(p.Controller.LookAt);
                 break;
             case ProjectTileInitType.NearestEnemy:
                 break;

@@ -19,7 +19,7 @@ public abstract class SkillObject : BSObj
         UnityEngine.Debug.Log("Delete SkillObject");
         if(GetComponent<PoolObject>() != null)
         {
-            ObjectPoolManager.m_Instance.PushObject(GetComponent<PoolObject>().OriginPrefab);
+            ObjectPoolManager.m_Instance.PushObject(gameObject);
         }
         else
         {

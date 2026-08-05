@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2480772882078878752}
   - component: {fileID: 1148213057827621228}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: Slash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 6522354485181107950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.1369159, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -86,8 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca78a62de67ae0488b955698ab9ec96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectTileSkillObj
-  m_duration: 2
-  m_InitType: 3
+  m_duration: 0.5
+  m_InitType: 1
   skillMovement: {fileID: 4791559452354137227}
   skillHit: {fileID: -2480772882078878752}
 --- !u!114 &4791559452354137227
@@ -149,7 +149,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.1, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 1778400082425709682}
   - component: {fileID: 1947526362877339807}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: Obj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 739a9262a58574d468b595ac3ba86534, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e9a2a45387b7834c8d0c3eef4995835, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -263,7 +263,7 @@ Animator:
   m_GameObject: {fileID: 7195414562617140175}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1f7326771da11c97a9e972b00845a45d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 13b6dda8686bee7d1528b8e0fcba951f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -301,7 +301,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4729039603019052585}
