@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Player m_player;
     public Player Player => m_player;
+
+
     private void Awake()
     {
         if (m_Instance != null && m_Instance != this)
@@ -69,6 +72,8 @@ public class GameManager : MonoBehaviour
         m_skillSelectUI.OpenLevelUpPanel();
 
     }
+
+   
 
     public void EndGame()
     {

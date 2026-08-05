@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PoolObject))]
 public class Monster : BSObj, IDamageable, ISkillOwner
@@ -19,7 +21,16 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     public List<Skill> SkillList { get => m_skillList;}
 
     public MonsterAIMove MonsterMove => m_monsterMove;
-    
+
+    public FactionEnum Faction => FactionEnum.Enemy;
+
+    private Coroutine m_hitCoroutine;
+    [SerializeField] private float m_hitEffectTime = 0.3f;
+    private WaitForSeconds m_waitTime;
+    private SpriteRenderer m_renderer;
+
+    [SerializeField] private Color m_changeColor;
+    private Color m_originColor;
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
@@ -28,7 +39,10 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
 
         m_monsterMove = GetComponent<MonsterAIMove>();
-        
+        m_renderer = GetComponent<SpriteRenderer>();
+        m_waitTime = new WaitForSeconds(m_hitEffectTime);
+
+        m_originColor = m_renderer.color;
     }
 
     public void TakeDamage(DamageInfo _damage)
@@ -39,6 +53,12 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         {
             Die();
         }
+        else
+        {
+            if (m_hitCoroutine != null)
+                StopCoroutine(m_hitCoroutine);
+            m_hitCoroutine = StartCoroutine(HitEffect());
+        }
     }
 
     private bool CheckAttack()
@@ -46,8 +66,6 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         Player target = GameManager.m_Instance.Player;
         Vector3 fiff = target.Position - transform.position;
         float len = fiff.magnitude;
-
-
 
         return false;
     }
@@ -92,5 +110,14 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     public void UnRegisterSkill(SkillData skill)
     {
         throw new NotImplementedException();
+    }
+
+    private IEnumerator HitEffect()
+    {
+        m_renderer.color = m_changeColor;
+        yield return m_waitTime;
+        m_renderer.color = m_originColor;
+
+        m_hitCoroutine = null;
     }
 }
