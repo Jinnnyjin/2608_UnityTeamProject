@@ -8,6 +8,8 @@ public class ProjectTileSkillObj : SkillObject
         switch(m_InitType)
         {
             case ProjectTileInitType.Forward:
+                var p = skill.Owner as Player;
+                transform.SetAngle(p.Controller.LookAt);
                 break;
             case ProjectTileInitType.NearestEnemy:
                 break;

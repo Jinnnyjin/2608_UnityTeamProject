@@ -89,7 +89,7 @@ MonoBehaviour:
   m_duration: 2
   m_InitType: 3
   skillMovement: {fileID: 4791559452354137227}
-  skillHit: {fileID: -2480772882078878752}
+  skillHit: {fileID: 0}
 --- !u!114 &4791559452354137227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +243,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 739a9262a58574d468b595ac3ba86534, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4e46b577765e68498fddaead1543aae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -9,9 +9,8 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public void Start()
     {
         SkillList = new List<Skill>();
-        TestList = SkillList;
         CurrentHp = Hp;
-        //RegisterSkill(TestSkill);
+        RegisterSkill(TestSkill);
     }
     public void Update()
     {

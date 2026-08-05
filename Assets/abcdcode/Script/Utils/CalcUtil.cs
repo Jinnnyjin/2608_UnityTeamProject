@@ -31,8 +31,9 @@ public static class CalcUtil
     /// </summary>
     /// <param name="t"></param>
     /// <param name="lookAt"></param>
-    public static void LookAt(this Transform t, Vector2 lookAt)
+    public static void SetAngle(this Transform t, Vector2 lookAt)
     {
-        t.right = lookAt;
+        float angle = Mathf.Atan2(lookAt.y, lookAt.x) * Mathf.Rad2Deg;
+        SetAngle(t,angle);
     }
 }

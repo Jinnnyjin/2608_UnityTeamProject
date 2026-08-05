@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
         var input = InputManager.m_Instance.InputInfo;
         //방향키 인풋
         var MoveDir = input.MoveDir;
+        
         //이동 방향에 따라 플레이어 방향 변경
         if(MoveDir.x > 0)
         {
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         if(MoveDir.x != 0 || MoveDir.y != 0)
         {
             animator.SetFloat(MoveFloat,1);
+            LookAt = MoveDir;
         } else
         {
             animator.SetFloat(MoveFloat,0);
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("Dead");
     }
+    public Vector2 LookAt{get;private set;}
     private const string MoveFloat = "Move";
     private const float MAGICSPEED = 5;
     private Animator animator;
