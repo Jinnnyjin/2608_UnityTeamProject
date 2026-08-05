@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         if(m_currentExp >= m_maxExp)
         {
             m_currentExp -= m_maxExp;
-            m_maxExp *= (m_maxExp * m_weightExp);
+            m_maxExp += (m_maxExp * m_weightExp);
             LevelUp();
         }
 

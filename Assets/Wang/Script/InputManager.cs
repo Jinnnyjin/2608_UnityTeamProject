@@ -70,7 +70,6 @@ public class InputManager : MonoBehaviour
         m_tInputInfo.OnSpace = ReadIsPressed(m_SpaceAction);
 
 
-        Debug.Log($"{m_tInputInfo.MoveDir}, {m_tInputInfo.ScreenPos}, {m_tInputInfo.Delta} , {m_tInputInfo.OnSpace}");
     }
 
     // 여러 이동 소스 중 크기가 가장 큰 입력을 선택 (덮어쓰기 버그 방지)
