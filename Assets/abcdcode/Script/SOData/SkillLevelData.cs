@@ -2,17 +2,17 @@ using UnityEngine;
 public class SkillLevelData : SOData, IStat
 {
     [SerializeField]protected float m_Hp = 0;
-    [SerializeField]protected float m_HpMult = 1;
+    [SerializeField]protected float m_HpMult = 0;
     [SerializeField]protected float m_Damage = 0;
-    [SerializeField]protected float m_DmgMult = 1;
+    [SerializeField]protected float m_DmgMult = 0;
     [SerializeField]protected float m_Speed = 0;
-    [SerializeField]protected float m_SpeedMult = 1;
+    [SerializeField]protected float m_SpeedMult = 0;
     [SerializeField]protected float m_ProjSpeed = 0;
-    [SerializeField]protected float m_ProjSpeedMult = 1;
+    [SerializeField]protected float m_ProjSpeedMult = 0;
     [SerializeField]protected int m_ProjCount = 0;
-    [SerializeField]protected float m_CoolTime = 1;
+    [SerializeField]protected float m_CoolTime = 0;
     [SerializeField]protected float m_Def = 0;
-    [SerializeField]protected float m_ReduceDmg = 1;
+    [SerializeField]protected float m_ReduceDmg = 0;
 
     public float Hp => m_Hp;
     public float HpMult => m_HpMult;

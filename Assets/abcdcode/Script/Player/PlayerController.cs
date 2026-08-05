@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     public void Start()
     {
         animator = GetComponent<Animator>();
+        m_player = GetComponent<Player>();
     }
     public void Update()
     {
@@ -30,9 +31,14 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat(MoveFloat,0);
         }
         //이동
-        this.transform.Translate(MoveDir.normalized*MAGICSPEED*Time.deltaTime);
+        this.transform.Translate(MoveDir.normalized*m_player.Speed*Time.deltaTime);
+    }
+    public void PlayDead()
+    {
+        animator.SetTrigger("Dead");
     }
     private const string MoveFloat = "Move";
     private const float MAGICSPEED = 5;
     private Animator animator;
+    private Player m_player;
 }

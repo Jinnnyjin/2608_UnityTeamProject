@@ -4,6 +4,14 @@ using UnityEngine;
 
 public static class CalcUtil
 {
+    public static float FinalDamage(this Skill s)
+    {
+        if(s.Owner is IStat o)
+        {
+            return (s.Damage + o.Damage) * o.DmgMult;
+        }
+        return s.Damage;
+    }
     public static R GetEach<R,T>(this List<T> list, Func<R,T,R> func, R start)
     {
         list.ForEach((v) => start = func(start,v));
