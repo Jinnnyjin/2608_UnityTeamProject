@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float m_currentExp = 0.0f;
     [SerializeField] private float m_maxExp = 0.0f;
-    private float m_currentHP = 0.0f;
-    [SerializeField] private float m_maxHP = 0.0f;
+    [SerializeField] private SkillSelectUIManager m_skillSelectUI;
+    private float m_weightExp = 0.5f; 
+
     private int m_iCurrentLevel = 0;
 
+    [SerializeField] private Player m_player;
+    public Player Player => m_player;
     private void Awake()
     {
         if (m_Instance != null && m_Instance != this)
@@ -25,45 +28,46 @@ public class GameManager : MonoBehaviour
         m_Instance = this;
     }
 
-    [SerializeField] private PlayerMovement m_Player;
-    public PlayerMovement Player => m_Player;
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AddExp(10.0f);
+        }
+    }
     private void Start()
     {
-        //플레이어 Dead이벤트 구독
+        TakeDamage(-1);
     }
 
     public void TakeDamage(float _damage)
     {
-        m_currentHP -= _damage;
-        if (m_currentHP <= 0)
-        {
-            m_currentHP = 0;
-            //플레이어 사망 처리
-        }
-        m_hPSlider.value = m_currentHP / m_maxHP;
+        float currentHP = m_player.CurrentHp;
+        float maxHP = m_player.Hp;
+        m_hPSlider.value = currentHP / maxHP;
     }
 
     private void AddExp(float _amount)
     {
-        
+        m_currentExp += _amount;
+        if(m_currentExp >= m_maxExp)
+        {
+            m_currentExp -= m_maxExp;
+            m_maxExp += (m_maxExp * m_weightExp);
+            LevelUp();
+        }
+
+        m_expSlider.value = m_currentExp / m_maxExp;
     }
 
     // ExSlider의 채우기 연출이 실제로 Max에 도달했을 때 Player가 호출
     private void LevelUp()
     {
         m_iCurrentLevel += 1;
-
-        //OnLevelUp?.Invoke(m_iCurrentLevel);
-        //m_refCardCreator?.ShowChoices();
-    }
-
-    private void AddHP()
-    {
+        m_skillSelectUI.OpenLevelUpPanel();
 
     }
 
-    //나중에 콜백으로 연결해두기
     public void EndGame()
     {
 
