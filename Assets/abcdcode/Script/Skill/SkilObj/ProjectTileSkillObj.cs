@@ -34,6 +34,7 @@ public class ProjectTileSkillObj : SkillObject
     [SerializeField]protected float m_duration;
     [SerializeField]protected ProjectTileInitType m_InitType;
     [SerializeField]protected SkillMovement skillMovement;
+    [SerializeField]protected SkillHit skillHit;
 }
 public enum ProjectTileInitType
 {

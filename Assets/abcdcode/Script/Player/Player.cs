@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 [Serializable]
@@ -21,12 +22,18 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     {
         return CurrentHp == 0;
     }
+    private void Player_Dead()
+    {
+        this.gameObject.SetActive(false);
+    }
+    public FactionEnum Faction => FactionEnum.Player;
     public void TakeDamage(DamageInfo info)
     {
         CurrentHp -= info.Dmg;
         GameManager.m_Instance.TakeDamage(info.Dmg);
         if(IsDead())
         {
+            m_Controller.PlayDead();
         }
     }
     public void RegisterSkill(Skill skill)
@@ -35,12 +42,19 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     }
     public void RegisterSkill(SkillData skillData)
     {
+        var cs = SkillList.Find(x => x.Data == skillData);
+        if(cs != null)
+        {
+            cs.SkillLevel += 1;
+            return;
+        }
         Skill s = new Skill();
         s.Init(this,skillData);
         RegisterSkill(s);
     }
     public void RegisterSkill(string skillId)
     {
+        Debug.Log("Not Implement Api");
         throw new NotImplementedException();
     }
     public void UnRegisterSkill(Skill skill)
@@ -88,21 +102,20 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     
 
     private float m_currenHp;
-    public float Hp => Mathf.Clamp((BaseHp + GetPValue<float>(0,(a,b)=> a+=b.Data.Hp)) * HpMult,1,9999);
-    public float HpMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.Data.HpMult);
-    public float Damage => 0 + GetPValue<float>(0,(a,b)=> a+=b.Data.Damage);
-    public float Speed => BaseSpeed + GetPValue<float>(0,(a,b)=> a+=b.Data.Speed);
-    public float SpeedMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.Data.SpeedMult);
-    public float CoolTime => 1 * GetPValue<float>(1,(a,b)=> a*=b.Data.CoolTime);
-    public float Def => 0 + GetPValue<float>(0,(a,b)=> a+=b.Data.Def);
-    public float ReduceDmg => 1 * GetPValue<float>(1,(a,b)=> a*=b.Data.ReduceDmg);
-    public float DmgMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.Data.DmgMult);
-    public float ProjSpeed => 0 + GetPValue<float>(0,(a,b)=> a+=b.Data.ProjSpeed);
-    public float ProjSpeedMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.Data.ProjSpeedMult);
-    public int ProjCount => 0 + GetPValue<int>(0,(a,b) => a += b.Data.ProjCount);
+    public float Hp => Mathf.Clamp((BaseHp + GetPValue<float>(0,(a,b)=> a+=b.Hp)) * HpMult,1,9999);
+    public float HpMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.HpMult);
+    public float Damage => 0 + GetPValue<float>(0,(a,b)=> a+=b.Damage);
+    public float Speed => BaseSpeed + GetPValue<float>(0,(a,b)=> a+=b.Speed);
+    public float SpeedMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.SpeedMult);
+    public float CoolTime => 1 * GetPValue<float>(1,(a,b)=> a*=b.CoolTime);
+    public float Def => 0 + GetPValue<float>(0,(a,b)=> a+=b.Def);
+    public float ReduceDmg => 1 * GetPValue<float>(1,(a,b)=> a*=b.ReduceDmg);
+    public float DmgMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.DmgMult);
+    public float ProjSpeed => 0 + GetPValue<float>(0,(a,b)=> a+=b.ProjSpeed);
+    public float ProjSpeedMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.ProjSpeedMult);
+    public int ProjCount => 0 + GetPValue<int>(0,(a,b) => a += b.ProjCount);
+
     
-
-
 
     private const float BaseHp = 100;
     private const float BaseSpeed = 5;

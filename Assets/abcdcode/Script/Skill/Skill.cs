@@ -5,6 +5,7 @@ public class Skill : IStat
 {
     public void Init(ISkillOwner owner,SkillData data)
     {
+        SkillLevel = 1;
         CoolTimer = new CoolTimer();
         Owner = owner;
         Data = data;
@@ -28,30 +29,31 @@ public class Skill : IStat
             Mathf.Clamp(value,1,MaxSkillLevel);
         }
     }
+
     private int m_skillLevel = 1;
     public const int MaxSkillLevel = 5;
 
-    public float Hp => throw new NotImplementedException();
+    public float Hp => Data.Hp + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.Hp);
 
-    public float HpMult => throw new NotImplementedException();
+    public float HpMult => Data.HpMult + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.HpMult);
 
-    public float Damage => throw new NotImplementedException();
+    public float Damage => Data.Damage + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.Damage);
 
-    public float DmgMult => throw new NotImplementedException();
+    public float DmgMult => Data.DmgMult + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.DmgMult);
 
-    public float Speed => throw new NotImplementedException();
+    public float Speed => Data.Speed + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.Speed);
 
-    public float SpeedMult => throw new NotImplementedException();
+    public float SpeedMult => Data.SpeedMult + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.SpeedMult);
 
-    public float ProjSpeed => throw new NotImplementedException();
+    public float ProjSpeed => Data.ProjSpeed + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.ProjSpeed);
 
-    public float ProjSpeedMult => throw new NotImplementedException();
+    public float ProjSpeedMult => Data.ProjSpeedMult + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.ProjSpeedMult);
 
-    public int ProjCount => throw new NotImplementedException();
+    public int ProjCount => Data.ProjCount + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.ProjCount);
 
-    public float CoolTime => throw new NotImplementedException();
+    public float CoolTime => Data.CoolTime + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.CoolTime);
 
-    public float Def => throw new NotImplementedException();
+    public float Def => Data.Def + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.Def);
 
-    public float ReduceDmg => throw new NotImplementedException();
+    public float ReduceDmg => Data.ReduceDmg + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.ReduceDmg);
 }

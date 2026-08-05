@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 public abstract class SkillData : SOData, IStat
 {
@@ -6,8 +8,9 @@ public abstract class SkillData : SOData, IStat
     [SerializeField]protected SkillType m_type;
     [SerializeField]protected Sprite m_icon;
     [SerializeField]protected string m_title;
+    [TextArea]
     [SerializeField]protected string m_desc;
-    [SerializeField]protected SkillLevelData m_levelData;
+    [SerializeField]protected List<SkillLevelData> m_levelData;
     public virtual void Init(Skill skill)
     {
         //skill.coolTimer.SetCool("Attack",1,0,false,null);
@@ -49,6 +52,17 @@ public abstract class SkillData : SOData, IStat
     public virtual string Title => m_title;
     public virtual string Desc => m_desc;
     public virtual SkillType SkillType => m_type;
+    public virtual SkillLevelData GetSkillLevelData(int level)
+    {
+        if(m_levelData.Count < level) return null;
+        return m_levelData[level-1];
+    }
+    public virtual T GetSkillLevelDataValue<T>(int level,T start, Func<SkillLevelData,T> d)
+    {
+        var l = GetSkillLevelData(level);
+        if(l == null) return start;
+        return d(l);
+    }
 
     
 }

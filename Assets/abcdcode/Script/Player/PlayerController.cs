@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
         //이동
         this.transform.Translate(MoveDir.normalized*MAGICSPEED*Time.deltaTime);
     }
+    public void PlayDead()
+    {
+        animator.SetTrigger("Dead");
+    }
     private const string MoveFloat = "Move";
     private const float MAGICSPEED = 5;
     private Animator animator;
