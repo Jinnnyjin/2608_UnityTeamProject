@@ -4,8 +4,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public Slider HpSlider;
-    public Slider XpSlider;
+    //public Slider HpSlider;
+    //public Slider XpSlider;
     public TextMeshProUGUI TimerText;
 
     // 인벤토리 슬롯 안의 'Icon' 이미지 컴포넌트들을 순서대로 넣어줄 배열
@@ -13,6 +13,13 @@ public class UIManager : MonoBehaviour
 
     private float m_gameTime = 0f;
     private int m_nextEmptySlotIndex = 0; // 다음에 아이템이 들어갈 슬롯 번호
+
+    public static UIManager m_Instance { get; private set; }
+
+    private void Awake()
+    {
+        m_Instance = this;
+    }
 
     public void Update()
     {
@@ -22,15 +29,15 @@ public class UIManager : MonoBehaviour
         TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    public void UpdateHP(float _currentItem, float _maxItem)
-    {
-        if (HpSlider != null) HpSlider.value = _currentItem / _maxItem;
-    }
-
-    public void UpdateXP(float _currentItem, float _maxItem)
-    {
-        if (XpSlider != null) XpSlider.value = _currentItem / _maxItem;
-    }
+    //public void UpdateHP(float _currentItem, float _maxItem)
+    //{
+    //    if (HpSlider != null) HpSlider.value = _currentItem / _maxItem;
+    //}
+    //
+    //public void UpdateXP(float _currentItem, float _maxItem)
+    //{
+    //    if (XpSlider != null) XpSlider.value = _currentItem / _maxItem;
+    //}
 
     // 아이템을 먹었을 때 호출될 함수 (매개변수 _ 규칙 준수)
     public void AcquireItem(Sprite _itemSprite)
