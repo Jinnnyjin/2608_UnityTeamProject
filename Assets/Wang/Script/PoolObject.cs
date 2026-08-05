@@ -24,13 +24,17 @@ public class PoolObject : MonoBehaviour
     public event Action OnPush;
     public event Action OnPop;
 
-    [SerializeField] private float m_fAliveTime = 10.0f;
-    private float m_fSettingAliveTime = 0.0f;
+    [SerializeField] private float m_fAliveTime = 10;
+    private float m_fCurTime = 0.0f;
 
+    private void OnEnable()
+    {
+        m_fCurTime = m_fAliveTime;
+    }
     private void Update()
     {
-        m_fAliveTime -= Time.deltaTime;
-        if (m_fAliveTime <= 0.0f)
+        m_fCurTime -= Time.deltaTime;
+        if (m_fCurTime <= 0.0f)
             ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
 
@@ -43,14 +47,14 @@ public class PoolObject : MonoBehaviour
     public virtual void Pop()
     {
         m_iPushCount = 0;
-        m_fAliveTime = m_fSettingAliveTime > 0f ? m_fSettingAliveTime : float.MaxValue;
+       
         OnPop?.Invoke();
     }
 
     public void SetAliveTime(float PushTime)
     {
         m_fAliveTime = PushTime;
-        m_fSettingAliveTime = m_fAliveTime;
+        m_fCurTime = m_fAliveTime;
     }
 
     public void SetOriginKey(GameObject _orginPrefab)
