@@ -197,11 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac1fc600dd1e0647a5914890a38ceac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPoolManager
-  m_listPoolObject:
-  - iPoolCount: 100
-    refGameObject: {fileID: 2667062276481925001, guid: baef0fad93ff614419b645cbec006893, type: 3}
-  - iPoolCount: 100
-    refGameObject: {fileID: 2667062276481925001, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
 --- !u!4 &482952465
 Transform:
   m_ObjectHideFlags: 0
@@ -226,6 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 484410328}
+  - component: {fileID: 484410330}
   - component: {fileID: 484410329}
   m_Layer: 0
   m_Name: Player
@@ -259,10 +255,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 484410327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26de3fe8bb3af67448b219663373961e, type: 3}
+  m_Script: {fileID: 11500000, guid: d0b6ddc6a3fe7fe489932e66b2903669, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  m_moveSpeed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+--- !u!114 &484410330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484410327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564a7d86254091c49a272bee831b9f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  m_Controller: {fileID: 484410329}
 --- !u!1 &511558170
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +323,7 @@ MonoBehaviour:
       - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
         Weight: 23
       - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-        Weight: 24
+        Weight: 6
       m_spawnStep: 1.7
     m_StageLevel: 0
   m_StargeBoss: {fileID: 0}
@@ -848,7 +856,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63f770563ee7c947b55cce793c83483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  m_Player: {fileID: 484410329}
+  m_expSlider: {fileID: 0}
+  m_hPSlider: {fileID: 0}
+  m_currentExp: 0
+  m_maxExp: 0
+  m_maxHP: 0
+  m_Player: {fileID: 484410330}
 --- !u!4 &1495853338
 Transform:
   m_ObjectHideFlags: 0

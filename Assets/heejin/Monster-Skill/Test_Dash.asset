@@ -19,5 +19,5 @@ MonoBehaviour:
   m_icon: {fileID: 0}
   m_title: 
   m_desc: 
-  m_speed: 50
-  m_duration: 3
+  m_speed: 10
+  m_duration: 1

@@ -18,4 +18,4 @@ MonoBehaviour:
   m_baseAttack: 5
   m_expReward: 5
   m_skills:
-  - {fileID: 11400000, guid: 28d51b01012cfa74080c8120a316c32a, type: 2}
+  - {fileID: 11400000, guid: e23f89ef861d52d47a174ab4119ee9c3, type: 2}
