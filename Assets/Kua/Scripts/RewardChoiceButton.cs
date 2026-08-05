@@ -25,6 +25,7 @@ public class RewardChoiceButton : MonoBehaviour
         m_randomSkill = _randomSkill;
         m_iconImage.sprite = _randomSkill.Icon;
         m_iconImage.gameObject.SetActive(true);
+        m_descText.text = _randomSkill.Desc;
 
         Debug.Log($"{count}는 {m_randomSkill.Icon.name}");
         //TODO 스킬 ID에 스킬 설명을 넣는다
