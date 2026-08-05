@@ -16,6 +16,7 @@ public class FieldItem : MonoBehaviour
     // 플레이어와 부딪혔을 때 작동 (물리적 밀침이 없도록 Is Trigger 체크 필수)
     public void OnTriggerEnter2D(Collider2D _other)
     {
+        
         // 부딪힌 대상의 태그가 Player인 경우에만 작동
         if (_other.CompareTag("Player"))
         {

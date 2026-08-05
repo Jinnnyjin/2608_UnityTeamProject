@@ -37,10 +37,10 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        UpdateSlider(-1);
+        TakeDamage(-1);
     }
 
-    public void UpdateSlider(float _damage)
+    public void TakeDamage(float _damage)
     {
         float currentHP = m_player.CurrentHp;
         float maxHP = m_player.Hp;

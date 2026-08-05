@@ -27,6 +27,7 @@ public class SkillSelectUIManager : MonoBehaviour
     [Header("[ 예시 스킬 데이터 보관함 (6개) ]")]
     [SerializeField] private List<MyTempSkillData> m_previewSkillList = new List<MyTempSkillData>();
 
+    [SerializeField] private List<SkillData> m_preLoadSkill;
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -57,39 +58,68 @@ public class SkillSelectUIManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < m_choiceButtons.Length; i++)
+        if (m_preLoadSkill.Count >= _choiceCount)
         {
-            if (i < _choiceCount && i < m_choiceButtons.Length)
+            while (randomIndices.Count < _choiceCount)
             {
-                m_choiceButtons[i].gameObject.SetActive(true);
-
-                int skillId = Random.Range(100, 200);
-                Sprite icon = null;
-                string title = $"임시 스킬 {i + 1}";
-                string desc = "공격력을 강화합니다.";
-
-                if (randomIndices.Count > i)
+                int randIndex = Random.Range(0, m_preLoadSkill.Count);
+                if (!randomIndices.Contains(randIndex))
                 {
-                    MyTempSkillData chosenData = m_previewSkillList[randomIndices[i]];
-                    skillId = chosenData.skillId;
-                    icon = chosenData.icon;
-                    title = chosenData.title;
-                    desc = chosenData.desc;
-                    Debug.Log(desc);
+                    randomIndices.Add(randIndex);
                 }
-
-                m_choiceButtons[i].InitButton(skillId, icon, title, desc, this);
-            }
-            else
-            {
-                m_choiceButtons[i].gameObject.SetActive(false);
             }
         }
+
+        for(int i = 0; i< randomIndices.Count; ++i)
+        {
+            int randomIdx = randomIndices[i];
+
+            m_choiceButtons[i].gameObject.SetActive(true);
+            m_choiceButtons[i].InitButton(m_preLoadSkill[randomIdx]);
+        }
+
+        //for (int i = 0; i < m_choiceButtons.Length; i++)
+        //{
+        //    if (i < _choiceCount && i < m_choiceButtons.Length)
+        //    {
+        //        m_choiceButtons[i].gameObject.SetActive(true);
+        //
+        //        //int skillId = Random.Range(100, 200);
+        //        //Sprite icon = null;
+        //        //string title = $"임시 스킬 {i + 1}";
+        //        //string desc = "공격력을 강화합니다.";
+        //
+        //        if (randomIndices.Count > i)
+        //        {
+        //            //MyTempSkillData chosenData = m_previewSkillList[randomIndices[i]];
+        //            //skillId = chosenData.skillId;
+        //            //icon = chosenData.icon;
+        //            //title = chosenData.title;
+        //            //desc = chosenData.desc;
+        //            //Debug.Log(desc);
+        //        }
+        //
+        //        m_choiceButtons[i].InitButton(skillId, icon, title, desc, this);
+        //    }
+        //    else
+        //    {
+        //        m_choiceButtons[i].gameObject.SetActive(false);
+        //    }
+        //}
     }
 
     /// <summary>
     /// 🌟 [최종 연계 핵심] 보상 버튼을 클릭했을 때 실행되는 함수
     /// </summary>
+    /// 
+    public void OnSkillSelected(SkillData _selectSkill)
+    {
+        for(int i = 0; i< m_mainSkillSlots.Length; ++i)
+        {
+            if (m_mainSkillSlots[i].sprite == null)
+                m_mainSkillSlots[i].sprite = _selectSkill.Icon;
+        }
+    }
     public void OnSkillSelected(int _selectedSkillId)
     {
         Debug.Log($"보상을 선택했습니다 ID: {_selectedSkillId}");
