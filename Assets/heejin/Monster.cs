@@ -44,9 +44,6 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
-        //m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
-        //m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
-        //m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
 
         m_monsterMove = GetComponent<MonsterAIMove>();
         m_renderer = GetComponent<SpriteRenderer>();
@@ -169,10 +166,14 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         MonsterMove.MoveWeight = _fWeight;
         MonsterMove.LockDir = true;
 
+        MonsterMove.StartTrail();
+
         yield return new WaitForSeconds(_fWeight);
 
         MonsterMove.MoveWeight = startWeight;
         MonsterMove.LockDir = false;
+
+        MonsterMove.StopTrail();
 
         m_dashCoroutine = null;
     }

@@ -13,6 +13,8 @@ public class MonsterAIMove : MonoBehaviour
 
     private AnimTable m_animTable;
     private Animator m_animator;
+
+    private TrailRenderer m_trailRenderer;
     
     // 주변 타 몬스터와의 반경 
     // 테스트 기준 0.5에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
@@ -43,6 +45,9 @@ public class MonsterAIMove : MonoBehaviour
         m_contactFilter.useTriggers = true;
         m_contactFilter.useLayerMask = true;
         m_contactFilter.layerMask = LayerMask.GetMask("Monster");
+        m_trailRenderer = GetComponent<TrailRenderer>();
+
+        m_trailRenderer.emitting = false;
     }
 
     //private void OnEnable()
@@ -54,6 +59,7 @@ public class MonsterAIMove : MonoBehaviour
     {
         m_player = GameManager.m_Instance.Player.transform;
         m_prevDirection = GetChaseDIr();
+
     }
 
     private void FixedUpdate()
@@ -95,11 +101,6 @@ public class MonsterAIMove : MonoBehaviour
         m_prevDirection = chaseDir;
     }
  
-    private void dkanrjsk()
-    {
-                                                            
-    }
-
     private Vector2 GetSeparateDir()
     {
         Vector2 separation = Vector2.zero;
@@ -128,6 +129,27 @@ public class MonsterAIMove : MonoBehaviour
             m_player.position.y - m_monsterRb.position.y).normalized;
 
         return move;
+    }
+
+    public void MonsterAttackSkill()
+    {
+        Debug.Log("MonsterAttackSkill 호출");
+        if (m_animTable != null)
+        {
+            m_animTable.SetTrigger(eEntityState.Attack);
+        }
+
+        else Debug.Log("m_animTable이 null");
+    }
+
+    public void StartTrail()
+    {
+        m_trailRenderer.emitting = true;
+    }
+
+    public void StopTrail()
+    {
+        m_trailRenderer.emitting = false;
     }
 
 //    public IEnumerator DoDash(Vector2 direction, float speed, float duration)

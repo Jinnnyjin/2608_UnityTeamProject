@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -35,6 +33,7 @@ public class DashSkill : SkillData
            
             _skill.CoolTimer.RefreshCool("Dash_Skill");
 
+            monster.MonsterMove.MonsterAttackSkill();
             monster.MoveToPlayer(m_moveweight);
             //// 대시스킬 함수 호출
             //monster.StartCoroutine(monster.GetComponent<MonsterAIMove>().DoDash(direction, m_speed, m_duration));
