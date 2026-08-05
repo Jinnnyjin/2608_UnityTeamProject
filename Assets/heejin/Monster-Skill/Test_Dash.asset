@@ -21,4 +21,4 @@ MonoBehaviour:
   m_levelData: []
   m_speed: 10
   m_moveweight: 2
-  m_duration: 0.4
+  m_duration: 0.15

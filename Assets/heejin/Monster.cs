@@ -24,6 +24,12 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
     public FactionEnum Faction => FactionEnum.Enemy;
 
+    //baseAttack타임동안 Range에 들어오면 공격
+    private float m_baseHitRange = 1.0f;
+    private float m_baseAttackTime = 1.0f;
+    private float m_curAttackTime = 0.0f;
+    private DamageInfo m_baseDamageInfo = new DamageInfo();
+
     private Coroutine m_hitCoroutine;
     [SerializeField] private float m_hitEffectTime = 0.3f;
     private WaitForSeconds m_waitTime;
@@ -31,6 +37,10 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
     [SerializeField] private Color m_changeColor;
     private Color m_originColor;
+
+
+    private WaitForSeconds m_waitSecond = null;
+    private Coroutine m_dashCoroutine;
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
@@ -43,6 +53,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_waitTime = new WaitForSeconds(m_hitEffectTime);
 
         m_originColor = m_renderer.color;
+        m_baseDamageInfo.Dmg = 10.0f;
     }
 
     private void OnEnable()
@@ -50,6 +61,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
         m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
+
+        m_curAttackTime = 0.0f;
     }
     public void TakeDamage(DamageInfo _damage)
     {
@@ -66,14 +79,24 @@ public class Monster : BSObj, IDamageable, ISkillOwner
             m_hitCoroutine = StartCoroutine(HitEffect());
         }
     }
-
-    private bool CheckAttack()
+    public override void Update()
+    {
+        base.Update();
+        //CheckAttack();
+    }
+    private void CheckAttack()
     {
         Player target = GameManager.m_Instance.Player;
-        Vector3 fiff = target.Position - transform.position;
+        Vector2 fiff = target.Position - transform.position;
         float len = fiff.magnitude;
-
-        return false;
+        if(len < m_baseHitRange)
+        {
+            m_curAttackTime += Time.deltaTime;
+            if (m_curAttackTime >= m_baseAttackTime)
+                GameManager.m_Instance.Player.TakeDamage(m_baseDamageInfo);
+            else
+                m_curAttackTime = 0.0f;
+        }
     }
     public bool IsDead()
     {
@@ -125,5 +148,27 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_renderer.color = m_originColor;
 
         m_hitCoroutine = null;
+    }
+
+
+    public void MoveToPlayer(float _fWeight)
+    {
+        if (m_dashCoroutine != null)
+            StopCoroutine(m_dashCoroutine);
+        m_dashCoroutine = StartCoroutine(DashCoroutine(_fWeight));
+    }
+
+    private IEnumerator DashCoroutine(float _fWeight)
+    {
+        float startWeight = MonsterMove.MoveWeight;
+        MonsterMove.MoveWeight = _fWeight;
+        MonsterMove.LockDir = true;
+
+        yield return new WaitForSeconds(_fWeight);
+
+        MonsterMove.MoveWeight = startWeight;
+        MonsterMove.LockDir = false;
+
+        m_dashCoroutine = null;
     }
 }

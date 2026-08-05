@@ -17,6 +17,6 @@ MonoBehaviour:
   m_baseSpeed: 4
   m_baseAttack: 5
   m_baseAttackRange: 0
-  m_expReward: 5
+  m_expReward: 20
   m_skills:
   - {fileID: 11400000, guid: e23f89ef861d52d47a174ab4119ee9c3, type: 2}
