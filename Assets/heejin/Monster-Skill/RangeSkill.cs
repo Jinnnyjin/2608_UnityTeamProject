@@ -26,6 +26,8 @@ public class RangeSkill : SkillData
         
         if(_skill.CoolTimer.IsCoolComp("Range_Skill") && distance <= m_Range)
         {
+            if (!monster.TryStartSkill()) return;
+
             monster.MonsterMove.MonsterAttackSkill();
             monster.StartCoroutine(SkillCoroutine(monster));
             _skill.CoolTimer.RefreshCool("Range_Skill");
@@ -68,5 +70,6 @@ public class RangeSkill : SkillData
 
 
         monster.ResumeMoving();
+        monster.EndSkill();
     }
 }

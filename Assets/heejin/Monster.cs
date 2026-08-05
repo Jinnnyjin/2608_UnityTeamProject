@@ -41,6 +41,9 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
     private WaitForSeconds m_waitSecond = null;
     private Coroutine m_dashCoroutine;
+
+    private bool m_isUsingSkill = false;
+    
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
@@ -175,6 +178,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
         MonsterMove.StopTrail();
 
+        EndSkill();
+
         m_dashCoroutine = null;
     }
 
@@ -186,5 +191,18 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     public void ResumeMoving()
     {
         MonsterMove.MoveWeight = 1f;
+    }
+
+    public bool TryStartSkill()
+    {
+        if (m_isUsingSkill) return false;
+
+        m_isUsingSkill = true;
+        return true;
+    }
+
+    public void EndSkill()
+    {
+        m_isUsingSkill = false;
     }
 }

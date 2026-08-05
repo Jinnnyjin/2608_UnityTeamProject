@@ -22,15 +22,16 @@ public class DashSkill : SkillData
     {
         if (_skill.CoolTimer.IsCoolComp("Dash_Skill"))
         {
-            UnityEngine.Debug.Log("Dash Active");
+
             Monster monster = _skill.Owner as Monster;
-            if (monster == null)  
-                return;
+            if (monster == null) return;
+
+            if (!monster.TryStartSkill()) return;
 
             //monster.GetComponent<MonsterAIMove>().m_IsDashing = true;
             //// 몬스터 -> 플레이어 방향
             //Vector2 direction = (GameManager.m_Instance.Player.Position - monster.Position).normalized;
-           
+
             _skill.CoolTimer.RefreshCool("Dash_Skill");
 
             // 공격 애니메이션이 필요한가?
