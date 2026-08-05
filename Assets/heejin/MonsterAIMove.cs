@@ -47,7 +47,10 @@ public class MonsterAIMove : MonoBehaviour
         m_contactFilter.layerMask = LayerMask.GetMask("Monster");
         m_trailRenderer = GetComponent<TrailRenderer>();
 
-        m_trailRenderer.emitting = false;
+        if (m_trailRenderer != null)
+        {
+            m_trailRenderer.emitting = false;
+        }
     }
 
     //private void OnEnable()
@@ -144,12 +147,18 @@ public class MonsterAIMove : MonoBehaviour
 
     public void StartTrail()
     {
-        m_trailRenderer.emitting = true;
+        if(m_trailRenderer != null)
+        {
+            m_trailRenderer.emitting = true;
+        }
     }
 
     public void StopTrail()
     {
-        m_trailRenderer.emitting = false;
+        if (m_trailRenderer != null)
+        {
+            m_trailRenderer.emitting = false;
+        }
     }
 
 //    public IEnumerator DoDash(Vector2 direction, float speed, float duration)

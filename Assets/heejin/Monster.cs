@@ -177,4 +177,14 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
         m_dashCoroutine = null;
     }
+
+    public void StopMoving()
+    {
+        MonsterMove.MoveWeight = 0f;
+    }
+
+    public void ResumeMoving()
+    {
+        MonsterMove.MoveWeight = 1f;
+    }
 }

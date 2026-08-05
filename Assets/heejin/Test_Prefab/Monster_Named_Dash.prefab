@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 8526967088887384085}
   - component: {fileID: 6127632321320752891}
   m_Layer: 7
-  m_Name: Monster_Named
+  m_Name: Monster_Named_Dash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
