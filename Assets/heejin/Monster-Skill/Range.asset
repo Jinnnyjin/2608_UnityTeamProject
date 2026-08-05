@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Range
   m_EditorClassIdentifier: Assembly-CSharp::RangeSkill
   Name: Range
-  m_CoolTime: 5
+  m_CoolTime: 8
   Prefab: {fileID: 5368355735217208176, guid: 878f3b31837c998478303dc72b7f9e81, type: 3}
   m_icon: {fileID: 0}
   m_title: 
