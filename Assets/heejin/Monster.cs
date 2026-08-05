@@ -16,6 +16,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     private List<Skill> m_skillList = new List<Skill>();
     public List<Skill> SkillList { get => m_skillList;}
 
+    public FactionEnum Faction => throw new NotImplementedException();
+
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
