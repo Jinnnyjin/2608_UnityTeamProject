@@ -7,6 +7,7 @@ public abstract class SkillData : SOData, IStat
     [SerializeField]protected Sprite m_icon;
     [SerializeField]protected string m_title;
     [SerializeField]protected string m_desc;
+    [SerializeField]protected SkillLevelData m_levelData;
     public virtual void Init(Skill skill)
     {
         //skill.coolTimer.SetCool("Attack",1,0,false,null);
