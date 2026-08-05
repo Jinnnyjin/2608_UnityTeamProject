@@ -29,8 +29,9 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public FactionEnum Faction => FactionEnum.Player;
     public void TakeDamage(DamageInfo info)
     {
-        CurrentHp -= info.Dmg;
-        GameManager.m_Instance.TakeDamage(info.Dmg);
+        var finalDmg = Mathf.Max(1,(info.Dmg-Def) * ReduceDmg);
+        CurrentHp -= finalDmg;
+        GameManager.m_Instance.TakeDamage(finalDmg);
         if(IsDead())
         {
             m_Controller.PlayDead();
@@ -105,7 +106,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public float Hp => Mathf.Clamp((BaseHp + GetPValue<float>(0,(a,b)=> a+=b.Hp)) * HpMult,1,9999);
     public float HpMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.HpMult);
     public float Damage => 0 + GetPValue<float>(0,(a,b)=> a+=b.Damage);
-    public float Speed => BaseSpeed + GetPValue<float>(0,(a,b)=> a+=b.Speed);
+    public float Speed => (BaseSpeed + GetPValue<float>(0,(a,b)=> a+=b.Speed))*SpeedMult;
     public float SpeedMult => 1 * GetPValue<float>(1,(a,b)=> a*=b.SpeedMult);
     public float CoolTime => 1 * GetPValue<float>(1,(a,b)=> a*=b.CoolTime);
     public float Def => 0 + GetPValue<float>(0,(a,b)=> a+=b.Def);

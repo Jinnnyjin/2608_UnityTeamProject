@@ -19,16 +19,13 @@ public class ProjectTileSkillObj : SkillObject
                 break;
         }
         skillMovement.Init(this);
+        skillHit.Init(this);
     }
     public override void Update()
     {
         base.Update();
     }
-    public virtual void Delete()
-    {
-        UnityEngine.Debug.Log("Delete Projectile");
-        ObjectPoolManager.m_Instance.PushObject(this.gameObject);
-    }
+    
 
     protected const string Cool = "Cool";
     [SerializeField]protected float m_duration;

@@ -32,6 +32,14 @@ public class Skill : IStat
 
     private int m_skillLevel = 1;
     public const int MaxSkillLevel = 5;
+    public T GetFinalStat<T>(T s, Func<IStat,T> o)
+    {
+        if(Owner is IStat i)
+        {
+            return o(i);
+        }
+        return s;
+    }
 
     public float Hp => Data.Hp + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.Hp);
 

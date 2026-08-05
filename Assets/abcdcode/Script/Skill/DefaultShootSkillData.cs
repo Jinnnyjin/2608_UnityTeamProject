@@ -1,4 +1,6 @@
-using System.Diagnostics;
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class DefaultShootSkillData : SkillData
 {
@@ -19,13 +21,28 @@ public class DefaultShootSkillData : SkillData
     }
     public virtual void Shoot(Skill skill)
     {
-        UnityEngine.Debug.Log("Shoot");
         //var ptsd = Instantiate(Prefab).GetComponent<ProjectTileSkillObj>();
-        var ptsd = ObjectPoolManager.m_Instance.GetObject(Prefab).GetComponent<ProjectTileSkillObj>();
-        ptsd.Position = skill.Owner.Obj.Position;
-        ptsd.Init(skill);
-        skill.CoolTimer.SetCool(Cool,CoolTime,0,true,() =>Shoot(skill));
-        UnityEngine.Debug.Log("Shoot End");
+        if(skill.Owner is MonoBehaviour m)
+        {
+           m.StartCoroutine(ShootCoroutine(skill));
+        }
+        else
+        {
+            Debug.Log("What?? ISkillOwner Must be MonoBehaviour!!!");
+        }
+    }
+    IEnumerator ShootCoroutine(Skill skill)
+    {
+        var projCount = skill.GetFinalStat(skill.ProjCount,(i)=>skill.ProjCount+i.ProjCount);
+        for(int i = 0; i < projCount;i++)
+        {
+            var ptsd = ObjectPoolManager.m_Instance.GetObject(Prefab).GetComponent<ProjectTileSkillObj>();
+            ptsd.Position = skill.Owner.Obj.Position;
+            ptsd.Init(skill);
+            skill.CoolTimer.SetCool(Cool,CoolTime,0,true,() =>Shoot(skill));
+            yield return null;
+        }
+        yield break;
     }
     private const string Cool = "Cool";
 }
