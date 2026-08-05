@@ -26,6 +26,9 @@ public class SOMonsterInfo : ScriptableObject
     [SerializeField] private float m_baseAttack;
     public float BaseAttack => m_baseAttack;
 
+    [SerializeField] private float m_baseAttackRange;
+    public float BaseAttackRange => m_baseAttackRange;
+
     [SerializeField] private int m_expReward;
     public int ExpReward => m_expReward;
 

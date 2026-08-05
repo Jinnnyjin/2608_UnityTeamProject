@@ -11,6 +11,7 @@ public class Skill
     public void GameUpdate()
     {
         CoolTimer.Update();
+      
         Data.GameUpdate(this);
     }
     public CoolTimer CoolTimer;

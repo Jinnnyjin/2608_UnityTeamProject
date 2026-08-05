@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
     }
     public void Update()
     {
+        /*/////////////////////////////////
+         *              Test
+         *////////////////////////////////
+        //if (animator == null)
+        //    return;
+
         //InputManager에서 인풋 가져오기
         var input = InputManager.m_Instance.InputInfo;
         //방향키 인풋
@@ -22,13 +28,13 @@ public class PlayerController : MonoBehaviour
             this.transform.localScale = new Vector3(-1,1);
         }
         //이동했다면 Animation 적용
-        if(MoveDir.x != 0 || MoveDir.y != 0)
-        {
-            animator.SetFloat(MoveFloat,1);
-        } else
-        {
-            animator.SetFloat(MoveFloat,0);
-        }
+        //if(MoveDir.x != 0 || MoveDir.y != 0)
+        //{
+        //    animator.SetFloat(MoveFloat,1);
+        //} else
+        //{
+        //    animator.SetFloat(MoveFloat,0);
+        //}
         //이동
         this.transform.Translate(MoveDir.normalized*MAGICSPEED*Time.deltaTime);
     }

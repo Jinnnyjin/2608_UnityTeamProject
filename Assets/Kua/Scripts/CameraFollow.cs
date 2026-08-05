@@ -6,8 +6,7 @@ public class CameraFollow : MonoBehaviour
     public Transform Target;
     public Vector3 Offset = new Vector3(0, 0, -10f);
 
-    // FixedUpdate에서 플레이어의 물리 이동 직후 좌표를 바로 흡수하여 동기화
-    public void FixedUpdate()
+    public void LateUpdate()
     {
         if (Target == null) return;
 

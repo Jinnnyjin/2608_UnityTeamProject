@@ -6,6 +6,8 @@ using UnityEngine;
 public class Monster : BSObj, IDamageable, ISkillOwner
 {
     private MonsterInfo m_monsterInfo = null;
+    private MonsterAIMove m_monsterMove = null;
+    
     [SerializeField] private SOMonsterInfo m_SOMonsterInfo = null;
     public static event Action<Monster> onMonsterDied;
 
@@ -16,12 +18,17 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     private List<Skill> m_skillList = new List<Skill>();
     public List<Skill> SkillList { get => m_skillList;}
 
+    public MonsterAIMove MonsterMove => m_monsterMove;
+    
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
         m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
         m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
+
+        m_monsterMove = GetComponent<MonsterAIMove>();
+        
     }
 
     public void TakeDamage(DamageInfo _damage)
@@ -34,6 +41,16 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         }
     }
 
+    private bool CheckAttack()
+    {
+        Player target = GameManager.m_Instance.Player;
+        Vector3 fiff = target.Position - transform.position;
+        float len = fiff.magnitude;
+
+
+
+        return false;
+    }
     public bool IsDead()
     {
         return m_monsterInfo.HP <= 0; 

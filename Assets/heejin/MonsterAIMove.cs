@@ -4,6 +4,7 @@ using UnityEngine;
 public class MonsterAIMove : MonoBehaviour
 {
     private Rigidbody2D m_monsterRb;
+    public Rigidbody2D Rigidbody => m_monsterRb;
     private Collider2D m_myCollider;
     private Transform m_player;
     private Collider2D[] m_overlapBuffer = new Collider2D[10];
@@ -17,8 +18,14 @@ public class MonsterAIMove : MonoBehaviour
     // 테스트 기준 0.5에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
     [SerializeField] private float m_checkRadius = 0.5f;
 
+    //이동속도 가중치
+    public float MoveWeight { get; set; } = 1.0f;
+    public bool LockDir { get; set; } = false;
     // 대쉬스킬 관련
-    public bool m_IsDashing;
+    /*/////////////////////////////////////
+     *              Test
+     */////////////////////////////////////
+    //public bool m_IsDashing;
     private Vector2 m_dashDirection;
     private Vector2 m_prevDirection;
     private float m_dashSpeed;
@@ -39,6 +46,7 @@ public class MonsterAIMove : MonoBehaviour
     private void OnEnable()
     {
         m_player = GameManager.m_Instance.Player.transform;
+        m_prevDirection = GetChaseDIr();
     }
     
     private void FixedUpdate()
@@ -54,7 +62,7 @@ public class MonsterAIMove : MonoBehaviour
         // 스킬 사용하지 않을때, 평소 움직임
         Vector2 chaseDir = Vector2.zero;
 
-        if (m_IsDashing == false)
+        if (LockDir == false)
             chaseDir = GetChaseDIr();
         else
             chaseDir = m_prevDirection;
@@ -62,10 +70,8 @@ public class MonsterAIMove : MonoBehaviour
         finalDir = (chaseDir + separateDir).normalized;
         speed = m_monster.Info.Speed;
 
-        
-
         // 움직임 최종 로직
-        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * speed * Time.fixedDeltaTime);
+        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * speed * MoveWeight * Time.fixedDeltaTime);
 
         bool isMoving = finalDir.sqrMagnitude > 0.01f;
         if (m_animTable != null)
@@ -81,7 +87,7 @@ public class MonsterAIMove : MonoBehaviour
 
         m_prevDirection = chaseDir;
     }
-
+ 
     private void dkanrjsk()
     {
 

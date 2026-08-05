@@ -20,4 +20,5 @@ MonoBehaviour:
   m_title: 
   m_desc: 
   m_speed: 10
-  m_duration: 1
+  m_moveweight: 2
+  m_duration: 1.5

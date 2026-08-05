@@ -221,8 +221,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 484410328}
-  - component: {fileID: 484410330}
   - component: {fileID: 484410329}
+  - component: {fileID: 484410330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -265,12 +265,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484410327}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 564a7d86254091c49a272bee831b9f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  m_Controller: {fileID: 484410329}
+  m_Controller: {fileID: 0}
+  TestSkill: {fileID: 0}
 --- !u!1 &511558170
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,15 +316,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
   m_spawner: {fileID: 511558171}
   m_mainCam: {fileID: 519420031}
-  m_LimitSpanwer: 100
+  m_LimitSpanwer: 50
   m_stageInfo:
     m_stageStep: 300
     m_spawnMonsterDatas:
     - m_monsterPrefabs:
-      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
-        Weight: 23
       - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-        Weight: 6
+        Weight: 56
       m_spawnStep: 1.7
     m_StageLevel: 0
   m_StargeBoss: {fileID: 0}

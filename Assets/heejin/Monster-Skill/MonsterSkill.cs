@@ -13,6 +13,7 @@ public class MonsterSkill : MonoBehaviour
         {
             Skill skill = new Skill();
             skill.Init(m_monster, data);
+            data.Init(skill);
             m_monster.RegisterSkill(skill);
         }
     }
