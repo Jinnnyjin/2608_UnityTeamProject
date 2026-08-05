@@ -16,6 +16,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     private List<Skill> m_skillList = new List<Skill>();
     public List<Skill> SkillList { get => m_skillList;}
 
+    public FactionEnum Faction => throw new NotImplementedException();
+
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
@@ -60,5 +62,20 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     public void UnRegisterSkill(string skillId)
     {
         m_skillList.RemoveAll(skill => skill.Data.Name == skillId);
+    }
+
+    public void RegisterSkill(SkillData skillData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RegisterSkill(string skillId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UnRegisterSkill(SkillData skill)
+    {
+        throw new NotImplementedException();
     }
 }

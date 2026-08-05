@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : BSObj
 {
     // Public 대신 [SerializeField]를 사용하여 인스펙터에서 조절 가능하게 설정
     [SerializeField] private float m_moveSpeed = 5f;

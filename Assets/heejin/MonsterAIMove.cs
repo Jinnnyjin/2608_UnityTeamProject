@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MonsterAIMove : MonoBehaviour
@@ -13,12 +14,16 @@ public class MonsterAIMove : MonoBehaviour
     private Animator m_animator;
     
     // 주변 타 몬스터와의 반경 
-    // 테스트 기준 0.2에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
+    // 테스트 기준 0.5에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
     [SerializeField] private float m_checkRadius = 0.5f;
 
-    // 플레이
-    public bool IsOverridden { get; set; }
+    // 대쉬스킬 관련
+    public bool m_IsDashing;
+    private Vector2 m_dashDirection;
+    private Vector2 m_prevDirection;
+    private float m_dashSpeed;
 
+    private bool m_IsTargetDir;
     private void Awake()
     {
         m_monsterRb = GetComponent<Rigidbody2D>();
@@ -40,16 +45,27 @@ public class MonsterAIMove : MonoBehaviour
     {
         if( m_player == null) return;
 
-        // 대쉬 스킬 중에는 방향 무효
-        if (IsOverridden) return;
-
-        Vector2 chaseDir = GetChaseDIr();
+        // 분리로직 방향
         Vector2 separateDir = GetSeparateDir();
+        Vector2 finalDir;
+        float speed;
 
-        Vector2 finalDir = (chaseDir + separateDir).normalized;
 
-        // 스피드 직접 받아옴, 스피드 디버프 혹시모르니..
-        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * m_monster.Info.Speed * Time.fixedDeltaTime);
+        // 스킬 사용하지 않을때, 평소 움직임
+        Vector2 chaseDir = Vector2.zero;
+
+        if (m_IsDashing == false)
+            chaseDir = GetChaseDIr();
+        else
+            chaseDir = m_prevDirection;
+
+        finalDir = (chaseDir + separateDir).normalized;
+        speed = m_monster.Info.Speed;
+
+        
+
+        // 움직임 최종 로직
+        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * speed * Time.fixedDeltaTime);
 
         bool isMoving = finalDir.sqrMagnitude > 0.01f;
         if (m_animTable != null)
@@ -63,13 +79,19 @@ public class MonsterAIMove : MonoBehaviour
             m_animator.SetFloat("Vertical", finalDir.y);
         }
 
+        m_prevDirection = chaseDir;
+    }
+
+    private void dkanrjsk()
+    {
+
     }
 
     private Vector2 GetSeparateDir()
     {
         Vector2 separation = Vector2.zero;
 
-        // 
+        //
         int count = Physics2D.OverlapCircle(transform.position, m_checkRadius, m_contactFilter ,m_overlapBuffer);
 
         for (int i = 0; i< count; i++)
@@ -94,4 +116,23 @@ public class MonsterAIMove : MonoBehaviour
 
         return move;
     }
+
+//    public IEnumerator DoDash(Vector2 direction, float speed, float duration)
+//    {
+
+//        Debug.Log("대쉬!");
+
+//        float time = 0f;
+//        // 스킬 지속시간동안에만 유지 (여러 프레임에 걸쳐서)
+//        while (time < duration)
+//        {
+//            m_monsterRb.MovePosition(m_monsterRb.position + direction * speed * Time.fixedDeltaTime);
+//            time += Time.fixedDeltaTime;
+//            yield return new WaitForFixedUpdate();
+
+//        }
+
+//        // 스킬 사용 종료 후 
+//        IsOverridden = false;
+//    }
 }

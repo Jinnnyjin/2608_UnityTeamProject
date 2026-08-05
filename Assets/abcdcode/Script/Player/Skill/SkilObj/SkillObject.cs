@@ -14,5 +14,17 @@ public abstract class SkillObject : BSObj
     {
         base.Update();
     }
+    public virtual void Delete()
+    {
+        UnityEngine.Debug.Log("Delete SkillObject");
+        if(GetComponent<PoolObject>() != null)
+        {
+            ObjectPoolManager.m_Instance.PushObject(gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     public Skill Skill{get;private set;}
 }

@@ -13,6 +13,7 @@ public class RangeSkill : SkillData
 
     public override void Init(Skill _skill)
     {
+        base.Init(_skill);
         _skill.CoolTimer.SetCool("Range_Skill", _skill.Data.CoolTime,0,false,null);
     }
 
@@ -22,13 +23,13 @@ public class RangeSkill : SkillData
         if (monster == null) return;
 
         // 0804 GameManager 내에서 수정해야함, 현재 테스트파일에 연결
-        //float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
+        float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
-        //if(_skill.CoolTimer.IsCoolComp("Range_Skill") && distance <= m_Range)
-        //{
-        //        monster.StartCoroutine(SkillCoroutine(monster));
-        //        _skill.CoolTimer.RefreshCool("Range_Skill");
-        //}
+        if(_skill.CoolTimer.IsCoolComp("Range_Skill") && distance <= m_Range)
+        {
+                monster.StartCoroutine(SkillCoroutine(monster));
+                _skill.CoolTimer.RefreshCool("Range_Skill");
+        }
     }
 
     private IEnumerator SkillCoroutine(Monster monster)
@@ -38,13 +39,13 @@ public class RangeSkill : SkillData
         yield return new WaitForSeconds(m_WarningDelay);
 
         // 0804 GameManager 내에서 수정해야함, 현재 테스트파일에 연결
-        //float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
+        float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
-        //if(distance <= m_Range)
-        //{
-        //    DamageInfo info = new DamageInfo { Dmg = Damage };
-        //    // 0804 아직 TakeDamage 확인 안됨
-        //    //GameManager.m_Instance.Player.TakeDamage(info);
-        //}
+        if(distance <= m_Range)
+        {
+            DamageInfo info = new DamageInfo { Dmg = Damage };
+            // 0804 아직 TakeDamage 확인 안됨
+            GameManager.m_Instance.Player.TakeDamage(info);
+        }
     }
 }

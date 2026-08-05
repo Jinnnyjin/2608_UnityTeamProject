@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 921f22a48953d3f43bda38c4a95ba401, type: 3}
-  m_Name: FireBall
+  m_Name: W_TestSkillData 4
   m_EditorClassIdentifier: Assembly-CSharp::DefaultShootSkillData
   Name: FireBall
   m_CoolTime: 1
   Prefab: {fileID: 6522354485181107950, guid: 142368984809bab43b07570498ad2e25, type: 3}
   m_type: 0
-  m_icon: {fileID: 21300000, guid: f4e46b577765e68498fddaead1543aae, type: 3}
-  m_title: "\uD30C\uC774\uC5B4\uBCFC"
-  m_desc: "\uBB34\uC791\uC704 \uBC29\uD5A5\uC73C\uB85C \uD654\uC5FC\uAD6C\uB97C \uBC1C\uC0AC\uD55C\uB2E4."
+  m_icon: {fileID: -1534688380, guid: 94fbda96386dd724bb29a34b9e448139, type: 3}
+  m_title: "\uD14C\uC2A4\uD2B8 \uC2A4\uD0AC4"
+  m_desc: "\uD14C\uC2A4\uD2B8 \uC2A4\uD0AC4\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4"
+  m_levelData: {fileID: 0}
   m_Damage: 10
   m_Speed: 5
   m_ProjCount: 1
