@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float m_currentExp = 0.0f;
     [SerializeField] private float m_maxExp = 0.0f;
     [SerializeField] private SkillSelectUIManager m_skillSelectUI;
-    private float m_weightExp = 0.5f; 
+    private float m_weightExp = 0.5f;
 
+    [SerializeField] private GameObject m_refPre;
     private int m_iCurrentLevel = 0;
 
     [SerializeField] private Player m_player;
@@ -32,7 +33,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            AddExp(10.0f);
+            //AddExp(10.0f);
+            ObjectPoolManager.m_Instance.GetObject(m_refPre);
         }
     }
     private void Start()
