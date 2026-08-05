@@ -33,7 +33,8 @@ public class DashSkill : SkillData
            
             _skill.CoolTimer.RefreshCool("Dash_Skill");
 
-            monster.MonsterMove.MonsterAttackSkill();
+            // 공격 애니메이션이 필요한가?
+            //monster.MonsterMove.MonsterAttackSkill();
             monster.MoveToPlayer(m_moveweight);
             //// 대시스킬 함수 호출
             //monster.StartCoroutine(monster.GetComponent<MonsterAIMove>().DoDash(direction, m_speed, m_duration));
