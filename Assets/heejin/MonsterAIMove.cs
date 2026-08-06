@@ -13,8 +13,6 @@ public class MonsterAIMove : MonoBehaviour
 
     private AnimTable m_animTable;
     private Animator m_animator;
-
-    private TrailRenderer m_trailRenderer;
     
     // 주변 타 몬스터와의 반경 
     // 테스트 기준 0.5에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
@@ -42,12 +40,6 @@ public class MonsterAIMove : MonoBehaviour
         m_contactFilter.useTriggers = true;
         m_contactFilter.useLayerMask = true;
         m_contactFilter.layerMask = LayerMask.GetMask("Monster");
-        m_trailRenderer = GetComponent<TrailRenderer>();
-
-        if (m_trailRenderer != null)
-        {
-            m_trailRenderer.emitting = false;
-        }
     }
 
     //private void OnEnable()
@@ -142,38 +134,4 @@ public class MonsterAIMove : MonoBehaviour
         else Debug.Log("m_animTable이 null");
     }
 
-    public void StartTrail()
-    {
-        if(m_trailRenderer != null)
-        {
-            m_trailRenderer.emitting = true;
-        }
-    }
-
-    public void StopTrail()
-    {
-        if (m_trailRenderer != null)
-        {
-            m_trailRenderer.emitting = false;
-        }
-    }
-
-//    public IEnumerator DoDash(Vector2 direction, float speed, float duration)
-//    {
-
-//        Debug.Log("대쉬!");
-
-//        float time = 0f;
-//        // 스킬 지속시간동안에만 유지 (여러 프레임에 걸쳐서)
-//        while (time < duration)
-//        {
-//            m_monsterRb.MovePosition(m_monsterRb.position + direction * speed * Time.fixedDeltaTime);
-//            time += Time.fixedDeltaTime;
-//            yield return new WaitForFixedUpdate();
-
-//        }
-
-//        // 스킬 사용 종료 후 
-//        IsOverridden = false;
-//    }
 }
