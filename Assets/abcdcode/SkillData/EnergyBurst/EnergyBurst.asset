@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 921f22a48953d3f43bda38c4a95ba401, type: 3}
-  m_Name: FireBall
+  m_Name: EnergyBurst
   m_EditorClassIdentifier: Assembly-CSharp::DefaultShootSkillData
-  Name: FireBall
-  m_CoolTime: 1
-  Prefab: {fileID: 6522354485181107950, guid: 142368984809bab43b07570498ad2e25, type: 3}
-  m_icon: {fileID: 21300000, guid: f4e46b577765e68498fddaead1543aae, type: 3}
-  m_title: "\uD30C\uC774\uC5B4\uBCFC"
-  m_desc: "\uBB34\uC791\uC704 \uBC29\uD5A5\uC73C\uB85C \uD654\uC5FC\uAD6C\uB97C \uBC1C\uC0AC\uD55C\uB2E4."
+  Name: EnergyBurst
+  m_CoolTime: 2
+  Prefab: {fileID: 6522354485181107950, guid: bbe88b08ffa6c1f468f1c00ce4253c5a, type: 3}
+  m_icon: {fileID: 21300000, guid: 26e570ff7e725b540bf6bed82a52c598, type: 3}
+  m_title: "\uC5D0\uB108\uC9C0 \uD3ED\uBC1C"
+  m_desc: "\uBB34\uC791\uC704 \uC704\uCE58\uC5D0 \uD3ED\uBC1C\uC744 \uC77C\uC73C\uCF1C
+    \uD53C\uD574\uB97C \uC900\uB2E4"
   m_levelData: []
-  m_Damage: 10
-  m_Speed: 5
+  m_Damage: 15
+  m_Speed: 0
   m_ProjCount: 1

@@ -26,5 +26,12 @@ public abstract class SkillObject : BSObj
             Destroy(this.gameObject);
         }
     }
+    public virtual void EventListen(string name)
+    {
+        if(name == "Delete")
+        {
+            Delete();
+        }
+    }
     public Skill Skill{get;private set;}
 }
