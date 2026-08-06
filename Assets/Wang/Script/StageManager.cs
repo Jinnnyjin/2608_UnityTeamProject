@@ -231,6 +231,9 @@ public class StageManager : MonoBehaviour
         --m_SpawnCount;
         //스왑 나중에 처리
         m_spawnGameObject.Remove(_monster);
+
+        if(m_bossSpawned == true && m_spawnGameObject.Count <= 0)
+            GameManager.m_Instance.EndGame();
         //Debug.Log(m_spawnGameObject.Count);
     }
 

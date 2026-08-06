@@ -21,6 +21,8 @@ public class SkillSelectUIManager : MonoBehaviour
 
     private List<int> randomIndices = new List<int>();
 
+    private List<SkillData> m_selectSkillData = new List<SkillData>();
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -40,7 +42,9 @@ public class SkillSelectUIManager : MonoBehaviour
         if (m_choiceButtons == null || m_choiceButtons.Length == 0) return;
 
         randomIndices.Clear();
-       
+
+        _choiceCount = _choiceCount < m_preLoadSkill.Count ? _choiceCount : m_preLoadSkill.Count;
+
         while (randomIndices.Count < _choiceCount)
         {
             int randIndex = Random.Range(0, m_preLoadSkill.Count);
@@ -49,18 +53,25 @@ public class SkillSelectUIManager : MonoBehaviour
                 randomIndices.Add(randIndex);
             }
         }
-        
 
-        for(int i = 0; i< randomIndices.Count; ++i)
+
+        ISkillOwner skillOwner = GameManager.m_Instance.Player;
+        for (int i = 0; i< randomIndices.Count; ++i)
         {
             int randomIdx = randomIndices[i];
 
             m_choiceButtons[i].gameObject.SetActive(true);
 
-            //ISkillOwner skillOwner = GameManager.m_Instance.Player;
-            //Skill mySkill = skillOwner.GetSkillBySkillData();
+            SkillData selectSkill = m_preLoadSkill[randomIdx];
+            Skill mySkill = skillOwner.GetSkillBySkillData(selectSkill);
 
-            m_choiceButtons[i].InitButton(m_preLoadSkill[randomIdx]);
+            int skillLevel = 0;
+            if (mySkill != null)
+                skillLevel = mySkill.SkillLevel;
+            m_choiceButtons[i].InitButton(m_preLoadSkill[randomIdx], skillLevel);
+
+            if (skillLevel >= Skill.MaxSkillLevel)
+                m_preLoadSkill.Remove(selectSkill);
         }
     }
 
@@ -71,16 +82,33 @@ public class SkillSelectUIManager : MonoBehaviour
     public void OnSkillSelected(SkillData _selectSkill)
     {
         Time.timeScale = 1.0f;
+        m_rewardPanelObject.SetActive(false);
+
+        SkillData preSKill = FindData(_selectSkill);
+        if (preSKill != null)
+            return;
+
         for (int i = 0; i< m_mainSkillSlots.Length; ++i)
         {
             if (m_mainSkillSlots[i].sprite == null)
             {
                 m_mainSkillSlots[i].gameObject.SetActive(true);
                 m_mainSkillSlots[i].sprite = _selectSkill.Icon;
+
+                m_selectSkillData.Add(_selectSkill);
                 break;
             }
         }
-        m_rewardPanelObject.SetActive(false);
+    }
+
+    private SkillData FindData(SkillData _selectSkill)
+    {
+        for (int i = 0; i<m_selectSkillData.Count; ++i)
+        {
+            if (m_selectSkillData[i] == _selectSkill)
+                return _selectSkill;
+        }
+        return null;
     }
   
 }
