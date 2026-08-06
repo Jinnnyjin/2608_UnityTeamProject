@@ -11,6 +11,9 @@ public class LoadingSceneController : MonoBehaviour
     [Header("[ 로딩 UI 패널 자체 오브젝트 ]")]
     [SerializeField] private GameObject m_loadingPanelObject;
 
+
+    [SerializeField] private GameObject m_TitlePanelObject;
+
     [Header("[ 로딩 바 슬라이더 연결 ]")]
     public Slider m_loadingSlider;
 
@@ -42,7 +45,14 @@ public class LoadingSceneController : MonoBehaviour
     /// </summary>
     public void TriggerLoading(string targetSceneName)
     {
+        m_TitlePanelObject.SetActive(false);
         StartCoroutine(LoadMapSceneProcess(targetSceneName));
+    }
+
+    public void TriggerTitle()
+    {
+        m_TitlePanelObject.SetActive(true);
+        StartCoroutine(LoadMapSceneProcess("TitleScene"));
     }
 
     // 🌟 직접 작성하신 '비동기 슬라이더 연산 공식' 100% 완벽 재탕 구역

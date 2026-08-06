@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Kua/Scene/LoadingScene.unity
     guid: 41aa2d652e97f70478441291dbc90419
-  - enabled: 1
+  - enabled: 0
     path: Assets/Kua/Scene/GameScene.unity
     guid: 3fcbf4a01e42d52498e0f98c46ee0846
+  - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: dfacb197e859e9945aceed3805f87154
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 880a8ba29e09956498cd1c37d12c4794, type: 3}
   m_UseUCBPForAssetBundles: 0
