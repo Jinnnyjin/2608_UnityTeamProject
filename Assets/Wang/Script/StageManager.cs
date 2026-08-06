@@ -84,8 +84,8 @@ public class StageManager : MonoBehaviour
 
     private bool m_bossSpawned = false; // 보스는 한 번만 로드
 
-    private List<GameObject> m_spawnGameObject = new List<GameObject>();
-    public IReadOnlyList<GameObject> SpawnGameObject => m_spawnGameObject;
+    private List<Monster> m_spawnGameObject = new List<Monster>();
+    public IReadOnlyList<Monster> SpawnGameObject => m_spawnGameObject;
 
 
     public static StageManager m_Instance;
@@ -230,14 +230,19 @@ public class StageManager : MonoBehaviour
     {
         --m_SpawnCount;
         //스왑 나중에 처리
-        m_spawnGameObject.Remove(_monster.gameObject);
-        Debug.Log(m_spawnGameObject.Count);
+        m_spawnGameObject.Remove(_monster);
+        //Debug.Log(m_spawnGameObject.Count);
     }
 
     private void SpawnObject(GameObject _spawnObject)
     {
-        m_spawnGameObject.Add(_spawnObject);
-        Debug.Log(m_spawnGameObject.Count);
+        if( _spawnObject.TryGetComponent<Monster>(out var monster) == false)
+        {
+            Debug.LogError("이상한 값이 들어옴 : stageManager");
+            return;
+        }
+        m_spawnGameObject.Add(monster);
+        //Debug.Log(m_spawnGameObject.Count);
     }
     // 그 스테이지의 일반 몬스터를 다 처치했을 때 호출: 마지막 스테이지면 보스 등장, 아니면 다음 스테이지로
 
