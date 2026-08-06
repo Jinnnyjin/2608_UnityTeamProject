@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Player : BSObj, IDamageable,ISkillOwner,IStat
 {
-    public void Start()
+    public void Awake()
     {
         SkillList = new List<Skill>();
         CurrentHp = Hp;
