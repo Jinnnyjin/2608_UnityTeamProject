@@ -19,7 +19,12 @@ MonoBehaviour:
   m_title: "\uC5D0\uB108\uC9C0 \uD3ED\uBC1C"
   m_desc: "\uBB34\uC791\uC704 \uC704\uCE58\uC5D0 \uD3ED\uBC1C\uC744 \uC77C\uC73C\uCF1C
     \uD53C\uD574\uB97C \uC900\uB2E4"
-  m_levelData: []
+  m_levelData:
+  - {fileID: 11400000, guid: cf7280a9e0a44434aa4cec5d2f59aea4, type: 2}
+  - {fileID: 11400000, guid: 651da8d9853f525459c24e0d1be18db4, type: 2}
+  - {fileID: 11400000, guid: 27ed24fb1405d544cb1c96df69665c9b, type: 2}
+  - {fileID: 11400000, guid: 9c12400421295bd46883b6df44a76e13, type: 2}
+  - {fileID: 11400000, guid: b84bd966effabc54391e785690f9645c, type: 2}
   m_Damage: 15
   m_Speed: 0
   m_ProjCount: 1
