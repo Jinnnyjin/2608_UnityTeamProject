@@ -94,7 +94,7 @@ public class SoundManager : MonoBehaviour
         m_BgmSource.clip = null;
     }
 
-    public int PlaySfx(SOAudio _Audio, Transform _Transform = null)
+    public int PlaySfx(SOAudio _Audio)
     {
         if (_Audio == null || _Audio.Clips.Count == 0)
             return -1;
@@ -110,13 +110,6 @@ public class SoundManager : MonoBehaviour
         pSrc.volume = _Audio.Volume;
         pSrc.pitch = UnityEngine.Random.Range(_Audio.PitchMin, _Audio.PitchMax);
 
-        if (_Audio.Spatial3D == true && _Transform != null)
-        {
-            pSrc.transform.position = _Transform.position;
-            pSrc.spatialBlend = _Audio.SpatialBlend;
-        }
-        else
-            pSrc.spatialBlend = 0.0f;
 
         pSrc.Play();
 
