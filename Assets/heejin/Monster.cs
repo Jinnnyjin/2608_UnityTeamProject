@@ -25,7 +25,6 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     public FactionEnum Faction => FactionEnum.Enemy;
 
     //baseAttack타임동안 Range에 들어오면 공격
-    [SerializeField]private float m_baseHitRange = 1.0f;
     [SerializeField]private float m_baseAttackTime = 1.0f;
     private float m_curAttackTime = 0.0f;
     private DamageInfo m_baseDamageInfo = new DamageInfo();
@@ -79,17 +78,19 @@ public class Monster : BSObj, IDamageable, ISkillOwner
             m_hitCoroutine = StartCoroutine(HitEffect());
         }
     }
+
     public override void Update()
     {
         base.Update();
         CheckAttack();
     }
+
     private void CheckAttack()
     {
         Player target = GameManager.m_Instance.Player;
         Vector2 fiff = target.Position - transform.position;
         float len = fiff.magnitude;
-        if(len < m_baseHitRange)
+        if(len < m_SOMonsterInfo.BaseAttackRange)
         {
             m_curAttackTime += Time.deltaTime;
             if (m_curAttackTime >= m_baseAttackTime)
@@ -104,6 +105,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner
             m_curAttackTime = 0.0f;
         }
     }
+
     public bool IsDead()
     {
         return m_monsterInfo.HP <= 0; 

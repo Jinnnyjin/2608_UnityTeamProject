@@ -9,8 +9,7 @@ public enum MonsterType
    End 
 }
 
-[CreateAssetMenu(fileName = "SO_", menuName = "Game/Monster/MonsterInfo")]
-public class SOMonsterInfo : ScriptableObject
+public class SOMonsterInfo : SOData
 {
     [SerializeField] MonsterType m_monsterType;
     public MonsterType MonsterType => m_monsterType;
