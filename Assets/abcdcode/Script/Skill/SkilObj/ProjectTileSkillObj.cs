@@ -16,7 +16,7 @@ public class ProjectTileSkillObj : SkillObject
                 transform.SetAngle(p.Controller.LookAt);
                 break;
             case ProjectTileInitType.NearestEnemy:
-                var m = StageManager.m_Instance.SpawnGameObject.ToList().ConvertGameObjectListToComp<Monster>().GetNearestInList(p.Position);
+                var m = StageManager.m_Instance.SpawnGameObject.ToList().GetNearestInList(p.Position);
                 if(m == null)
                 {
                     transform.SetAngle(0);
