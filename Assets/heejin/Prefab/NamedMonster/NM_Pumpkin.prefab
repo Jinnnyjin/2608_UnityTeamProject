@@ -18,8 +18,8 @@ GameObject:
   - component: {fileID: 2090146520081214308}
   - component: {fileID: 8840669540337703241}
   - component: {fileID: 8526967088887384085}
-  m_Layer: 0
-  m_Name: Monster_Named
+  m_Layer: 7
+  m_Name: NM_Pumpkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.59, y: 2.07, z: -1}
-  m_LocalScale: {x: 7, y: 7, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,15 +89,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -774118060, guid: a65c1fd5f8398a741a5265c642e887fd, type: 3}
+  m_Sprite: {fileID: 1984980325, guid: aa309f6372dc06842b54965e52e0dcb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.15, y: 0.22}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!114 &671779894340015654
 MonoBehaviour:
@@ -125,7 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34be9d3ea96db7249904d9fd63f430ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
-  m_SOMonsterInfo: {fileID: 11400000, guid: 79b3ac42a66b55e49a999411eec9daa1, type: 2}
+  m_SOMonsterInfo: {fileID: 11400000, guid: 271e2ae4fa67cd7498bb6c2074d8b3ac, type: 2}
+  m_baseHitRange: 1
+  m_baseAttackTime: 1
+  m_hitEffectTime: 0.3
+  m_changeColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &61893681361995741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,8 +204,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.15, y: 0.2}
+  m_Offset: {x: 0.005, y: -0.05}
+  m_Size: {x: 0.15, y: 0.25}
   m_Direction: 0
 --- !u!114 &2090146520081214308
 MonoBehaviour:
@@ -231,7 +235,13 @@ MonoBehaviour:
   m_listAnimationList:
   - State: 1
     ParamType: 1
-    ParamName: '"Move"'
+    ParamName: Move
+    Bool: 0
+    Int: 0
+    Float: 0
+  - State: 2
+    ParamType: 2
+    ParamName: Attack
     Bool: 0
     Int: 0
     Float: 0
@@ -245,7 +255,7 @@ Animator:
   m_GameObject: {fileID: 2667062276481925001}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fe2f5beec39945f408efcda02bf84a68, type: 2}
+  m_Controller: {fileID: 9100000, guid: a5ee7897fef04ca4384ac2b39c73fa95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
