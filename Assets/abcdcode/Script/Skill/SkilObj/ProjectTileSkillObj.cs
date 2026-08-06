@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 [RequireComponent(typeof(SkillMovement),typeof(SkillHit))]
 public class ProjectTileSkillObj : SkillObject
@@ -5,16 +6,27 @@ public class ProjectTileSkillObj : SkillObject
     public override void Init(Skill skill)
     {
         base.Init(skill);
+        var p = skill.Owner as Player;
         skillMovement = GetComponent<SkillMovement>();
         skillHit = GetComponent<SkillHit>();
         m_Timer.SetCool(Cool,m_duration,0,true,Delete);
         switch(m_InitType)
         {
             case ProjectTileInitType.Forward:
-                var p = skill.Owner as Player;
                 transform.SetAngle(p.Controller.LookAt);
                 break;
             case ProjectTileInitType.NearestEnemy:
+                var m = StageManager.m_Instance.SpawnGameObject.ToList().ConvertGameObjectListToComp<Monster>().GetNearestInList(p.Position);
+                if(m == null)
+                {
+                    transform.SetAngle(0);
+                }
+                else
+                {
+                    var vec = m.Position - p.Position;
+                    transform.SetAngle(vec);
+                }
+                
                 break;
             case ProjectTileInitType.Random:
                 float v = UnityEngine.Random.Range(0,360);
