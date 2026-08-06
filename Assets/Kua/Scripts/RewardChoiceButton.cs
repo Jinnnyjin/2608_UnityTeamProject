@@ -21,22 +21,19 @@ public class RewardChoiceButton : MonoBehaviour
     /// </summary>
     /// 
     int count =0;
-    public void InitButton(SkillData _randomSkill)
+    public void InitButton(SkillData _randomSkill, int _level)
     {
         m_randomSkill = _randomSkill;
         m_iconImage.sprite = _randomSkill.Icon;
         m_iconImage.gameObject.SetActive(true);
         m_descText.text = _randomSkill.Desc;
         m_titleText.text = _randomSkill.Title;
-        //m_levelText.text = 
-        Debug.Log($"{count}는 {m_randomSkill.Icon.name}");
-        //TODO 스킬 ID에 스킬 설명을 넣는다
+        m_levelText.text = _level.ToString();
+     
     }
     
-    // 마우스로 이 보상 버튼을 클릭했을 때 실행되는 함수 (기존 연동용)
     public void OnClickButton()
     {
-        Debug.Log($"눌린 얘는 {m_randomSkill.Icon.name}");
 
         GameManager.m_Instance.Player.RegisterSkill(m_randomSkill);
         SkillSelectUIManager.Instance.OnSkillSelected(m_randomSkill);
