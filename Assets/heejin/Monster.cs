@@ -38,8 +38,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     [SerializeField] private Color m_changeColor;
     private Color m_originColor;
 
+    private GameObject m_activeIndicator;
 
-    private WaitForSeconds m_waitSecond = null;
     private Coroutine m_dashCoroutine;
 
     private bool m_isUsingSkill = false;
@@ -111,9 +111,16 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
     private void Die()
     {
-        // 테스트용 경험치
         onMonsterDied?.Invoke(this);
         m_renderer.color = m_originColor;
+
+        // 죽었을때 인디케이터도 반납
+        if(m_activeIndicator != null)
+        {
+            ObjectPoolManager.m_Instance.PushObject(m_activeIndicator);
+            m_activeIndicator = null;
+        }
+
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
 
@@ -172,8 +179,31 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
         MonsterMove.StartTrail();
 
-        yield return new WaitForSeconds(_fWeight);
+        float time = 0f;
+        float prevDist = (transform.position - GameManager.m_Instance.Player.Position).magnitude;
 
+        // 지속시간동안 스킬 
+        while (time < _fWeight)
+        {
+            float currentDist = (transform.position - GameManager.m_Instance.Player.Position).magnitude;
+
+            // 직전 거리보다 멀어졌다면?
+            if(currentDist > prevDist)
+            {
+                // 0.3f만큼만 더 가고 멈춤
+                yield return new WaitForSeconds(0.3f);
+                // 대쉬스킬 중단
+                break;
+            }
+
+            prevDist = currentDist;
+            time += Time.deltaTime;
+
+            // 1 프레임 쉬고 다음프레임에 while문 이어서
+            yield return null;
+        }
+
+        // 가중치 원래 값으로
         MonsterMove.MoveWeight = startWeight;
         MonsterMove.LockDir = false;
 
@@ -182,6 +212,16 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         EndSkill();
 
         m_dashCoroutine = null;
+    }
+
+    public void SetActiveIndicator(GameObject indicator)
+    {
+        m_activeIndicator = indicator;
+    }
+
+    public void ClearActiveIndicator()
+    {
+        m_activeIndicator = null;
     }
 
     public void StopMoving()

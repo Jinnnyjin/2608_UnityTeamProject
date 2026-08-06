@@ -4,9 +4,7 @@ using UnityEngine.Rendering;
 public class DashSkill : SkillData
 {
     [SerializeField] private float m_speed;
-    /*
-     * 기존 스피드 방식에서 weight방식으로 변경
-     */
+
     [SerializeField] private float m_moveweight = 1.0f;
     [SerializeField] private float m_duration;
 
@@ -28,20 +26,10 @@ public class DashSkill : SkillData
 
             if (!monster.TryStartSkill()) return;
 
-            //monster.GetComponent<MonsterAIMove>().m_IsDashing = true;
-            //// 몬스터 -> 플레이어 방향
-            //Vector2 direction = (GameManager.m_Instance.Player.Position - monster.Position).normalized;
-
             _skill.CoolTimer.RefreshCool("Dash_Skill");
 
-            // 공격 애니메이션이 필요한가?
-            //monster.MonsterMove.MonsterAttackSkill();
             monster.MoveToPlayer(m_moveweight);
-            //// 대시스킬 함수 호출
-            //monster.StartCoroutine(monster.GetComponent<MonsterAIMove>().DoDash(direction, m_speed, m_duration));
-
-          
-            //monster.GetComponent<MonsterAIMove>().m_IsDashing = false;
+            
         }
     }
 

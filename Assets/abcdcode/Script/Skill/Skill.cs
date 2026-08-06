@@ -5,7 +5,7 @@ public class Skill : IStat
 {
     public void Init(ISkillOwner owner,SkillData data)
     {
-        SkillLevel = 3;
+        SkillLevel = 1;
         CoolTimer = new CoolTimer();
         Owner = owner;
         Data = data;

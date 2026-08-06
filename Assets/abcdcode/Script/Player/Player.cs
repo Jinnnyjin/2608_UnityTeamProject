@@ -25,6 +25,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     private void Player_Dead()
     {
         this.gameObject.SetActive(false);
+        GameManager.m_Instance.EndGame();
     }
     public FactionEnum Faction => FactionEnum.Player;
     public void TakeDamage(DamageInfo info)
