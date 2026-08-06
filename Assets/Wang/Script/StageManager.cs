@@ -83,6 +83,12 @@ public class StageManager : MonoBehaviour
     private WaitForSeconds m_waitSpawnTime = null;  //다음 스폰까지 대기 시간
 
     private bool m_bossSpawned = false; // 보스는 한 번만 로드
+
+    private List<GameObject> m_spawnGameObject = new List<GameObject>();
+    public IReadOnlyList<GameObject> SpawnGameObject => m_spawnGameObject;
+
+
+    public static StageManager m_Instance;
     //private void Awake()
     //{
     //    if (m_Instance != null)
@@ -95,6 +101,10 @@ public class StageManager : MonoBehaviour
     //
     //    DontDestroyOnLoad(gameObject);
     //}
+    private void Awake()
+    {
+        m_Instance = this;
+    }
 
     private void Start()
     {
@@ -110,11 +120,13 @@ public class StageManager : MonoBehaviour
     private void OnEnable()
     {
         Monster.onMonsterDied += MonsterDead;
+        m_spawner.OnSpawn += SpawnObject;
     }
 
     private void OnDisable()
     {
         Monster.onMonsterDied -= MonsterDead;
+        m_spawner.OnSpawn -= SpawnObject;
     }
 
     private void StartStage()
@@ -217,8 +229,16 @@ public class StageManager : MonoBehaviour
     private void MonsterDead(Monster _monster)
     {
         --m_SpawnCount;
+        //스왑 나중에 처리
+        m_spawnGameObject.Remove(_monster.gameObject);
+        Debug.Log(m_spawnGameObject.Count);
     }
 
+    private void SpawnObject(GameObject _spawnObject)
+    {
+        m_spawnGameObject.Add(_spawnObject);
+        Debug.Log(m_spawnGameObject.Count);
+    }
     // 그 스테이지의 일반 몬스터를 다 처치했을 때 호출: 마지막 스테이지면 보스 등장, 아니면 다음 스테이지로
 
     private void SpawnBoss()
