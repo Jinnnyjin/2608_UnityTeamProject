@@ -37,5 +37,6 @@ public class RewardChoiceButton : MonoBehaviour
 
         GameManager.m_Instance.Player.RegisterSkill(m_randomSkill);
         SkillSelectUIManager.Instance.OnSkillSelected(m_randomSkill);
+        m_randomSkill = null;
     }
 }

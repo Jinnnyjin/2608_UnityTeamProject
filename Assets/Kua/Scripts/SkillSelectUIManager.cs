@@ -56,6 +56,9 @@ public class SkillSelectUIManager : MonoBehaviour
 
 
         ISkillOwner skillOwner = GameManager.m_Instance.Player;
+
+        //앞으로 지워줄 maxskills
+        List<SkillData> maxedSkills = new List<SkillData>();
         for (int i = 0; i< randomIndices.Count; ++i)
         {
             int randomIdx = randomIndices[i];
@@ -68,11 +71,14 @@ public class SkillSelectUIManager : MonoBehaviour
             int skillLevel = 0;
             if (mySkill != null)
                 skillLevel = mySkill.SkillLevel;
-            m_choiceButtons[i].InitButton(m_preLoadSkill[randomIdx], skillLevel);
+            m_choiceButtons[i].InitButton(selectSkill, skillLevel);
 
             if (skillLevel >= Skill.MaxSkillLevel)
-                m_preLoadSkill.Remove(selectSkill);
+                maxedSkills.Add(selectSkill);
         }
+
+        foreach (var maxedSkill in maxedSkills)
+            m_preLoadSkill.Remove(maxedSkill);
     }
 
     /// <summary>

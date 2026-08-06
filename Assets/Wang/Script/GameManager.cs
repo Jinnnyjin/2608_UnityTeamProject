@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player m_player;
     public Player Player => m_player;
 
-
+    [SerializeField] GameObject m_GameOverView;
     private void Awake()
     {
         if (m_Instance != null && m_Instance != this)
@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
             return;
         }
         m_Instance = this;
+
+
+        Monster.onMonsterDied += MonsterDead;
     }
 
     private void Start()
     {
-        Monster.onMonsterDied += MonsterDead;
         m_expSlider.value = 0.0f;
 
         var playerSkills = Player.SkillList;
@@ -44,11 +46,11 @@ public class GameManager : MonoBehaviour
 
         TakeDamage(-1);
     }
-    private void OnDestroy()
-    {
-        Monster.onMonsterDied += MonsterDead;
-
-    }
+    //private void OnDestroy()
+    //{
+    //    Monster.onMonsterDied += MonsterDead;
+    //
+    //}
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.E))
@@ -95,10 +97,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-   
-
     public void EndGame()
     {
-        
+        Time.timeScale = 0.0f;
+        m_GameOverView.SetActive(true);
+    }
+
+    public void ReturnLoby()
+    {
+        Time.timeScale = 1.0f;
+        LoadingSceneController.Instance.TriggerTitle();
     }
 }

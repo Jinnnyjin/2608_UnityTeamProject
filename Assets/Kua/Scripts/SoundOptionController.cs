@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // 씬 관리를 위해 추가
 
 public class SoundOptionController : MonoBehaviour
 {
@@ -12,8 +13,63 @@ public class SoundOptionController : MonoBehaviour
     [SerializeField] private Slider m_sfxSlider;
 
     [Header("[ 📢 누구나 테스트 가능한 BGM 전용 스피커 ]")]
-    // 📌 여기에 현재 가지고 계신 mp3 오디오 소스를 연결합니다.
     [SerializeField] private AudioSource m_bgmAudioSource;
+
+    // 게임 일시 정지 상태를 체크하기 위한 변수 추가
+    private bool isPaused = false;
+
+    void Start()
+    {
+        // 🚀 [추가] 게임 씬에서 Missing이 나는 문제를 해결하는 자동 검색 기능
+        // 인스펙터에 수동으로 연결이 안 되어 있거나(Null), 씬 전환으로 끊겼다면(Missing) 실행
+        if (m_bgmAudioSource == null)
+        {
+            GlobalAudioSource globalAudio = Object.FindFirstObjectByType<GlobalAudioSource>();
+            if (globalAudio != null)
+            {
+                m_bgmAudioSource = globalAudio.GetComponent<AudioSource>();
+
+                // 찾은 오디오 소스를 기준으로 볼륨을 한 번 더 동기화해 줍니다.
+                UpdateRealBgmVolume();
+            }
+        }
+
+        // 게임 시작 시 패널은 자동으로 꺼두기
+        if (m_soundPanelObject != null)
+        {
+            m_soundPanelObject.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        // 🚀 [추가] 타이틀 씬이 아닐 때만 ESC 키로 일시 정지 및 옵션 창 켜기
+        if (SceneManager.GetActiveScene().name == "TitleScene") return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseAndMenu();
+        }
+    }
+
+    // 🚀 [추가] 일시 정지 및 패널 토글 함수
+    public void TogglePauseAndMenu()
+    {
+        if (m_soundPanelObject == null) return;
+
+        isPaused = !isPaused;
+
+        if (isPaused)
+        {
+            Time.timeScale = 0f; // 게임 세상 일시 정지
+            m_soundPanelObject.SetActive(true); // 옵션 패널 강제 활성화
+        }
+        else
+        {
+            Time.timeScale = 1f; // 게임 재개
+            SaveAndCloseOptions(); // 닫힐 때 기존 저장 및 비활성화 로직 실행
+        }
+    }
 
     private void OnEnable()
     {
@@ -50,7 +106,6 @@ public class SoundOptionController : MonoBehaviour
         if (m_bgmAudioSource != null)
         {
             // 실제 배경음 스피커 소리 = (마스터 슬라이더 수치 × 배경음 슬라이더 수치)
-            // 이렇게 곱해주어야 마스터가 줄어들면 모든 소리가 줄어들고, BGM만 줄여도 따로 줄어듭니다!
             m_bgmAudioSource.volume = m_masterSlider.value * m_bgmSlider.value;
         }
     }
@@ -58,9 +113,6 @@ public class SoundOptionController : MonoBehaviour
     // 💥 효과음 슬라이더가 움직일 때 실시간 실행되는 함수
     private void OnSfxVolumeChanged(float value)
     {
-        // 🚨 효과음 수치(value)가 아무리 변해도 위의 UpdateRealBgmVolume()을 호출하지 않으므로
-        // 현재 씬에 나오는 BGM 소리 크기에는 '단 1도' 영향을 주지 않고 완벽하게 독립됩니다!
-        // (나중에 사운드 팀원이 오면 이 value 값을 효과음 믹서에 꽂아주기만 하면 끝납니다.)
         PlayerPrefs.SetFloat("SfxVol", value);
     }
 
@@ -77,5 +129,9 @@ public class SoundOptionController : MonoBehaviour
         {
             m_soundPanelObject.SetActive(false);
         }
+
+        // 일시 정지 상태에서 마우스로 직접 닫기 버튼을 눌렀을 때를 대비해 시간 재생 보장
+        isPaused = false;
+        Time.timeScale = 1f;
     }
 }

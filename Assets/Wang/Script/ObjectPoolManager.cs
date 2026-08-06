@@ -19,14 +19,16 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void Awake()
     {
-        if (m_Instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-
         m_Instance = this;
-        DontDestroyOnLoad(this);
+
+        //if (m_Instance != null)
+        //{
+        //    Destroy(this);
+        //    return;
+        //}
+        //
+        //m_Instance = this;
+        //DontDestroyOnLoad(this);
     }
 
   
