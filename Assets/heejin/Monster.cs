@@ -38,8 +38,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner
     [SerializeField] private Color m_changeColor;
     private Color m_originColor;
 
+    private GameObject m_activeIndicator;
 
-    private WaitForSeconds m_waitSecond = null;
     private Coroutine m_dashCoroutine;
 
     private bool m_isUsingSkill = false;
@@ -111,9 +111,16 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
     private void Die()
     {
-        // 테스트용 경험치
         onMonsterDied?.Invoke(this);
         m_renderer.color = m_originColor;
+
+        // 죽었을때 인디케이터도 반납
+        if(m_activeIndicator != null)
+        {
+            ObjectPoolManager.m_Instance.PushObject(m_activeIndicator);
+            m_activeIndicator = null;
+        }
+
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
 
@@ -205,6 +212,16 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         EndSkill();
 
         m_dashCoroutine = null;
+    }
+
+    public void SetActiveIndicator(GameObject indicator)
+    {
+        m_activeIndicator = indicator;
+    }
+
+    public void ClearActiveIndicator()
+    {
+        m_activeIndicator = null;
     }
 
     public void StopMoving()

@@ -41,6 +41,7 @@ public class RangeSkill : SkillData
         // 범위 반경 오브젝트 활성화
         GameObject indicator = ObjectPoolManager.m_Instance.GetObject(Prefab);
         indicator.transform.position = monster.Position;
+        monster.SetActiveIndicator(indicator);
 
         float scale = m_Range / BaseSpriteRadius;
         indicator.transform.localScale = Vector3.one * scale;
@@ -49,6 +50,7 @@ public class RangeSkill : SkillData
         
         // 범위 오브젝트 반납
         ObjectPoolManager.m_Instance.PushObject(indicator);
+        monster.ClearActiveIndicator();
 
         float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
@@ -67,7 +69,6 @@ public class RangeSkill : SkillData
                 Debug.LogWarning($"TakeDamage 오류: {e.Message}");
             }
         }
-
 
         monster.ResumeMoving();
         monster.EndSkill();

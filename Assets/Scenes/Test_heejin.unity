@@ -2006,17 +2006,17 @@ MonoBehaviour:
   m_mainCam: {fileID: 987926542}
   m_LimitSpanwer: 50
   m_stageInfo:
-    m_stageStep: 300
+    m_stageStep: 10
     m_spawnMonsterDatas:
     - m_monsterPrefabs:
       - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-        Weight: 11
+        Weight: 16
       - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
-        Weight: 12
+        Weight: 14
       - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
-        Weight: 61
+        Weight: 48
       - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
-        Weight: 61
+        Weight: 49
       m_spawnStep: 0.79
     m_StageLevel: 0
   m_StargeBoss: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
