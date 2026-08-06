@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 982180936}
   - component: {fileID: 982180935}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: LoadingCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -955,6 +955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6535349cf7aa648bc568e519b7edfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoadingSceneController
+  m_loadingPanelObject: {fileID: 0}
   m_loadingSlider: {fileID: 511659469}
 --- !u!4 &2129981018
 Transform:
