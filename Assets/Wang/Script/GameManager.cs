@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
     {
         Monster.onMonsterDied += MonsterDead;
         m_expSlider.value = 0.0f;
+
+        var playerSkills = Player.SkillList;
+        for(int i = 0; i<playerSkills.Count; ++i)
+            SkillSelectUIManager.Instance.OnSkillSelected(playerSkills[i].Data); 
+
         TakeDamage(-1);
     }
     private void OnDestroy()

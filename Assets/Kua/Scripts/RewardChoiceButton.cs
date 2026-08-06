@@ -8,6 +8,7 @@ public class RewardChoiceButton : MonoBehaviour
     [Header("[ 버튼 내부 컴포넌트들 ]")]
     [SerializeField] private TextMeshProUGUI m_titleText; // 제목 텍스트 칸
     [SerializeField] private TextMeshProUGUI m_descText;  // 설명 텍스트 칸
+    [SerializeField] private TextMeshProUGUI m_levelText;  // 설명 텍스트 칸
     [SerializeField] private Image m_iconImage;          // 아이콘 이미지 칸
 
     //스크립터블 오브젝트
@@ -26,7 +27,8 @@ public class RewardChoiceButton : MonoBehaviour
         m_iconImage.sprite = _randomSkill.Icon;
         m_iconImage.gameObject.SetActive(true);
         m_descText.text = _randomSkill.Desc;
-
+        m_titleText.text = _randomSkill.Title;
+        //m_levelText.text = 
         Debug.Log($"{count}는 {m_randomSkill.Icon.name}");
         //TODO 스킬 ID에 스킬 설명을 넣는다
     }

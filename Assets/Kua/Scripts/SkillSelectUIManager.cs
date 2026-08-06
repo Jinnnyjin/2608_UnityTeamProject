@@ -70,6 +70,7 @@ public class SkillSelectUIManager : MonoBehaviour
         {
             if (m_mainSkillSlots[i].sprite == null)
             {
+                m_mainSkillSlots[i].gameObject.SetActive(true);
                 m_mainSkillSlots[i].sprite = _selectSkill.Icon;
                 break;
             }
