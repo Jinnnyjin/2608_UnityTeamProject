@@ -14,6 +14,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     }
     public void Update()
     {
+        if(IsDead()) return;
         SkillList.ForEach(x => x.GameUpdate());
     }
 
@@ -24,10 +25,12 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     private void Player_Dead()
     {
         this.gameObject.SetActive(false);
+        GameManager.m_Instance.EndGame();
     }
     public FactionEnum Faction => FactionEnum.Player;
     public void TakeDamage(DamageInfo info)
     {
+        if(IsDead()) return;
         var finalDmg = Mathf.Max(1,(info.Dmg-Def) * ReduceDmg);
         CurrentHp -= finalDmg;
         GameManager.m_Instance.TakeDamage(finalDmg);

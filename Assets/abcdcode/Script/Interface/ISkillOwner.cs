@@ -19,5 +19,8 @@ public interface ISkillOwner
     public void UnRegisterSkill(Skill skill);
     public void UnRegisterSkill(SkillData skill);
     public void UnRegisterSkill(string skillId);
-
+    public Skill GetSkillBySkillData(SkillData data)
+    {
+        return SkillList.Find(x => x.Data == data);
+    }
 }

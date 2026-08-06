@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   m_Controller: {fileID: 944903584618816502}
-  TestSkill: {fileID: 11400000, guid: 402a9f9b6f3c0a6478d985b1412cc995, type: 2}
+  TestSkill: {fileID: 11400000, guid: 7974cbffbc004504a923224f44338e01, type: 2}
 --- !u!114 &944903584618816502
 MonoBehaviour:
   m_ObjectHideFlags: 0
