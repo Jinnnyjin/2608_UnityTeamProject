@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Update()
     {
+        if(m_player.IsDead()) return;
         //InputManager에서 인풋 가져오기
         var input = InputManager.m_Instance.InputInfo;
         //방향키 인풋
