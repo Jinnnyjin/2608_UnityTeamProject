@@ -1,9 +1,38 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class CalcUtil
 {
+    public static List<T> ConvertGameObjectListToComp<T>(this List<GameObject> list)
+    {
+        if(list[0].GetComponent<T>() == null) return null;
+        List<T> result = new List<T>();
+        foreach(var o in list)
+        {
+            result.Add(o.GetComponent<T>());
+        }
+        return result;
+    }
+    public static T GetNearestInList<T>(this List<T> list,Vector3 pos) where T : BSObj
+    {
+        return FindObjective(list,(a,b) =>Vector3.Distance(a.Position,pos) > Vector3.Distance(b.Position,pos) ? b : a);
+    }
+    public static T FindObjective<T>(List<T> list, Func<T,T,T> func)
+    {
+        T result = default(T);
+        foreach(var t in list)
+        {
+            if(result == null)
+            {
+                result = t;
+                continue;
+            }
+            result = func(result,t);
+        }
+        return result;
+    }
     public static float FinalDamage(this Skill s)
     {
         if(s.Owner is IStat o)
