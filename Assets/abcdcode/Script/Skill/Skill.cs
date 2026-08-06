@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
 public class Skill : IStat
@@ -7,6 +8,7 @@ public class Skill : IStat
     {
         SkillLevel = 1;
         CoolTimer = new CoolTimer();
+        m_objDic = new Dictionary<string, object>();
         Owner = owner;
         Data = data;
         Data.Init(this);
@@ -21,6 +23,20 @@ public class Skill : IStat
         this.Owner.UnRegisterSkill(this);
     }
     public CoolTimer CoolTimer;
+    private Dictionary<string,object> m_objDic;
+    public T GetSkillObject<T>(string id)
+    {
+        if(!m_objDic.ContainsKey(id)) return default(T);
+        return (T)m_objDic[id];
+    }
+    public void AddSkillObject(string id, object obj)
+    {
+        m_objDic[id] = obj;
+    }
+    public void RemoveSkillObject(string id)
+    {
+        m_objDic.Remove(id);
+    }
     public ISkillOwner Owner{get;private set;}
     public SkillData Data{get;private set;}
     public int SkillLevel{
@@ -30,7 +46,12 @@ public class Skill : IStat
         }
         set
         {
+            var prev = m_skillLevel;
             m_skillLevel = Mathf.Clamp(value,1,MaxSkillLevel);
+            if(m_skillLevel > prev)
+            {
+                Data.OnLevelUp(this);
+            }
         }
     }
 

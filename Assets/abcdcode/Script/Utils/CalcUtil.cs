@@ -5,6 +5,11 @@ using UnityEngine;
 
 public static class CalcUtil
 {
+    public static GameObject PoolInstantiate(this GameObject obj)
+    {
+        if(obj.GetComponent<PoolObject>() == null) return null;
+        return ObjectPoolManager.m_Instance.GetObject(obj);
+    }
     public static R GetSKillStatValue<R>(this ISkillOwner owner, R start,Func<R,Skill,R> func)
     {
         return owner.SkillList.FindAll(x => x.Data.SkillType == SkillType.Passive || x.Data.SkillType == SkillType.Buff).GetEach<R,Skill>(func,start);
