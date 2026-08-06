@@ -2425,81 +2425,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758757608}
   m_CullTransparentMesh: 1
---- !u!1 &785181635
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 785181638}
-  - component: {fileID: 785181637}
-  - component: {fileID: 785181636}
-  m_Layer: 0
-  m_Name: StageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &785181636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785181635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f516ba915b333b24ca82c4a16a642084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
---- !u!114 &785181637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785181635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ace10ec456b168439f3ffd621743cfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  m_spawner: {fileID: 785181636}
-  m_mainCam: {fileID: 987926542}
-  m_LimitSpanwer: 50
-  m_stageInfo:
-    m_stageStep: 300
-    m_spawnMonsterDatas:
-    - m_monsterPrefabs:
-      - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-        Weight: 20
-      - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
-        Weight: 61
-      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
-        Weight: 61
-      - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
-        Weight: 61
-      m_spawnStep: 0.79
-    m_StageLevel: 0
-  m_StargeBoss: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
---- !u!4 &785181638
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785181635}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.48553, y: 0.79615, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &900598800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3081,6 +3006,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190765178}
   m_CullTransparentMesh: 1
+--- !u!1 &1251141209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1251141212}
+  - component: {fileID: 1251141211}
+  - component: {fileID: 1251141210}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1251141210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251141209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f516ba915b333b24ca82c4a16a642084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
+--- !u!114 &1251141211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251141209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ace10ec456b168439f3ffd621743cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageManager
+  m_spawner: {fileID: 1251141210}
+  m_mainCam: {fileID: 987926542}
+  m_LimitSpanwer: 50
+  m_stageInfo:
+    m_stageStep: 300
+    m_spawnMonsterDatas:
+    - m_monsterPrefabs:
+      - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
+        Weight: 11
+      - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
+        Weight: 12
+      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+        Weight: 61
+      - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
+        Weight: 61
+      m_spawnStep: 0.79
+    m_StageLevel: 0
+  m_StargeBoss: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
+--- !u!4 &1251141212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251141209}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.48553, y: 0.79615, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1281851205
 GameObject:
   m_ObjectHideFlags: 0
@@ -5735,7 +5735,7 @@ SceneRoots:
   - {fileID: 902677786}
   - {fileID: 668439410}
   - {fileID: 688929336}
-  - {fileID: 785181638}
   - {fileID: 1815706106}
   - {fileID: 434963356}
   - {fileID: 1764090779}
+  - {fileID: 1251141212}

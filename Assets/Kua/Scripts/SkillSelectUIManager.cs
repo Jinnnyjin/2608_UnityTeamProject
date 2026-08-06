@@ -36,6 +36,7 @@ public class SkillSelectUIManager : MonoBehaviour
 
     private void SetButtonChoices(int _choiceCount)
     {
+        //GameManager.Player.GetSkillBySkillData(null);
         if (m_choiceButtons == null || m_choiceButtons.Length == 0) return;
 
         randomIndices.Clear();
@@ -55,6 +56,10 @@ public class SkillSelectUIManager : MonoBehaviour
             int randomIdx = randomIndices[i];
 
             m_choiceButtons[i].gameObject.SetActive(true);
+
+            //ISkillOwner skillOwner = GameManager.m_Instance.Player;
+            //Skill mySkill = skillOwner.GetSkillBySkillData();
+
             m_choiceButtons[i].InitButton(m_preLoadSkill[randomIdx]);
         }
     }
