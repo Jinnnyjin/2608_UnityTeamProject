@@ -19,6 +19,6 @@ MonoBehaviour:
   m_title: 
   m_desc: 
   m_levelData: []
-  m_Range: 3
+  m_Range: 1
   m_Damage: 10
   m_WarningDelay: 3

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_NM_Banshee
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
   m_monsterType: 1
-  m_maxHp: 300
+  m_maxHp: 50
   m_baseSpeed: 4
   m_baseAttack: 5
   m_baseAttackRange: 0

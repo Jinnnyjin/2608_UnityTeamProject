@@ -53,7 +53,6 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_waitTime = new WaitForSeconds(m_hitEffectTime);
 
         m_originColor = m_renderer.color;
-        m_baseDamageInfo.Dmg = 10.0f;
     }
 
     private void OnEnable()
@@ -63,6 +62,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
 
         m_curAttackTime = 0.0f;
+        m_isUsingSkill = false;
     }
     public void TakeDamage(DamageInfo _damage)
     {
@@ -94,6 +94,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner
             m_curAttackTime += Time.deltaTime;
             if (m_curAttackTime >= m_baseAttackTime)
             {
+                m_baseDamageInfo.Dmg = m_monsterInfo.Attack;
                 GameManager.m_Instance.Player.TakeDamage(m_baseDamageInfo);
                 m_curAttackTime = 0.0f;
             }
