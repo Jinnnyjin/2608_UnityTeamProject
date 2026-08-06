@@ -1655,13 +1655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   TimerText: {fileID: 129256251}
-  ItemIcons:
-  - {fileID: 456277637}
-  - {fileID: 2008088575}
-  - {fileID: 559479576}
-  - {fileID: 1913621023}
-  - {fileID: 1603052955}
-  - {fileID: 19805521}
+  m_listSlot: []
 --- !u!4 &485481050
 Transform:
   m_ObjectHideFlags: 0
@@ -4903,12 +4897,18 @@ MonoBehaviour:
   - {fileID: 1715722976}
   - {fileID: 2125333808}
   m_mainSkillSlots:
-  - {fileID: 456277637}
-  - {fileID: 2008088575}
-  - {fileID: 559479576}
-  - {fileID: 1913621023}
-  - {fileID: 1603052955}
-  - {fileID: 19805521}
+  - Type: 0
+    Icon: {fileID: 456277637}
+  - Type: 0
+    Icon: {fileID: 2008088575}
+  - Type: 0
+    Icon: {fileID: 559479576}
+  - Type: 1
+    Icon: {fileID: 1913621023}
+  - Type: 1
+    Icon: {fileID: 1603052955}
+  - Type: 1
+    Icon: {fileID: 19805521}
   m_preLoadSkill:
   - {fileID: 11400000, guid: 8f18ad58038efb54187841f2033a2897, type: 2}
   - {fileID: 11400000, guid: 0fad9447eed3df542bc3db15dba4d24a, type: 2}

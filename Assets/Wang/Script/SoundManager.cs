@@ -109,13 +109,7 @@ public class SoundManager : MonoBehaviour
         pSrc.volume = _Audio.Volume;
         pSrc.pitch = UnityEngine.Random.Range(_Audio.PitchMin, _Audio.PitchMax);
 
-        if (_Audio.Spatial3D == true && _Transform != null)
-        {
-            pSrc.transform.position = _Transform.position;
-            pSrc.spatialBlend = _Audio.SpatialBlend;
-        }
-        else
-            pSrc.spatialBlend = 0.0f;
+        //pSrc.spatialBlend = 0.0f;
 
         pSrc.Play();
 

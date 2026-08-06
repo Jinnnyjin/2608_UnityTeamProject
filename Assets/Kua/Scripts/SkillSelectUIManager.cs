@@ -1,7 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // 🌟 이미지 컴포넌트 제어를 위해 추가
 
+
+[Serializable]
+public class SkillSlot
+{
+    public SkillType Type;
+    public Image Icon;
+}
 
 public class SkillSelectUIManager : MonoBehaviour
 {
@@ -12,8 +20,7 @@ public class SkillSelectUIManager : MonoBehaviour
     [SerializeField] private RewardChoiceButton[] m_choiceButtons;
 
     [Header("[ 🌟 추가: 메인 화면의 스킬 패널 슬롯들 ]")]
-    // 📌 여기에 메인 화면에 상시 떠 있는 스킬 슬롯 이미지들을 연결할 겁니다! (예: 3~4개 개수만큼)
-    [SerializeField] private Image[] m_mainSkillSlots;
+    [SerializeField] private SkillSlot[] m_mainSkillSlots;
     private int m_equippedSkillCount = 0; // 현재 장착된 스킬 개수를 세는 카운터 변수
 
 
@@ -47,7 +54,7 @@ public class SkillSelectUIManager : MonoBehaviour
 
         while (randomIndices.Count < _choiceCount)
         {
-            int randIndex = Random.Range(0, m_preLoadSkill.Count);
+            int randIndex = UnityEngine.Random.Range(0, m_preLoadSkill.Count);
             if (!randomIndices.Contains(randIndex))
             {
                 randomIndices.Add(randIndex);
@@ -94,12 +101,17 @@ public class SkillSelectUIManager : MonoBehaviour
         if (preSKill != null)
             return;
 
+        SkillType type = _selectSkill.SkillType;
+
         for (int i = 0; i< m_mainSkillSlots.Length; ++i)
         {
-            if (m_mainSkillSlots[i].sprite == null)
+            SkillType slotType = m_mainSkillSlots[i].Type;
+            Image iconImage = m_mainSkillSlots[i].Icon;
+
+            if (type == slotType && iconImage.sprite == null)
             {
-                m_mainSkillSlots[i].gameObject.SetActive(true);
-                m_mainSkillSlots[i].sprite = _selectSkill.Icon;
+                iconImage.gameObject.SetActive(true);
+                iconImage.sprite = _selectSkill.Icon;
 
                 m_selectSkillData.Add(_selectSkill);
                 break;
