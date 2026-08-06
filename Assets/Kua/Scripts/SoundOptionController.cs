@@ -12,7 +12,7 @@ public class SoundOptionController : MonoBehaviour
     [SerializeField] private Slider m_bgmSlider;
     [SerializeField] private Slider m_sfxSlider;
 
-    [Header("[ 📢 누구나 테스트 가능한 BGM 전용 스피커 ]")]
+    [Header("[ 누구나 테스트 가능한 BGM 전용 스피커 ]")]
     [SerializeField] private AudioSource m_bgmAudioSource;
 
     // 게임 일시 정지 상태를 체크하기 위한 변수 추가
@@ -20,7 +20,7 @@ public class SoundOptionController : MonoBehaviour
 
     void Start()
     {
-        // 🚀 [추가] 게임 씬에서 Missing이 나는 문제를 해결하는 자동 검색 기능
+        // [추가] 게임 씬에서 Missing이 나는 문제를 해결하는 자동 검색 기능
         // 인스펙터에 수동으로 연결이 안 되어 있거나(Null), 씬 전환으로 끊겼다면(Missing) 실행
         if (m_bgmAudioSource == null)
         {
@@ -30,7 +30,7 @@ public class SoundOptionController : MonoBehaviour
                 m_bgmAudioSource = globalAudio.GetComponent<AudioSource>();
 
                 // 찾은 오디오 소스를 기준으로 볼륨을 한 번 더 동기화해 줍니다.
-                UpdateRealBgmVolume();
+                UpdateAllMixerVolumes();
             }
         }
 
@@ -43,7 +43,7 @@ public class SoundOptionController : MonoBehaviour
 
     void Update()
     {
-        // 🚀 [추가] 타이틀 씬이 아닐 때만 ESC 키로 일시 정지 및 옵션 창 켜기
+        // [추가] 타이틀 씬이 아닐 때만 ESC 키로 일시 정지 및 옵션 창 켜기
         if (SceneManager.GetActiveScene().name == "TitleScene") return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -52,7 +52,7 @@ public class SoundOptionController : MonoBehaviour
         }
     }
 
-    // 🚀 [추가] 일시 정지 및 패널 토글 함수
+    // [추가] 일시 정지 및 패널 토글 함수
     public void TogglePauseAndMenu()
     {
         if (m_soundPanelObject == null) return;
@@ -84,7 +84,7 @@ public class SoundOptionController : MonoBehaviour
         m_sfxSlider.onValueChanged.AddListener(OnSfxVolumeChanged);
 
         // 켜지자마자 현재 저장된 수치대로 소리 크기 셋팅
-        UpdateRealBgmVolume();
+        UpdateAllMixerVolumes();
     }
 
     private void OnDisable()
@@ -94,27 +94,32 @@ public class SoundOptionController : MonoBehaviour
         m_sfxSlider.onValueChanged.RemoveAllListeners();
     }
 
-    // 🔊 마스터 혹은 BGM 슬라이더가 움직일 때 실시간 실행되는 함수
+    // 마스터 혹은 BGM 슬라이더가 움직일 때 실시간 실행되는 함수
     private void OnVolumeChanged(float value)
     {
-        UpdateRealBgmVolume();
+        UpdateAllMixerVolumes();
     }
 
-    // 🌟 [핵심 공식] 마스터와 BGM의 완벽한 상위-하위 종속 관계 구현
-    private void UpdateRealBgmVolume()
+    private void UpdateAllMixerVolumes()
     {
-        if (m_bgmAudioSource != null)
+        if (SoundManager.m_Instance != null)
         {
-            // 실제 배경음 스피커 소리 = (마스터 슬라이더 수치 × 배경음 슬라이더 수치)
-            m_bgmAudioSource.volume = m_masterSlider.value * m_bgmSlider.value;
+            SoundManager.m_Instance.UpdateSound(m_masterSlider, SoundManager.m_Instance.m_AudioMixerGroup, eAudioChannelType.MASTER);
+            SoundManager.m_Instance.UpdateSound(m_bgmSlider, SoundManager.m_Instance.m_AudioMixerGroup, eAudioChannelType.BGM);
         }
     }
 
-    // 💥 효과음 슬라이더가 움직일 때 실시간 실행되는 함수
+
     private void OnSfxVolumeChanged(float value)
     {
         PlayerPrefs.SetFloat("SfxVol", value);
+
+        if (SoundManager.m_Instance != null)
+        {
+            SoundManager.m_Instance.UpdateSound(m_sfxSlider, SoundManager.m_Instance.m_AudioMixerGroup, eAudioChannelType.SFX);
+        }
     }
+
 
     public void SaveAndCloseOptions()
     {
@@ -123,6 +128,7 @@ public class SoundOptionController : MonoBehaviour
         PlayerPrefs.SetFloat("SfxVol", m_sfxSlider.value);
         PlayerPrefs.Save();
 
+        // 테스트용 디버그 로그. 해당 값은 반영구 저장되어 게임을 껐다 켜도 유지됨. 유지되지 않을 시 문제가 생긴 것.
         Debug.Log("[사운드 옵션] 마스터/BGM/SFX 구조적 전역 저장 완료!");
 
         if (m_soundPanelObject != null)
