@@ -23,16 +23,13 @@ public class MonsterAIMove : MonoBehaviour
     //이동속도 가중치
     public float MoveWeight { get; set; } = 1.0f;
     public bool LockDir { get; set; } = false;
+
     // 대쉬스킬 관련
     /*/////////////////////////////////////
      *              Test
      */////////////////////////////////////
-    //public bool m_IsDashing;
-    private Vector2 m_dashDirection;
     private Vector2 m_prevDirection;
-    private float m_dashSpeed;
 
-    private bool m_IsTargetDir;
     private void Awake()
     {
         m_monsterRb = GetComponent<Rigidbody2D>();

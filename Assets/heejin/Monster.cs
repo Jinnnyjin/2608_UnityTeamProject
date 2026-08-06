@@ -126,24 +126,27 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         ObjectPoolManager.m_Instance.PushObject(gameObject);
     }
 
-    public void RegisterSkill(Skill skill)
+    public void RegisterSkill(Skill _skill)
     {
-        SkillList.Add(skill);
+        SkillList.Add(_skill);
     }
 
-    public void UnRegisterSkill(Skill skill)
+    public void UnRegisterSkill(Skill _skill)
     {
-        SkillList.Remove(skill);
+        SkillList.Remove(_skill);
     }
 
-    public void UnRegisterSkill(string skillId)
+    public void UnRegisterSkill(string _skillId)
     {
-        m_skillList.RemoveAll(skill => skill.Data.Name == skillId);
+        m_skillList.RemoveAll(skill => skill.Data.Name == _skillId);
     }
 
-    public void RegisterSkill(SkillData skillData)
+    public void RegisterSkill(SkillData _skillData)
     {
-        throw new NotImplementedException();
+        Skill skill = new Skill();
+        skill.Init(this, _skillData);
+        _skillData.Init(skill);
+        this.RegisterSkill(skill);
     }
 
     public void RegisterSkill(string skillId)
@@ -151,9 +154,9 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         throw new NotImplementedException();
     }
 
-    public void UnRegisterSkill(SkillData skill)
+    public void UnRegisterSkill(SkillData _skill)
     {
-        throw new NotImplementedException();
+        m_skillList.RemoveAll(skill => skill.Data.Name ==_skill.Name);
     }
 
     private IEnumerator HitEffect()

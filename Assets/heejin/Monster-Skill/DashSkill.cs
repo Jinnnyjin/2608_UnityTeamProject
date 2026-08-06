@@ -3,10 +3,7 @@ using UnityEngine.Rendering;
 
 public class DashSkill : SkillData
 {
-    [SerializeField] private float m_speed;
-
     [SerializeField] private float m_moveweight = 1.0f;
-    [SerializeField] private float m_duration;
 
    
     public override void Init(Skill _skill)
