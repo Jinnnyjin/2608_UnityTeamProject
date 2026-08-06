@@ -45,12 +45,15 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     }
     public void RegisterSkill(SkillData skillData)
     {
+        Debug.Log($"Register Skill : {skillData.Name}");
         var cs = SkillList.Find(x => x.Data == skillData);
         if(cs != null)
         {
+            Debug.Log($"LevelUp Skill : {skillData.Name}. {cs.SkillLevel} -> {cs.SkillLevel+1}");
             cs.SkillLevel += 1;
             return;
         }
+        Debug.Log($"Register new Skill");
         Skill s = new Skill();
         s.Init(this,skillData);
         RegisterSkill(s);
