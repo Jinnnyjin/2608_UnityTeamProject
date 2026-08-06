@@ -5,32 +5,68 @@ using UnityEngine.SceneManagement;
 
 public class LoadingSceneController : MonoBehaviour
 {
+    // 🌟 [요구사항 1] 싱글톤 디자인 패턴
+    public static LoadingSceneController Instance { get; private set; }
+
+    [Header("[ 로딩 UI 패널 자체 오브젝트 ]")]
+    [SerializeField] private GameObject m_loadingPanelObject;
+
     [Header("[ 로딩 바 슬라이더 연결 ]")]
-    // 🌟 이 변수 앞에 public을 붙여서 유니티 인스펙터 창에 칸이 무조건 확실하게 보이도록 만들었습니다!
     public Slider m_loadingSlider;
+
+    private void Awake()
+    {
+        // 🌟 [요구사항 2] 온로드(DontDestroyOnLoad) 적용
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void Start()
     {
-        // 시작하자마자 백그라운드에서 Map 씬 비동기 로딩 개시
-        StartCoroutine(LoadMapSceneProcess());
+        if (m_loadingPanelObject != null)
+        {
+            m_loadingPanelObject.SetActive(false);
+        }
     }
 
-    private IEnumerator LoadMapSceneProcess()
+    /// <summary>
+    /// 🌟 [핵심 입구] 외부 버튼들에서 이 함수를 누르고 괄호 안에 "목적지 이름"만 다르게 써주면 됩니다!
+    /// </summary>
+    public void TriggerLoading(string targetSceneName)
     {
-        // 1. 이미 세팅 완료된 슬라이더의 시작 값을 0으로 리셋
+        StartCoroutine(LoadMapSceneProcess(targetSceneName));
+    }
+
+    // 🌟 직접 작성하신 '비동기 슬라이더 연산 공식' 100% 완벽 재탕 구역
+    private IEnumerator LoadMapSceneProcess(string targetSceneName)
+    {
+        // 로딩 중에는 사운드 재생 중지하도록 설정.
+        GlobalAudioSource globalAudio = Object.FindFirstObjectByType<GlobalAudioSource>();
+        if (globalAudio != null) globalAudio.StopBgmForLoading();
+
+        if (m_loadingPanelObject != null) m_loadingPanelObject.SetActive(true);
         m_loadingSlider.value = 0f;
 
-        // 2. 비동기로 Map 씬 불러오기 시작
-        AsyncOperation op = SceneManager.LoadSceneAsync("Map");
+        // 📝 고정된 이름 대신, 버튼이 던져준 '목적지 씬 이름'을 비동기로 로드합니다!
+        AsyncOperation op = SceneManager.LoadSceneAsync(targetSceneName);
 
-        // 3. 로딩이 진행되는 동안 실제 진행도를 슬라이더 가치에 그대로 대입 (0 ~ 1)
         while (!op.isDone)
         {
-            // 유니티 내부 비동기 값(op.progress)을 그대로 슬라이더에 꽂아 넣습니다.
-            // 이미 0 세팅을 마쳐두셨으니 이 한 줄로 100%까지 칼같이 차오릅니다.
             m_loadingSlider.value = op.progress;
-
             yield return null;
+        }
+
+        if (m_loadingPanelObject != null)
+        {
+            m_loadingPanelObject.SetActive(false);
         }
     }
 }
