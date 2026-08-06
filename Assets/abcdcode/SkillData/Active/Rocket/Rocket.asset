@@ -19,7 +19,12 @@ MonoBehaviour:
   m_title: "\uB85C\uCF13"
   m_desc: "\uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC801\uC744 \uD5A5\uD574 \uB85C\uCF13\uC744
     \uBC1C\uC0AC\uD569\uB2C8\uB2E4"
-  m_levelData: []
+  m_levelData:
+  - {fileID: 11400000, guid: 1ca7d426dcfb9c948bcd0b9e6b54c305, type: 2}
+  - {fileID: 11400000, guid: 219612847fb30c049808b1f67e4bf81e, type: 2}
+  - {fileID: 11400000, guid: 96bb1eb99a8a44844b44459ae79025e7, type: 2}
+  - {fileID: 11400000, guid: 689868e7127bc9646ac07d7013313218, type: 2}
+  - {fileID: 11400000, guid: a00d3fb060e5a1b4291a93c2cd42cca0, type: 2}
   m_Damage: 8
   m_Speed: 8
   m_ProjCount: 1
