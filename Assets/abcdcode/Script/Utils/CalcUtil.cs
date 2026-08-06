@@ -5,6 +5,10 @@ using UnityEngine;
 
 public static class CalcUtil
 {
+    public static R GetSKillStatValue<R>(this ISkillOwner owner, R start,Func<R,Skill,R> func)
+    {
+        return owner.SkillList.FindAll(x => x.Data.SkillType == SkillType.Passive || x.Data.SkillType == SkillType.Buff).GetEach<R,Skill>(func,start);
+    }
     public static List<T> ConvertGameObjectListToComp<T>(this List<GameObject> list)
     {
         if(list[0].GetComponent<T>() == null) return null;
