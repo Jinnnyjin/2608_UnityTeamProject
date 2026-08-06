@@ -41,19 +41,18 @@ public class Monster : BSObj, IDamageable, ISkillOwner
 
     private WaitForSeconds m_waitSecond = null;
     private Coroutine m_dashCoroutine;
+
+    private bool m_isUsingSkill = false;
+    
     private void Awake()
     {
         m_monsterInfo = new MonsterInfo();
-        //m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack;
-        //m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed;
-        //m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
 
         m_monsterMove = GetComponent<MonsterAIMove>();
         m_renderer = GetComponent<SpriteRenderer>();
         m_waitTime = new WaitForSeconds(m_hitEffectTime);
 
         m_originColor = m_renderer.color;
-        m_baseDamageInfo.Dmg = 10.0f;
     }
 
     private void OnEnable()
@@ -63,6 +62,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         m_monsterInfo.HP = m_SOMonsterInfo.Max_HP;
 
         m_curAttackTime = 0.0f;
+        m_isUsingSkill = false;
     }
     public void TakeDamage(DamageInfo _damage)
     {
@@ -94,6 +94,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner
             m_curAttackTime += Time.deltaTime;
             if (m_curAttackTime >= m_baseAttackTime)
             {
+                m_baseDamageInfo.Dmg = m_monsterInfo.Attack;
                 GameManager.m_Instance.Player.TakeDamage(m_baseDamageInfo);
                 m_curAttackTime = 0.0f;
             }
@@ -169,11 +170,40 @@ public class Monster : BSObj, IDamageable, ISkillOwner
         MonsterMove.MoveWeight = _fWeight;
         MonsterMove.LockDir = true;
 
+        MonsterMove.StartTrail();
+
         yield return new WaitForSeconds(_fWeight);
 
         MonsterMove.MoveWeight = startWeight;
         MonsterMove.LockDir = false;
 
+        MonsterMove.StopTrail();
+
+        EndSkill();
+
         m_dashCoroutine = null;
+    }
+
+    public void StopMoving()
+    {
+        MonsterMove.MoveWeight = 0f;
+    }
+
+    public void ResumeMoving()
+    {
+        MonsterMove.MoveWeight = 1f;
+    }
+
+    public bool TryStartSkill()
+    {
+        if (m_isUsingSkill) return false;
+
+        m_isUsingSkill = true;
+        return true;
+    }
+
+    public void EndSkill()
+    {
+        m_isUsingSkill = false;
     }
 }

@@ -2476,11 +2476,15 @@ MonoBehaviour:
     - m_monsterPrefabs:
       - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
         Weight: 20
+      - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
+        Weight: 61
       - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+        Weight: 61
+      - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
         Weight: 61
       m_spawnStep: 0.79
     m_StageLevel: 0
-  m_StargeBoss: {fileID: 0}
+  m_StargeBoss: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
 --- !u!4 &785181638
 Transform:
   m_ObjectHideFlags: 0
