@@ -70,5 +70,6 @@ public abstract class SkillData : SOData, IStat
 public enum SkillType
 {
     Active,
-    Passive
+    Passive,
+    Buff
 }
