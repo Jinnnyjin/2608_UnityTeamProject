@@ -16,6 +16,10 @@ public class Skill : IStat
         CoolTimer.Update();
         Data.GameUpdate(this);
     }
+    public void Delete()
+    {
+        this.Owner.UnRegisterSkill(this);
+    }
     public CoolTimer CoolTimer;
     public ISkillOwner Owner{get;private set;}
     public SkillData Data{get;private set;}
