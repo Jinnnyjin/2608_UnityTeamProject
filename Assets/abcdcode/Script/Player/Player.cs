@@ -10,6 +10,9 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     {
         SkillList = new List<Skill>();
         CurrentHp = Hp;
+    }
+    public void Start()
+    {
         RegisterSkill(TestSkill);
     }
     public void Update()

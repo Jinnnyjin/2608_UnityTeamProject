@@ -33,6 +33,10 @@ public abstract class SkillData : SOData, IStat
     {
         
     }
+    public virtual void OnLevelUp(Skill skill)
+    {
+        
+    }
 
     public virtual float Hp => 0;
     public virtual float HpMult => 1;
