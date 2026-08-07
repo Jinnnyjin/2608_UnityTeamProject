@@ -11,16 +11,22 @@ public class RewardChoiceButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_levelText;  // 설명 텍스트 칸
     [SerializeField] private Image m_iconImage;          // 아이콘 이미지 칸
 
+    [SerializeField] private Sprite m_LockImage; // 스킬 선택을 못할 때 이미지
     //스크립터블 오브젝트
     private SkillData m_randomSkill = null;
-    private int m_skillId;
-    private SkillSelectUIManager m_uiManager;
 
     /// <summary>
     /// 🌟 [핵심] UI 매니저가 랜덤으로 뽑아낸 3개의 예시 데이터를 이 버튼에 찔러넣어 주는 함수
     /// </summary>
     /// 
-    int count =0;
+    private void OnEnable()
+    {
+        m_randomSkill = null;
+        m_iconImage.sprite = m_LockImage;
+        m_descText.text = "";
+        m_titleText.text = "사용할 수 없습니다";
+        m_levelText.text = "0";
+    }
     public void InitButton(SkillData _randomSkill, int _level)
     {
         m_randomSkill = _randomSkill;
@@ -34,6 +40,8 @@ public class RewardChoiceButton : MonoBehaviour
     
     public void OnClickButton()
     {
+        if (m_randomSkill == null)
+            return;
 
         GameManager.m_Instance.Player.RegisterSkill(m_randomSkill);
         SkillSelectUIManager.Instance.OnSkillSelected(m_randomSkill);

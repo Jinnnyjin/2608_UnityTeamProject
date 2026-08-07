@@ -23,7 +23,7 @@ public class FieldItem : MonoBehaviour
             if (m_uiManager != null)
             {
                 // UI 매니저에게 내 아이콘 이미지를 전달하며 슬롯을 채우라고 명령
-                m_uiManager.AcquireItem(m_itemIconSprite);
+                //m_uiManager.AcquireItem(m_itemIconSprite);
             }
 
             // 먹었으므로 필드에서 삭제

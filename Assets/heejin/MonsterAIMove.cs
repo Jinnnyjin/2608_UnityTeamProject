@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MonsterAIMove : MonoBehaviour
 {
+    // ======== 이동 관련 ========
     private Rigidbody2D m_monsterRb;
     public Rigidbody2D Rigidbody => m_monsterRb;
     private Collider2D m_myCollider;
@@ -10,29 +11,19 @@ public class MonsterAIMove : MonoBehaviour
     private Collider2D[] m_overlapBuffer = new Collider2D[10];
     private Monster m_monster;
     private ContactFilter2D m_contactFilter;
+    [SerializeField] private float m_checkRadius = 0.5f;   // 주변 타 몬스터와의 반경 
 
+    // ======== 스킬 관련 ========
+    public float MoveWeight { get; set; } = 1.0f;   //이동속도 가중치
+    public bool LockDir { get; set; } = false;
+    private Vector2 m_prevDirection;
+
+    // ======== 애니메이션 관련 ========
     private AnimTable m_animTable;
     private Animator m_animator;
 
-    private TrailRenderer m_trailRenderer;
-    
-    // 주변 타 몬스터와의 반경 
-    // 테스트 기준 0.5에서 잘 작동, 추후 플레이어 및 몬스터 에셋 적용 후 다시 테스트 필요
-    [SerializeField] private float m_checkRadius = 0.5f;
 
-    //이동속도 가중치
-    public float MoveWeight { get; set; } = 1.0f;
-    public bool LockDir { get; set; } = false;
-    // 대쉬스킬 관련
-    /*/////////////////////////////////////
-     *              Test
-     */////////////////////////////////////
-    //public bool m_IsDashing;
-    private Vector2 m_dashDirection;
-    private Vector2 m_prevDirection;
-    private float m_dashSpeed;
-
-    private bool m_IsTargetDir;
+    // ======== 초기화 ========
     private void Awake()
     {
         m_monsterRb = GetComponent<Rigidbody2D>();
@@ -45,26 +36,15 @@ public class MonsterAIMove : MonoBehaviour
         m_contactFilter.useTriggers = true;
         m_contactFilter.useLayerMask = true;
         m_contactFilter.layerMask = LayerMask.GetMask("Monster");
-        m_trailRenderer = GetComponent<TrailRenderer>();
-
-        if (m_trailRenderer != null)
-        {
-            m_trailRenderer.emitting = false;
-        }
     }
 
-    //private void OnEnable()
-    //{
-    //    m_player = GameManager.m_Instance.Player.transform;
-    //    m_prevDirection = GetChaseDIr();
-    //}
     private void Start()
     {
         m_player = GameManager.m_Instance.Player.transform;
         m_prevDirection = GetChaseDIr();
-
     }
 
+    // 플레이어 따라가는 움직임 + 대쉬스킬 움직임
     private void FixedUpdate()
     {
         if( m_player == null) return;
@@ -90,6 +70,8 @@ public class MonsterAIMove : MonoBehaviour
         m_monsterRb.MovePosition(m_monsterRb.position + finalDir * speed * MoveWeight * Time.fixedDeltaTime);
 
         bool isMoving = finalDir.sqrMagnitude > 0.01f;
+
+        // ======== 애니메이션 ========
         if (m_animTable != null)
         {
             m_animTable.SetBool(eEntityState.Run, isMoving);
@@ -101,14 +83,15 @@ public class MonsterAIMove : MonoBehaviour
             m_animator.SetFloat("Vertical", finalDir.y);
         }
 
+        // 
         m_prevDirection = chaseDir;
     }
  
+    // 분리 로직 -> 나 제외 주변 몬스터 확인 후 겹치지 않도록 방향 제어
     private Vector2 GetSeparateDir()
     {
         Vector2 separation = Vector2.zero;
 
-        //
         int count = Physics2D.OverlapCircle(transform.position, m_checkRadius, m_contactFilter ,m_overlapBuffer);
 
         for (int i = 0; i< count; i++)  
@@ -125,6 +108,7 @@ public class MonsterAIMove : MonoBehaviour
         return separation.normalized;
     }
 
+    // 플레이어 따라가는 방향 추적 로직
     private Vector2 GetChaseDIr()
     {
         Vector2 move = new Vector2
@@ -134,49 +118,13 @@ public class MonsterAIMove : MonoBehaviour
         return move;
     }
 
+    // ======== (공격) 애니메이션 ========
     public void MonsterAttackSkill()
     {
-        Debug.Log("MonsterAttackSkill 호출");
         if (m_animTable != null)
         {
             m_animTable.SetTrigger(eEntityState.Attack);
         }
-
-        else Debug.Log("m_animTable이 null");
     }
 
-    public void StartTrail()
-    {
-        if(m_trailRenderer != null)
-        {
-            m_trailRenderer.emitting = true;
-        }
-    }
-
-    public void StopTrail()
-    {
-        if (m_trailRenderer != null)
-        {
-            m_trailRenderer.emitting = false;
-        }
-    }
-
-//    public IEnumerator DoDash(Vector2 direction, float speed, float duration)
-//    {
-
-//        Debug.Log("대쉬!");
-
-//        float time = 0f;
-//        // 스킬 지속시간동안에만 유지 (여러 프레임에 걸쳐서)
-//        while (time < duration)
-//        {
-//            m_monsterRb.MovePosition(m_monsterRb.position + direction * speed * Time.fixedDeltaTime);
-//            time += Time.fixedDeltaTime;
-//            yield return new WaitForFixedUpdate();
-
-//        }
-
-//        // 스킬 사용 종료 후 
-//        IsOverridden = false;
-//    }
 }

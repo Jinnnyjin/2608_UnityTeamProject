@@ -1,7 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // 🌟 이미지 컴포넌트 제어를 위해 추가
 
+
+[Serializable]
+public class SkillSlot
+{
+    public SkillType Type;
+    public Image Icon;
+}
 
 public class SkillSelectUIManager : MonoBehaviour
 {
@@ -12,8 +20,7 @@ public class SkillSelectUIManager : MonoBehaviour
     [SerializeField] private RewardChoiceButton[] m_choiceButtons;
 
     [Header("[ 🌟 추가: 메인 화면의 스킬 패널 슬롯들 ]")]
-    // 📌 여기에 메인 화면에 상시 떠 있는 스킬 슬롯 이미지들을 연결할 겁니다! (예: 3~4개 개수만큼)
-    [SerializeField] private Image[] m_mainSkillSlots;
+    [SerializeField] private SkillSlot[] m_mainSkillSlots;
     private int m_equippedSkillCount = 0; // 현재 장착된 스킬 개수를 세는 카운터 변수
 
 
@@ -38,47 +45,72 @@ public class SkillSelectUIManager : MonoBehaviour
 
     private void SetButtonChoices(int _choiceCount)
     {
-        //GameManager.Player.GetSkillBySkillData(null);
         if (m_choiceButtons == null || m_choiceButtons.Length == 0) return;
+
+        ISkillOwner skillOwner = GameManager.m_Instance.Player;
+        List<SkillData> candidatePool = BuildCandidatePool(skillOwner);
 
         randomIndices.Clear();
 
-        _choiceCount = _choiceCount < m_preLoadSkill.Count ? _choiceCount : m_preLoadSkill.Count;
+        _choiceCount = _choiceCount < candidatePool.Count ? _choiceCount : candidatePool.Count;
 
         while (randomIndices.Count < _choiceCount)
         {
-            int randIndex = Random.Range(0, m_preLoadSkill.Count);
+            int randIndex = UnityEngine.Random.Range(0, candidatePool.Count);
             if (!randomIndices.Contains(randIndex))
             {
                 randomIndices.Add(randIndex);
             }
         }
 
-
-        ISkillOwner skillOwner = GameManager.m_Instance.Player;
-
-        //앞으로 지워줄 maxskills
-        List<SkillData> maxedSkills = new List<SkillData>();
         for (int i = 0; i< randomIndices.Count; ++i)
         {
             int randomIdx = randomIndices[i];
 
             m_choiceButtons[i].gameObject.SetActive(true);
 
-            SkillData selectSkill = m_preLoadSkill[randomIdx];
+            SkillData selectSkill = candidatePool[randomIdx];
             Skill mySkill = skillOwner.GetSkillBySkillData(selectSkill);
 
-            int skillLevel = 0;
-            if (mySkill != null)
-                skillLevel = mySkill.SkillLevel;
+            int skillLevel = mySkill != null ? mySkill.SkillLevel : 0;
             m_choiceButtons[i].InitButton(selectSkill, skillLevel);
-
-            if (skillLevel >= Skill.MaxSkillLevel)
-                maxedSkills.Add(selectSkill);
         }
+    }
 
-        foreach (var maxedSkill in maxedSkills)
-            m_preLoadSkill.Remove(maxedSkill);
+    //맥스 레벨이거나, 타입별 슬롯이 꽉 찼는데 아직 안 가진 스킬이면 후보에서 제외
+    private List<SkillData> BuildCandidatePool(ISkillOwner _skillOwner)
+    {
+        List<SkillData> pool = new List<SkillData>();
+        for (int i = 0; i < m_preLoadSkill.Count; ++i)
+        {
+            SkillData data = m_preLoadSkill[i];
+            Skill curSkill = _skillOwner.GetSkillBySkillData(data);
+
+            if (curSkill != null && curSkill.SkillLevel >= Skill.MaxSkillLevel)
+                continue;
+
+            if (curSkill == null && IsTypeSlotFull(data.SkillType))
+                continue;
+
+            pool.Add(data);
+        }
+        return pool;
+    }
+
+    private bool IsTypeSlotFull(SkillType _type)
+    {
+        int total = 0;
+        int filled = 0;
+        for (int i = 0; i < m_mainSkillSlots.Length; ++i)
+        {
+            if (m_mainSkillSlots[i].Type != _type) 
+                continue;
+
+            ++total;
+            if (m_mainSkillSlots[i].Icon.sprite != null)
+                ++filled;
+        }
+        return total > 0 && filled >= total;
     }
 
     /// <summary>
@@ -94,12 +126,17 @@ public class SkillSelectUIManager : MonoBehaviour
         if (preSKill != null)
             return;
 
+        SkillType type = _selectSkill.SkillType;
+
         for (int i = 0; i< m_mainSkillSlots.Length; ++i)
         {
-            if (m_mainSkillSlots[i].sprite == null)
+            SkillType slotType = m_mainSkillSlots[i].Type;
+            Image iconImage = m_mainSkillSlots[i].Icon;
+
+            if (type == slotType && iconImage.sprite == null)
             {
-                m_mainSkillSlots[i].gameObject.SetActive(true);
-                m_mainSkillSlots[i].sprite = _selectSkill.Icon;
+                iconImage.gameObject.SetActive(true);
+                iconImage.sprite = _selectSkill.Icon;
 
                 m_selectSkillData.Add(_selectSkill);
                 break;
