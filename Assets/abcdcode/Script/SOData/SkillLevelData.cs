@@ -13,6 +13,7 @@ public class SkillLevelData : SOData, IStat
     [SerializeField]protected float m_CoolTime = 0;
     [SerializeField]protected float m_Def = 0;
     [SerializeField]protected float m_ReduceDmg = 0;
+    [SerializeField]protected float m_HPGen = 0;
 
     public float Hp => m_Hp;
     public float HpMult => m_HpMult;
@@ -26,4 +27,5 @@ public class SkillLevelData : SOData, IStat
     public float CoolTime => m_CoolTime;
     public float Def => m_Def;
     public float ReduceDmg => m_ReduceDmg;
+    public float HPGen => m_HPGen;
 }

@@ -13,6 +13,10 @@ public interface IStat
     /// </summary>
     public float HpMult{get;}
     /// <summary>
+    /// 초당 체력 재생. 패시브 스킬이면 수치만큼 체력 재생 증감
+    /// </summary>
+    public float HPGen{get;}
+    /// <summary>
     /// 피해량. 액티브 스킬이면 스킬의 자체 피해량. 패시브 스킬이면 수치만큼 고정값으로 피해량 증감
     /// </summary>
     public float Damage{get;}
