@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: "\uAE30\uBCF8 \uBC30\uACBD\uC74C"
   Clips:
   - {fileID: 8300000, guid: 00dc10aabf63dc54db35f331e9f78b9d, type: 3}
-  OutputGroup: {fileID: 3852225828523360311, guid: 659f05492fea44342a9d021999f6c8f7, type: 2}
-  Volume: 0.294
+  OutputGroup: {fileID: 3852225828523360311, guid: 4d2e1223c95903a4db2f6b66f807e662, type: 2}
+  Volume: 0.519
   PitchMin: 0.63
   PitchMax: 1.71
