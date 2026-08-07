@@ -63,10 +63,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca78a62de67ae0488b955698ab9ec96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectTileSkillObj
+  m_skillSoundDic:
+  - Id: Shoot
+    Sound: {fileID: 11400000, guid: 511b8c7251de7794182ef632deb2c76c, type: 2}
   m_duration: 2
   m_InitType: 2
   skillMovement: {fileID: 4791559452354137227}
   skillHit: {fileID: -2480772882078878752}
+  m_shootSoundName: Shoot
 --- !u!114 &4791559452354137227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillHit
   h_Type: 0
+  m_hitSoundName: Hit
 --- !u!61 &1148213057827621228
 BoxCollider2D:
   m_ObjectHideFlags: 0
