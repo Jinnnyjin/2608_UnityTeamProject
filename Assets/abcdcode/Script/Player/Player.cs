@@ -19,6 +19,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public void Update()
     {
         if(IsDead()) return;
+        Heal(HPGen*Time.deltaTime);
         SkillList.ForEach(x => x.GameUpdate());
     }
 
@@ -42,6 +43,11 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
         {
             m_Controller.PlayDead();
         }
+    }
+    public void Heal(float value)
+    {
+        if(IsDead() || value <= 0) return;
+        CurrentHp += value;
     }
     public void RegisterSkill(Skill skill)
     {
@@ -88,6 +94,9 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
             UnRegisterSkill(skill);
         }
     }
+
+    
+
     public PlayerController Controller
     {
         get => m_Controller;
@@ -121,10 +130,10 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public float ProjSpeedMult => 1 * this.GetSKillStatValue<float>(1,(a,b)=> a*=b.ProjSpeedMult);
     public int ProjCount => 0 + this.GetSKillStatValue<int>(0,(a,b) => a += b.ProjCount);
 
-    
+    public float HPGen => 0 + this.GetSKillStatValue<float>(0,(a,b)=> a+=b.HPGen);
 
     private const float BaseHp = 100;
-    private const float BaseSpeed = 5;
+    private const float BaseSpeed = 3;
     [SerializeField]private PlayerController m_Controller;
     [SerializeField]private SkillData TestSkill;
 }

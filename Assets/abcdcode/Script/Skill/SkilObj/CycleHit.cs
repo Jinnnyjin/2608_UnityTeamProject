@@ -7,13 +7,13 @@ public class CycleHit : SkillHit
     {
         if(m_owner == null) return;
         var target = collision.gameObject.GetComponent<IDamageable>();
-        if(target.Faction == m_owner.Faction || target.IsDead()) return;
+        if(!TargetVaild(target)) return;
         if(cycleDic.ContainsKey(target))
         {
             if(cycleDic[target]+m_cycle > m_time) return;
         }
         cycleDic[target] = m_time;
-        target.TakeDamage(new (){Dmg = m_parent.Skill.FinalDamage()});
+        GiveDamage(target);
     }
     public override void Update()
     {
