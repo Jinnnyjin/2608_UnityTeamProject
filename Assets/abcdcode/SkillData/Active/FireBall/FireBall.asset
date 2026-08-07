@@ -26,4 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 708853610a770f74ea02681ddc1dd404, type: 2}
   m_Damage: 10
   m_Speed: 5
-  m_ProjCount: 1
+  m_ProjCount: 2
