@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
   Name: "\uC77C\uBC18\uD638\uBC15"
   m_monsterType: 0
-  m_maxHp: 15
+  m_maxHp: 10
   m_baseSpeed: 2
   m_baseAttack: 2
   m_baseAttackRange: 1

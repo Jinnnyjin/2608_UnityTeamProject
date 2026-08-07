@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
   Name: Zork
   m_monsterType: 2
-  m_maxHp: 300
-  m_baseSpeed: 3.5
+  m_maxHp: 100
+  m_baseSpeed: 3
   m_baseAttack: 12
   m_baseAttackRange: 1
   m_expReward: 100
