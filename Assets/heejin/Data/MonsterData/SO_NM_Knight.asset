@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Knight
   m_monsterType: 2
   m_maxHp: 40
-  m_baseSpeed: 3
+  m_baseSpeed: 2.5
   m_baseAttack: 10
   m_baseAttackRange: 1
   m_expReward: 40
