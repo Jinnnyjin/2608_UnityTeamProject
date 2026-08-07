@@ -45,13 +45,13 @@ public class ItemSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        Monster.onMonsterDied += SpawnItemObject;
+        Monster.OnMonsterDied += SpawnItemObject;
     }
 
 
     private void OnDisable()
     {
-        Monster.onMonsterDied -= SpawnItemObject;
+        Monster.OnMonsterDied -= SpawnItemObject;
     }
 
     private void SpawnItemObject(Monster _monster)

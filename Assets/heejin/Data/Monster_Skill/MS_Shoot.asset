@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b20a14147c562af4fbadb9e4ea24c4e5, type: 3}
-  m_Name: Range
-  m_EditorClassIdentifier: Assembly-CSharp::RangeSkill
-  Name: Range
-  m_CoolTime: 8
-  Prefab: {fileID: 5368355735217208176, guid: 878f3b31837c998478303dc72b7f9e81, type: 3}
+  m_Script: {fileID: 11500000, guid: 921f22a48953d3f43bda38c4a95ba401, type: 3}
+  m_Name: MS_Shoot
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultShootSkillData
+  Name: MS_Shoot
+  m_CoolTime: 2
+  Prefab: {fileID: 857004456439438873, guid: 3374b0a6299c24a4d99b1335cf80a1ed, type: 3}
   m_icon: {fileID: 0}
   m_title: 
   m_desc: 
   m_levelData: []
-  m_Range: 1
-  m_Damage: 10
-  m_WarningDelay: 3
+  m_Damage: 5
+  m_Speed: 3
+  m_ProjCount: 1

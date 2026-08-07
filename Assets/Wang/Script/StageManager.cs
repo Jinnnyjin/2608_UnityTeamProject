@@ -118,13 +118,13 @@ public class StageManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Monster.onMonsterDied += MonsterDead;
+        Monster.OnMonsterDied += MonsterDead;
         m_spawner.OnSpawn += SpawnObject;
     }
 
     private void OnDisable()
     {
-        Monster.onMonsterDied -= MonsterDead;
+        Monster.OnMonsterDied -= MonsterDead;
         m_spawner.OnSpawn -= SpawnObject;
     }
 

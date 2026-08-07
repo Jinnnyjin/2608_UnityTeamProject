@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000b76ef5b7d7eafdaa27d7630cc7d54e4e69b8c045
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -763,6 +763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 1801019377}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1927542636}
 --- !u!1 &478139201
 GameObject:
@@ -1394,6 +1395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 1707587411}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 2114980977}
 --- !u!1 &649352792
 GameObject:
@@ -1884,6 +1886,55 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &728872723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 728872725}
+  - component: {fileID: 728872724}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &728872724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728872723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c2957afd8d5ba42b8c1c42a448638b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  m_BgmSource: {fileID: 0}
+  m_BgmData: {fileID: 0}
+  m_SfxPoolCount: 10
+  m_SfxPrefab: {fileID: 0}
+  m_AudioMixerGroup: {fileID: 0}
+--- !u!4 &728872725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728872723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.45861, y: 0.47894, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &753345477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,19 +2055,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
   m_spawner: {fileID: 785181636}
   m_mainCam: {fileID: 987926542}
-  m_LimitSpanwer: 50
+  m_LimitSpanwer: 3
   m_stageInfo:
-    m_stageStep: 10
+    m_stageStep: 100
     m_spawnMonsterDatas:
     - m_monsterPrefabs:
       - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-        Weight: 16
+        Weight: 0
       - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
-        Weight: 14
+        Weight: 13
       - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
-        Weight: 48
+        Weight: 0
       - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
-        Weight: 49
+        Weight: 0
       m_spawnStep: 0.79
     m_StageLevel: 0
   m_StargeBoss: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
@@ -2302,6 +2353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 529585772}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1194694650}
 --- !u!1 &987926539
 GameObject:
@@ -2727,7 +2779,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3647790523127051042, guid: 0f2f8af9621a1df4f8cde42d78190cbd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1826413783}
   m_SourcePrefab: {fileID: 100100000, guid: 0f2f8af9621a1df4f8cde42d78190cbd, type: 3}
 --- !u!4 &1111779309 stripped
 Transform:
@@ -2739,7 +2794,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8603685127566536212, guid: 0f2f8af9621a1df4f8cde42d78190cbd, type: 3}
   m_PrefabInstance: {fileID: 1111779308}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1826413782}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 564a7d86254091c49a272bee831b9f45, type: 3}
@@ -2874,6 +2929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 0}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1194694650}
 --- !u!114 &1194694649
 MonoBehaviour:
@@ -4025,6 +4081,48 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1826413782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3647790523127051042, guid: 0f2f8af9621a1df4f8cde42d78190cbd, type: 3}
+  m_PrefabInstance: {fileID: 1111779308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!70 &1826413783
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826413782}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.011872932, y: -0.050597608}
+  m_Size: {x: 0.28359982, y: 0.48373628}
+  m_Direction: 0
 --- !u!1 &1857683100
 GameObject:
   m_ObjectHideFlags: 0
@@ -4153,6 +4251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 0}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1927542636}
 --- !u!114 &1927542635
 MonoBehaviour:
@@ -4337,6 +4436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 0}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 2114980977}
 --- !u!114 &2114980976
 MonoBehaviour:
@@ -4448,3 +4548,4 @@ SceneRoots:
   - {fileID: 688929336}
   - {fileID: 785181638}
   - {fileID: 1815706106}
+  - {fileID: 728872725}
