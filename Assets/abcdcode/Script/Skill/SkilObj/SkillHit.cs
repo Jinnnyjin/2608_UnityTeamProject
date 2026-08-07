@@ -8,7 +8,7 @@ public class SkillHit : BSObj
         var target = collision.gameObject.GetComponent<IDamageable>();
         if(!TargetVaild(target)) return;
         if(m_damagedTargets.Contains(target)) return;
-        target.TakeDamage(new (){Dmg = m_parent.Skill.FinalDamage()});
+        GiveDamage(target);
         m_damagedTargets.Add(target);
         if(h_Type == HitType.Once)
         {
@@ -32,11 +32,17 @@ public class SkillHit : BSObj
         if(target.Faction == m_owner.Faction || target.IsDead()) return false;
         return true;
     }
+    public virtual void GiveDamage(IDamageable target)
+    {
+        target.TakeDamage(new (){Dmg = m_parent.Skill.FinalDamage()});
+        m_parent.PlaySound(m_hitSoundName);
+    }
     protected bool m_isDeleted = false;
     protected List<IDamageable> m_damagedTargets;
     protected SkillObject m_parent;
     protected IDamageable m_owner;
     [SerializeField]protected HitType h_Type;
+    [SerializeField]protected string m_hitSoundName = "Hit";
 }
 public enum HitType
 {

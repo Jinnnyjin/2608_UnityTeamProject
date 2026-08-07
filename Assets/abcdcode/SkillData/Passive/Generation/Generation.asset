@@ -19,11 +19,11 @@ MonoBehaviour:
   m_title: "\uC7AC\uC0DD"
   m_desc: "\uCD08\uB2F9 HP \uC7AC\uC0DD\uC774 \uC99D\uAC00\uD55C\uB2E4"
   m_levelData:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 0141ddaa1a805fa498a30d6509896957, type: 2}
+  - {fileID: 11400000, guid: 42b2b50fe47dfe849aa7bec3536f693c, type: 2}
+  - {fileID: 11400000, guid: 2a66990ad4299a1499f71e3a4511e97f, type: 2}
+  - {fileID: 11400000, guid: cf16e3c34ead0184f8ebc0f6dd0fb2bd, type: 2}
+  - {fileID: 11400000, guid: a6a2fcbffb8d7a8469b89752ce81964b, type: 2}
   p_Hp: 0
   p_HpMult: 1
   p_Damage: 0
