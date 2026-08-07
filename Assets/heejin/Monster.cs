@@ -263,7 +263,11 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
         m_isUsingSkill = false;
     }
 
+    // ======== IDamageable INTERFACE ========
+    public void Heal(float value)
+    {
 
+    }
 
 
     // ======== ISTAT INTERFACE ========
@@ -279,6 +283,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
     public float ProjSpeed => 0 + this.GetSKillStatValue<float>(0, (a, b) => a += b.Data.ProjSpeed);
     public float ProjSpeedMult => 1 * this.GetSKillStatValue<float>(1, (a, b) => a *= b.Data.ProjSpeedMult);
     public int ProjCount => 0 + this.GetSKillStatValue<int>(0, (a, b) => a += b.Data.ProjCount);
+    public float HPGen => 0 + this.GetSKillStatValue<float>(0, (a, b) => a += b.HPGen);
 
     // ======== ISkillOwner Interface ========
 
