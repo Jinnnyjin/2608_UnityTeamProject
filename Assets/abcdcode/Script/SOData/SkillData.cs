@@ -50,12 +50,15 @@ public abstract class SkillData : SOData, IStat
     public virtual float ProjSpeed => 0;
     public virtual float ProjSpeedMult => 1;
     public virtual int ProjCount => 0;
-
+    public virtual float HPGen => 0;
     
     public virtual Sprite Icon =>m_icon;
     public virtual string Title => m_title;
     public virtual string Desc => m_desc;
     public virtual SkillType SkillType => SkillType.Active;
+
+    
+
     public virtual SkillLevelData GetSkillLevelData(int level)
     {
         if(m_levelData.Count < level) return null;

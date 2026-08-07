@@ -54,7 +54,14 @@
         "ProjectSettings/": true,
         "UserSettings/": true,
         "temp/": true,
-        "Temp/": true
+        "Temp/": true,
+        "**/Library/**": true,
+        "**/Library/PackageCache/**": true,
+        "**/Temp/**": true,
+        "**/Logs/**": true,
+        "**/obj/**": true,
+        "**/bin/**": true,
+        "**/.vs/**": true
     },
     "files.associations": {
         "*.asset": "yaml",
