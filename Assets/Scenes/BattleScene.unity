@@ -3128,7 +3128,7 @@ PrefabInstance:
     - target: {fileID: 8603685127566536212, guid: 0f2f8af9621a1df4f8cde42d78190cbd, type: 3}
       propertyPath: TestSkill
       value: 
-      objectReference: {fileID: 11400000, guid: 8f18ad58038efb54187841f2033a2897, type: 2}
+      objectReference: {fileID: 11400000, guid: 6d4a36efe17330940b06f83e004addb6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4956,6 +4956,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7974cbffbc004504a923224f44338e01, type: 2}
   - {fileID: 11400000, guid: 6d4a36efe17330940b06f83e004addb6, type: 2}
   - {fileID: 11400000, guid: e5206301ea5e02243843df2f686a517e, type: 2}
+  - {fileID: 11400000, guid: d036a61fd5c128b48bc489b39f2c39c0, type: 2}
+  - {fileID: 11400000, guid: d15936ddab2d1a44da0872a258837ecc, type: 2}
+  - {fileID: 11400000, guid: ec9c18cc58365c34aaa2233961d934cc, type: 2}
 --- !u!4 &1764090779
 Transform:
   m_ObjectHideFlags: 0
