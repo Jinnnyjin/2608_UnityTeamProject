@@ -89,4 +89,6 @@ public class Skill : IStat
     public float Def => Data.Def + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.Def);
 
     public float ReduceDmg => Data.ReduceDmg + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.ReduceDmg);
+
+    public float HPGen => Data.HPGen + Data.GetSkillLevelDataValue(SkillLevel,0,(l) => l.HPGen);
 }
