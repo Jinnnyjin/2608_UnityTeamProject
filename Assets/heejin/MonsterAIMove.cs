@@ -79,8 +79,8 @@ public class MonsterAIMove : MonoBehaviour
 
         if (m_animator != null)
         {
-            m_animator.SetFloat("Horizontal", finalDir.x);
-            m_animator.SetFloat("Vertical", finalDir.y);
+            m_animator.SetFloat("Horizontal", chaseDir.x);
+            m_animator.SetFloat("Vertical", chaseDir.y);
         }
 
         // 
