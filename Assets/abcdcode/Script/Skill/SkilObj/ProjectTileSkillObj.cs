@@ -37,6 +37,7 @@ public class ProjectTileSkillObj : SkillObject
         }
         skillMovement.Init(this);
         skillHit.Init(this);
+        PlaySound(m_shootSoundName);
     }
     public override void Update()
     {
@@ -49,6 +50,7 @@ public class ProjectTileSkillObj : SkillObject
     [SerializeField]protected ProjectTileInitType m_InitType;
     [SerializeField]protected SkillMovement skillMovement;
     [SerializeField]protected SkillHit skillHit;
+    [SerializeField]protected string m_shootSoundName = "Shoot";
 }
 public enum ProjectTileInitType
 {

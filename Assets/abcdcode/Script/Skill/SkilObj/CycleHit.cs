@@ -13,7 +13,7 @@ public class CycleHit : SkillHit
             if(cycleDic[target]+m_cycle > m_time) return;
         }
         cycleDic[target] = m_time;
-        target.TakeDamage(new (){Dmg = m_parent.Skill.FinalDamage()});
+        GiveDamage(target);
     }
     public override void Update()
     {
