@@ -83,8 +83,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 207869735
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d5e3988cacb5346db8efe0d6f8745731, type: 3}
@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillHit
   h_Type: 0
+  m_hitSoundName: Hit
 --- !u!58 &1219325763295723735
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -170,10 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd5d995972208547a6dd949f0898db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterSkillProjObj
+  m_skillSoundDic: []
   m_duration: 2
   m_InitType: 0
   skillMovement: {fileID: 8342386239240761512}
   skillHit: {fileID: 5427933632323809938}
+  m_shootSoundName: Shoot
   m_audioEnergySkill: {fileID: 11400000, guid: 2796ef8d60c80cc4faa0e8f52db670d5, type: 2}
 --- !u!114 &8166555280711759815
 MonoBehaviour:

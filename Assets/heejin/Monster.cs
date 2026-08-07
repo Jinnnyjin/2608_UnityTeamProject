@@ -266,7 +266,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
     // ======== IDamageable INTERFACE ========
     public void Heal(float value)
     {
-
+        throw new NotImplementedException();
     }
 
 
