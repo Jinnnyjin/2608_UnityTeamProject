@@ -45,47 +45,72 @@ public class SkillSelectUIManager : MonoBehaviour
 
     private void SetButtonChoices(int _choiceCount)
     {
-        //GameManager.Player.GetSkillBySkillData(null);
         if (m_choiceButtons == null || m_choiceButtons.Length == 0) return;
+
+        ISkillOwner skillOwner = GameManager.m_Instance.Player;
+        List<SkillData> candidatePool = BuildCandidatePool(skillOwner);
 
         randomIndices.Clear();
 
-        _choiceCount = _choiceCount < m_preLoadSkill.Count ? _choiceCount : m_preLoadSkill.Count;
+        _choiceCount = _choiceCount < candidatePool.Count ? _choiceCount : candidatePool.Count;
 
         while (randomIndices.Count < _choiceCount)
         {
-            int randIndex = UnityEngine.Random.Range(0, m_preLoadSkill.Count);
+            int randIndex = UnityEngine.Random.Range(0, candidatePool.Count);
             if (!randomIndices.Contains(randIndex))
             {
                 randomIndices.Add(randIndex);
             }
         }
 
-
-        ISkillOwner skillOwner = GameManager.m_Instance.Player;
-
-        //앞으로 지워줄 maxskills
-        List<SkillData> maxedSkills = new List<SkillData>();
         for (int i = 0; i< randomIndices.Count; ++i)
         {
             int randomIdx = randomIndices[i];
 
             m_choiceButtons[i].gameObject.SetActive(true);
 
-            SkillData selectSkill = m_preLoadSkill[randomIdx];
+            SkillData selectSkill = candidatePool[randomIdx];
             Skill mySkill = skillOwner.GetSkillBySkillData(selectSkill);
 
-            int skillLevel = 0;
-            if (mySkill != null)
-                skillLevel = mySkill.SkillLevel;
+            int skillLevel = mySkill != null ? mySkill.SkillLevel : 0;
             m_choiceButtons[i].InitButton(selectSkill, skillLevel);
-
-            if (skillLevel >= Skill.MaxSkillLevel)
-                maxedSkills.Add(selectSkill);
         }
+    }
 
-        foreach (var maxedSkill in maxedSkills)
-            m_preLoadSkill.Remove(maxedSkill);
+    //맥스 레벨이거나, 타입별 슬롯이 꽉 찼는데 아직 안 가진 스킬이면 후보에서 제외
+    private List<SkillData> BuildCandidatePool(ISkillOwner _skillOwner)
+    {
+        List<SkillData> pool = new List<SkillData>();
+        for (int i = 0; i < m_preLoadSkill.Count; ++i)
+        {
+            SkillData data = m_preLoadSkill[i];
+            Skill curSkill = _skillOwner.GetSkillBySkillData(data);
+
+            if (curSkill != null && curSkill.SkillLevel >= Skill.MaxSkillLevel)
+                continue;
+
+            if (curSkill == null && IsTypeSlotFull(data.SkillType))
+                continue;
+
+            pool.Add(data);
+        }
+        return pool;
+    }
+
+    private bool IsTypeSlotFull(SkillType _type)
+    {
+        int total = 0;
+        int filled = 0;
+        for (int i = 0; i < m_mainSkillSlots.Length; ++i)
+        {
+            if (m_mainSkillSlots[i].Type != _type) 
+                continue;
+
+            ++total;
+            if (m_mainSkillSlots[i].Icon.sprite != null)
+                ++filled;
+        }
+        return total > 0 && filled >= total;
     }
 
     /// <summary>

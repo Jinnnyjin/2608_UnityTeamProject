@@ -155,6 +155,7 @@ public class StageManager : MonoBehaviour
                 {
                     m_bossSpawned = true;
                     SpawnBoss();
+                    break;
                 }
             }
         }
