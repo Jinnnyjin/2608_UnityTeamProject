@@ -18,9 +18,9 @@ GameObject:
   - component: {fileID: 2090146520081214308}
   - component: {fileID: 8840669540337703241}
   - component: {fileID: 8526967088887384085}
-  - component: {fileID: 6127632321320752891}
+  - component: {fileID: -9046383091024408491}
   m_Layer: 7
-  m_Name: NM_Banshee
+  m_Name: BM_Zork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.59, y: 2.07, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1578412760, guid: d16f19221f64f314d90bfcdc82759300, type: 3}
+  m_Sprite: {fileID: 1703367601, guid: 137b3904d8751684697510d640d18b51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,13 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34be9d3ea96db7249904d9fd63f430ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
-  m_SOMonsterInfo: {fileID: 11400000, guid: 79b3ac42a66b55e49a999411eec9daa1, type: 2}
+  m_SOMonsterInfo: {fileID: 11400000, guid: f6d5c283e4f975e46b45f1fa0f93bccb, type: 2}
   m_baseAttackTime: 1
   m_hitEffectTime: 0.3
   m_changeColor: {r: 1, g: 0, b: 0, a: 1}
   m_audioDied: {fileID: 11400000, guid: 44a2b49f4b47edd4387c20f00fc29e15, type: 2}
   m_audioDamaged: {fileID: 11400000, guid: ac19180d9826d304c8c95496c4bee08d, type: 2}
-  m_audioDashSkill: {fileID: 0}
+  m_audioDashSkill: {fileID: 11400000, guid: 96d0c5cb02af1fe46a1649f814057c4c, type: 2}
 --- !u!114 &61893681361995741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,8 +207,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.05}
-  m_Size: {x: 0.22, y: 0.4}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.25, y: 0.0001}
   m_Direction: 0
 --- !u!114 &2090146520081214308
 MonoBehaviour:
@@ -258,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 2667062276481925001}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3aac8746032525848bd8d99ceeba3f12, type: 2}
+  m_Controller: {fileID: 9100000, guid: 52e015b30611bdc4e838bf6413cb75d7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -270,7 +270,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!96 &6127632321320752891
+--- !u!96 &-9046383091024408491
 TrailRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -350,7 +350,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.20000002, g: 0.12941177, b: 0.24313727, a: 1}
+      key0: {r: 0.6862745, g: 0.1254902, b: 0.2392157, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 0.11372549}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

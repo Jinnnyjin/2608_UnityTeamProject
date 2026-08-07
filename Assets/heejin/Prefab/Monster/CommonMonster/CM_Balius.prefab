@@ -125,10 +125,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   m_SOMonsterInfo: {fileID: 11400000, guid: 6fc4470450c53604f973f8be2cd869c8, type: 2}
-  m_baseHitRange: 1
   m_baseAttackTime: 1
   m_hitEffectTime: 0.3
   m_changeColor: {r: 1, g: 0, b: 0, a: 1}
+  m_audioDied: {fileID: 11400000, guid: 44a2b49f4b47edd4387c20f00fc29e15, type: 2}
+  m_audioDamaged: {fileID: 11400000, guid: ac19180d9826d304c8c95496c4bee08d, type: 2}
+  m_audioDashSkill: {fileID: 0}
 --- !u!114 &61893681361995741
 MonoBehaviour:
   m_ObjectHideFlags: 0
