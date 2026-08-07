@@ -77,6 +77,13 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
         m_isUsingSkill = false;
     }
 
+    public void UpdateStat(float _weight)
+    {
+        m_monsterInfo.Attack = m_SOMonsterInfo.BaseAttack * _weight;
+        m_monsterInfo.Speed = m_SOMonsterInfo.BaseSpeed * _weight;
+        m_monsterInfo.HP = m_SOMonsterInfo.Max_HP * _weight;
+    }
+
     // ======== 데미지 ========
     public void TakeDamage(DamageInfo _damage)
     {

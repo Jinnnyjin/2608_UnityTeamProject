@@ -174,6 +174,7 @@ MonoBehaviour:
   m_InitType: 0
   skillMovement: {fileID: 8342386239240761512}
   skillHit: {fileID: 5427933632323809938}
+  m_audioEnergySkill: {fileID: 11400000, guid: 2796ef8d60c80cc4faa0e8f52db670d5, type: 2}
 --- !u!114 &8166555280711759815
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c323117aad28e2b459534630cebc1d52, type: 3}
   m_Name: SO_NM_Pumpkin
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
-  Name: 
+  Name: "\uD638\uBC15"
   m_monsterType: 1
-  m_maxHp: 1
-  m_baseSpeed: 2
+  m_maxHp: 40
+  m_baseSpeed: 3
   m_baseAttack: 5
   m_baseAttackRange: 1
   m_expReward: 20

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c323117aad28e2b459534630cebc1d52, type: 3}
   m_Name: SO_BM_Knight
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
-  Name: 
+  Name: Knight
   m_monsterType: 2
-  m_maxHp: 10
+  m_maxHp: 200
   m_baseSpeed: 3
-  m_baseAttack: 15
+  m_baseAttack: 10
   m_baseAttackRange: 1
   m_expReward: 100
   m_skills:

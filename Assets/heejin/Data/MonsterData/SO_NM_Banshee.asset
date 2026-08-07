@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c323117aad28e2b459534630cebc1d52, type: 3}
   m_Name: SO_NM_Banshee
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
-  Name: 
+  Name: "\uB9D0"
   m_monsterType: 1
   m_maxHp: 50
-  m_baseSpeed: 3
-  m_baseAttack: 5
+  m_baseSpeed: 4
+  m_baseAttack: 3
   m_baseAttackRange: 1
   m_expReward: 20
   m_skills:

@@ -19,6 +19,7 @@ MonoBehaviour:
   m_title: 
   m_desc: 
   m_levelData: []
-  m_Range: 1
-  m_Damage: 10
+  m_range: 0
+  m_damage: 0
   m_WarningDelay: 3
+  m_audioRangeSkill: {fileID: 11400000, guid: f20f637af678175499254ecbc7273b19, type: 2}

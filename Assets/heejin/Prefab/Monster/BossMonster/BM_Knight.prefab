@@ -127,10 +127,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   m_SOMonsterInfo: {fileID: 11400000, guid: 127d3af105a2d854db677e6312599885, type: 2}
-  m_baseHitRange: 1
   m_baseAttackTime: 1
   m_hitEffectTime: 0.3
   m_changeColor: {r: 1, g: 0, b: 0, a: 1}
+  m_audioDied: {fileID: 11400000, guid: 44a2b49f4b47edd4387c20f00fc29e15, type: 2}
+  m_audioDamaged: {fileID: 11400000, guid: ac19180d9826d304c8c95496c4bee08d, type: 2}
+  m_audioDashSkill: {fileID: 11400000, guid: 96d0c5cb02af1fe46a1649f814057c4c, type: 2}
 --- !u!114 &61893681361995741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 2667062276481925001}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 52e015b30611bdc4e838bf6413cb75d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: eee2e8bbf3907b14989d5ccfbfd363c0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
