@@ -15,7 +15,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
     private MonsterInfo m_monsterInfo = null;
     private MonsterAIMove m_monsterMove = null;
     [SerializeField] private SOMonsterInfo m_SOMonsterInfo = null;
-    public static event Action<Monster> onMonsterDied;
+    public static event Action<Monster> OnMonsterDied;
     private List<Skill> m_skillList = new List<Skill>();
 
     public BSObj Obj => this;
@@ -42,6 +42,11 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
     private GameObject m_activeIndicator;
     private Coroutine m_dashCoroutine;
     private bool m_isUsingSkill = false;
+
+    // ======== 오디오 관련 ========
+    [SerializeField] private SOAudio m_audioDied;
+    [SerializeField] private SOAudio m_audioDamaged;
+    [SerializeField] private SOAudio m_audioDashSkill;
 
 
     // ======== 초기화 ========
@@ -86,6 +91,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
             if (m_hitCoroutine != null)
                 StopCoroutine(m_hitCoroutine);
             m_hitCoroutine = StartCoroutine(HitEffect());
+            SoundManager.m_Instance.PlaySfx(m_audioDamaged);
         }
     }
 
@@ -105,7 +111,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
 
     private void Die()
     {
-        onMonsterDied?.Invoke(this);
+        OnMonsterDied?.Invoke(this);
+        SoundManager.m_Instance.PlaySfx(m_audioDied);
         m_renderer.color = m_originColor;
 
         // 죽었을때 인디케이터도 반납
@@ -161,6 +168,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
         MonsterMove.LockDir = true;
 
         StartTrail();
+        SoundManager.m_Instance.PlaySfx(m_audioDashSkill);
 
         float time = 0f;
         float prevDist = (transform.position - GameManager.m_Instance.Player.Position).magnitude;

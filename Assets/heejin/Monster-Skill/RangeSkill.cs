@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class RangeSkill : SkillData
 {
-    [SerializeField] private float m_Range;
-    [SerializeField] private float m_Damage;
-    public override float Damage => m_Damage;
-
+    [SerializeField] private float m_range;
+    [SerializeField] private float m_damage;
+    public override float Damage => m_damage;
     public float m_WarningDelay;
-    private const float BaseSpriteRadius = 0.5f;
+    private const float m_baseSpriteRadius = 0.5f;
 
+    [SerializeField] private SOAudio m_audioRangeSkill;
 
     public override void Init(Skill _skill)
     {
@@ -24,7 +24,7 @@ public class RangeSkill : SkillData
 
         float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
-        if(_skill.CoolTimer.IsCoolComp("Range_Skill") && distance <= m_Range)
+        if(_skill.CoolTimer.IsCoolComp("Range_Skill") && distance <= m_range)
         {
             if (!monster.TryStartSkill()) return;
 
@@ -43,7 +43,7 @@ public class RangeSkill : SkillData
         indicator.transform.position = monster.Position;
         monster.SetActiveIndicator(indicator);
 
-        float scale = m_Range / BaseSpriteRadius;
+        float scale = m_range / m_baseSpriteRadius;
         indicator.transform.localScale = Vector3.one * scale;
         
         yield return new WaitForSeconds(m_WarningDelay);
@@ -51,13 +51,14 @@ public class RangeSkill : SkillData
         // 범위 오브젝트 반납
         ObjectPoolManager.m_Instance.PushObject(indicator);
         monster.ClearActiveIndicator();
+        SoundManager.m_Instance.PlaySfx(m_audioRangeSkill);
 
         float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
 
         // TakeDamage 슬라이더바 오류로 코루틴 진행이안됨
         // 테스트용 try
-        if (distance <= m_Range)
+        if (distance <= m_range)
         {
             try
             {

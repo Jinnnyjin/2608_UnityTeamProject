@@ -126,10 +126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   m_SOMonsterInfo: {fileID: 11400000, guid: 271e2ae4fa67cd7498bb6c2074d8b3ac, type: 2}
-  m_baseHitRange: 1
   m_baseAttackTime: 1
   m_hitEffectTime: 0.3
   m_changeColor: {r: 1, g: 0, b: 0, a: 1}
+  m_audioDied: {fileID: 11400000, guid: 44a2b49f4b47edd4387c20f00fc29e15, type: 2}
 --- !u!114 &61893681361995741
 MonoBehaviour:
   m_ObjectHideFlags: 0

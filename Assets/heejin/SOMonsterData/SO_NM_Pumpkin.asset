@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOMonsterInfo
   Name: 
   m_monsterType: 1
-  m_maxHp: 50
-  m_baseSpeed: 3
+  m_maxHp: 1
+  m_baseSpeed: 2
   m_baseAttack: 5
   m_baseAttackRange: 1
   m_expReward: 20
   m_skills:
-  - {fileID: 11400000, guid: 3c71c8086bcb54147abd73a9888cb892, type: 2}
+  - {fileID: 11400000, guid: 9bd038b3ebb897346995c5359b098c97, type: 2}

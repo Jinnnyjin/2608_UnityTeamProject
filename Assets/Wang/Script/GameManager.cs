@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Monster.onMonsterDied += MonsterDead;
+        Monster.OnMonsterDied += MonsterDead;
         m_expSlider.value = 0.0f;
 
         var playerSkills = Player.SkillList;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Monster.onMonsterDied += MonsterDead;
+        Monster.OnMonsterDied += MonsterDead;
 
     }
     private void Update()
