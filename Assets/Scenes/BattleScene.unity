@@ -3444,20 +3444,54 @@ MonoBehaviour:
   m_mainCam: {fileID: 987926542}
   m_LimitSpanwer: 50
   m_stageInfo:
-    m_stageStep: 300
+    m_stageStep: 50
     m_spawnMonsterDatas:
     - m_monsterPrefabs:
       - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
-        Weight: 11
-      - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
-        Weight: 12
-      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
-        Weight: 61
+        Weight: 0
       - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
-        Weight: 61
+        Weight: 45
+      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+        Weight: 45
+      m_spawnStep: 0.79
+    - m_monsterPrefabs:
+      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+        Weight: 40
+      - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
+        Weight: 40
+      - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
+        Weight: 15
+      - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
+        Weight: 0
+      - Prefab: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
+        Weight: 0
+      m_spawnStep: 0.79
+    - m_monsterPrefabs:
+      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+        Weight: 40
+      - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
+        Weight: 40
+      - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
+        Weight: 15
+      - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
+        Weight: 15
+      - Prefab: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
+        Weight: 0
+      m_spawnStep: 0.79
+    - m_monsterPrefabs:
+      - Prefab: {fileID: 671779894340015654, guid: baef0fad93ff614419b645cbec006893, type: 3}
+        Weight: 40
+      - Prefab: {fileID: 671779894340015654, guid: 0db67c9aa3646914186d7cd97b0ca334, type: 3}
+        Weight: 40
+      - Prefab: {fileID: 671779894340015654, guid: a6410f611f6ba48439e6a91f731f9cef, type: 3}
+        Weight: 15
+      - Prefab: {fileID: 671779894340015654, guid: 2a4da3d854b394b48a2b5edf747ff5bb, type: 3}
+        Weight: 15
+      - Prefab: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
+        Weight: 15
       m_spawnStep: 0.79
     m_StageLevel: 0
-  m_StargeBoss: {fileID: 671779894340015654, guid: 9ea8dcbb777ff934c9d0262ceadfc82c, type: 3}
+  m_StargeBoss: {fileID: 671779894340015654, guid: 147c63eae5fd91f4b8ab5f8726375a84, type: 3}
 --- !u!4 &1251141212
 Transform:
   m_ObjectHideFlags: 0
