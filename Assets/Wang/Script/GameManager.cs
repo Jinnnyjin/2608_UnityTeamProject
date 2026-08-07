@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         m_Instance = this;
 
 
-        Monster.onMonsterDied += MonsterDead;
+        Monster.OnMonsterDied += MonsterDead;
     }
 
     private void Start()
