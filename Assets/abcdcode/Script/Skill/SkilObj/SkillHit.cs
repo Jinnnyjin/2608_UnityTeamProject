@@ -6,7 +6,7 @@ public class SkillHit : BSObj
     {
         if(m_owner == null || m_isDeleted) return;
         var target = collision.gameObject.GetComponent<IDamageable>();
-        if(target.Faction == m_owner.Faction) return;
+        if(target.Faction == m_owner.Faction || target.IsDead()) return;
         if(m_damagedTargets.Contains(target)) return;
         target.TakeDamage(new (){Dmg = m_parent.Skill.FinalDamage()});
         m_damagedTargets.Add(target);
@@ -26,7 +26,7 @@ public class SkillHit : BSObj
             m_owner = o;
         }
     }
-    private bool m_isDeleted = false;
+    protected bool m_isDeleted = false;
     protected List<IDamageable> m_damagedTargets;
     protected SkillObject m_parent;
     protected IDamageable m_owner;

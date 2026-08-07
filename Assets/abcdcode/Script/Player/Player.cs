@@ -12,6 +12,10 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
         CurrentHp = Hp;
         RegisterSkill(TestSkill);
     }
+    public void Start()
+    {
+        
+    }
     public void Update()
     {
         if(IsDead()) return;
