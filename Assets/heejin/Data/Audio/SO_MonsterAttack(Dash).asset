@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3008cb14d05fe47bea4aaca44be1dc, type: 3}
   m_Name: SO_MonsterAttack(Dash)
   m_EditorClassIdentifier: Assembly-CSharp::SOAudio
+  Name: 
   Clips:
   - {fileID: 8300000, guid: 7ebe33315fd78534da408b8067369d39, type: 3}
-  OutputGroup: {fileID: -3657543964116187772, guid: 659f05492fea44342a9d021999f6c8f7, type: 2}
+  OutputGroup: {fileID: -3657543964116187772, guid: 4d2e1223c95903a4db2f6b66f807e662, type: 2}
   Volume: 1
   PitchMin: 1
   PitchMax: 1
-  Spatial3D: 0
-  SpatialBlend: 1
