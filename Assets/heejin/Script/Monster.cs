@@ -1,5 +1,4 @@
 using System;
-using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -150,6 +149,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
             if (m_curAttackTime >= m_baseAttackTime)
             {
                 m_baseDamageInfo.Dmg = m_monsterInfo.Attack;
+                Debug.Log($"[근접 공격 데미지] 시각: {Time.time}");
                 GameManager.m_Instance.Player.TakeDamage(m_baseDamageInfo);
                 m_curAttackTime = 0.0f;
             }
