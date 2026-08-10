@@ -19,43 +19,49 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void Awake()
     {
-        if (m_Instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-
         m_Instance = this;
-        DontDestroyOnLoad(this);
+
+        //if (m_Instance != null)
+        //{
+        //    Destroy(this);
+        //    return;
+        //}
+        //
+        //m_Instance = this;
+        //DontDestroyOnLoad(this);
     }
 
   
 
-    public GameObject GetObject(GameObject _gaemObject)
+    public GameObject GetObject(GameObject _gameObject)
     {
-        if (m_hashPool.TryGetValue(_gaemObject, out var queValue) == false)
-        {
-            queValue = new Queue<GameObject>();
-            m_hashPool.Add(_gaemObject, queValue);
-        }
-
-        GameObject retValue = null;
-        if (queValue.TryPeek(out retValue) == false)
-            retValue = GameObject.Instantiate(_gaemObject);
-        else
-            queValue.Dequeue();
-
-        //처음 Push를 할 때
-        PoolObject PoolObject = retValue.GetComponent<PoolObject>();
-        if (PoolObject == null || PoolObject.OriginPrefab == null)
+        //오리진 (에디터) 프리팹을 꼭 가지고 있어야 합니다
+        PoolObject poolObj = _gameObject.GetComponent<PoolObject>();
+        if (poolObj == null || poolObj.OriginPrefab == null)
         {
             Debug.Log("풀 오브젝트 컴포넌트나 키 값이 설정되지 않음");
             Utils.ForceCrash(ForcedCrashCategory.AccessViolation);
             return null;
         }
 
+        if (m_hashPool.TryGetValue(poolObj.OriginPrefab, out var queValue) == false)
+        {
+            queValue = new Queue<GameObject>();
+            m_hashPool.Add(poolObj.OriginPrefab, queValue);
+        }
+
+        GameObject retValue = null;
+        if (queValue.TryPeek(out retValue) == false)
+            retValue = GameObject.Instantiate(_gameObject);
+        else
+            queValue.Dequeue();
+
+        //Instantiate 시 자기 참조 필드가 클론 쪽으로 리매핑되므로 원본을 다시 못박아줍니다
+        PoolObject retPoolObj = retValue.GetComponent<PoolObject>();
+        retPoolObj.SetOriginKey(poolObj.OriginPrefab);
+
         retValue.transform.SetParent(null);
-        PoolObject.Pop();
+        retPoolObj.Pop();
         retValue.gameObject.SetActive(true);
         return retValue;
     }

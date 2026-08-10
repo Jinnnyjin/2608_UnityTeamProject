@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921f22a48953d3f43bda38c4a95ba401, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultShootSkillData
+  Name: Rock
+  m_CoolTime: 1.5
+  Prefab: {fileID: 6522354485181107950, guid: 9b58247d47662f34ba6aca6f25d69a61, type: 3}
+  m_icon: {fileID: 21300000, guid: cd2e7f321ef50c44ebbaa431adb2fa87, type: 3}
+  m_title: "\uB3CC\uD314\uB9E4"
+  m_desc: "8\uBC29\uD5A5\uC73C\uB85C \uB3CC\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4"
+  m_levelData:
+  - {fileID: 11400000, guid: 19accd543b1f9a74a9657a373fd91f6c, type: 2}
+  - {fileID: 11400000, guid: f63f107080ddbf64cba6196d83f83349, type: 2}
+  - {fileID: 11400000, guid: 3ffc01581735496418248456913be51b, type: 2}
+  - {fileID: 11400000, guid: 227425a821d1ced4ab1cc6390345d149, type: 2}
+  - {fileID: 11400000, guid: 1eb51c30bc4be1d4a9c195229cc55b8a, type: 2}
+  m_Damage: 20
+  m_Speed: 5
+  m_ProjCount: 1

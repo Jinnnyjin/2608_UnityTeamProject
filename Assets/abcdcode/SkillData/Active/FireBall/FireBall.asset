@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921f22a48953d3f43bda38c4a95ba401, type: 3}
+  m_Name: FireBall
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultShootSkillData
+  Name: FireBall
+  m_CoolTime: 1
+  Prefab: {fileID: 6522354485181107950, guid: 142368984809bab43b07570498ad2e25, type: 3}
+  m_icon: {fileID: 21300000, guid: f4e46b577765e68498fddaead1543aae, type: 3}
+  m_title: "\uD30C\uC774\uC5B4\uBCFC"
+  m_desc: "\uBB34\uC791\uC704 \uBC29\uD5A5\uC73C\uB85C \uD654\uC5FC\uAD6C\uB97C \uBC1C\uC0AC\uD55C\uB2E4."
+  m_levelData:
+  - {fileID: 11400000, guid: f9e954381ab20d74ab93772a933a7c56, type: 2}
+  - {fileID: 11400000, guid: dfdf425b1008bdd4e84149bc3504e294, type: 2}
+  - {fileID: 11400000, guid: 2e7d10aa6bf98cc4ea48c1e2d9d4c8ec, type: 2}
+  - {fileID: 11400000, guid: 607d55ee012b0d84b9f6dc8a0d76ad62, type: 2}
+  - {fileID: 11400000, guid: 708853610a770f74ea02681ddc1dd404, type: 2}
+  m_Damage: 10
+  m_Speed: 5
+  m_ProjCount: 2

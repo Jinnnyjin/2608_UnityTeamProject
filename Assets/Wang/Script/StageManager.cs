@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using static MonsterStageInfo;
 
@@ -44,7 +43,10 @@ public class MonsterStageInfo
         {
             int maxIdx = m_spawnMonsterDatas.Count;
             if (m_StageLevel >= maxIdx)
+            {
+                Debug.Log("Test");
                 return m_spawnMonsterDatas[maxIdx - 1];
+            }
 
             return m_spawnMonsterDatas[m_StageLevel];
         } 
@@ -80,6 +82,12 @@ public class StageManager : MonoBehaviour
     private WaitForSeconds m_waitSpawnTime = null;  //다음 스폰까지 대기 시간
 
     private bool m_bossSpawned = false; // 보스는 한 번만 로드
+
+    private List<Monster> m_spawnGameObject = new List<Monster>();
+    public IReadOnlyList<Monster> SpawnGameObject => m_spawnGameObject;
+
+
+    public static StageManager m_Instance;
     //private void Awake()
     //{
     //    if (m_Instance != null)
@@ -92,6 +100,10 @@ public class StageManager : MonoBehaviour
     //
     //    DontDestroyOnLoad(gameObject);
     //}
+    private void Awake()
+    {
+        m_Instance = this;
+    }
 
     private void Start()
     {
@@ -106,12 +118,14 @@ public class StageManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Monster.onMonsterDied += MonsterDead;
+        Monster.OnMonsterDied += MonsterDead;
+        m_spawner.OnSpawn += SpawnObject;
     }
 
     private void OnDisable()
     {
-        Monster.onMonsterDied -= MonsterDead;
+        Monster.OnMonsterDied -= MonsterDead;
+        m_spawner.OnSpawn -= SpawnObject;
     }
 
     private void StartStage()
@@ -123,7 +137,7 @@ public class StageManager : MonoBehaviour
     private IEnumerator MoveNextStageCoroutine()
     {
         //다음으로 넘길 스테이지 시간
-        while(m_stageInfo.MaxStageLevel > m_stageInfo.m_StageLevel)
+        while(m_stageInfo.StageLevel < m_stageInfo.MaxStageLevel)
         {
             float fStageStepTime = m_stageInfo.StageStep;
 
@@ -134,13 +148,14 @@ public class StageManager : MonoBehaviour
 
             //시간이 끝났다면 다음 스테이지로
             ++m_stageInfo.m_StageLevel;
-            if (m_stageInfo.IsLastStage)
-            {
+            if(m_stageInfo.StageLevel >= m_stageInfo.MaxStageLevel)
+            { 
                 // 마지막 스테이지 도달 → 보스 한 번만
                 if (!m_bossSpawned)
                 {
                     m_bossSpawned = true;
                     SpawnBoss();
+                    break;
                 }
             }
         }
@@ -149,7 +164,7 @@ public class StageManager : MonoBehaviour
     }
     private IEnumerator SpawnCoroutine()
     {
-        while (m_stageInfo.MaxStageLevel > m_stageInfo.m_StageLevel)
+        while (m_stageInfo.StageLevel < m_stageInfo.MaxStageLevel)
         {
             if (m_SpawnCount >= m_LimitSpanwer)
             {
@@ -214,8 +229,25 @@ public class StageManager : MonoBehaviour
     private void MonsterDead(Monster _monster)
     {
         --m_SpawnCount;
+        //스왑 나중에 처리
+        m_spawnGameObject.Remove(_monster);
+
+        if(m_bossSpawned == true && m_spawnGameObject.Count <= 0)
+            GameManager.m_Instance.EndGame();
+        //Debug.Log(m_spawnGameObject.Count);
     }
 
+    private void SpawnObject(GameObject _spawnObject)
+    {
+        if( _spawnObject.TryGetComponent<Monster>(out var monster) == false)
+        {
+            Debug.LogError("이상한 값이 들어옴 : stageManager");
+            return;
+        }
+        m_spawnGameObject.Add(monster);
+        monster.UpdateStat(m_stageInfo.m_StageLevel+1);
+        //Debug.Log(m_spawnGameObject.Count);
+    }
     // 그 스테이지의 일반 몬스터를 다 처치했을 때 호출: 마지막 스테이지면 보스 등장, 아니면 다음 스테이지로
 
     private void SpawnBoss()
@@ -223,5 +255,6 @@ public class StageManager : MonoBehaviour
         if (m_StargeBoss == null)
             return;
         m_spawner.AddSpawnObject(0.0f, m_StargeBoss, GetSpawnWrold());
+        Debug.Log("보스 스폰");
     }
 }

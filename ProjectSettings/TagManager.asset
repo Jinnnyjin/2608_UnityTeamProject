@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Item
-  - 
+  - Monster
   - 
   - 
   - 
@@ -40,6 +40,21 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Tile
+    uniqueID: 3086315191
+    locked: 0
+  - name: BaseFX
+    uniqueID: 2868767447
+    locked: 0
+  - name: Monster
+    uniqueID: 207869735
+    locked: 0
+  - name: Player
+    uniqueID: 1313789383
+    locked: 0
+  - name: VFX
+    uniqueID: 1170258025
     locked: 0
   m_RenderingLayers:
   - Default

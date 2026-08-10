@@ -4,6 +4,8 @@ public class SM_MoveForward : SkillMovement
 {
     public override void Update()
     {
-        Position += this.transform.right.normalized * SkillObject.Skill.Data.Speed * Time.deltaTime;
+        base.Update();
+        var s = SkillObject.Skill;
+        Position += this.transform.right.normalized * s.GetFinalStat(s.ProjSpeed,(i)=>s.ProjSpeed*i.ProjSpeedMult) * Time.deltaTime;
     }
 }

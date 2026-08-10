@@ -15,6 +15,8 @@ public class ObjectSpawner : MonoBehaviour
     private PriorityQueue<SpawnData> m_PQObject;
 
     public int RemainObject => m_PQObject.Count;
+
+    public event Action<GameObject> OnSpawn;
     private struct SpawnData
     {
         public float SpawnTime;
@@ -68,5 +70,6 @@ public class ObjectSpawner : MonoBehaviour
             return;
     
         refGameObject.transform.position = _vPosition;
+        OnSpawn?.Invoke(refGameObject);
     }
 }
