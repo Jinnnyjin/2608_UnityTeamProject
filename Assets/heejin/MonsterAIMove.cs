@@ -49,25 +49,22 @@ public class MonsterAIMove : MonoBehaviour
     {
         if( m_player == null) return;
 
-        // 분리로직 방향
+        // 분리로직 방향 (주변 몬스터로부터 밀려나는 방향)
         Vector2 separateDir = GetSeparateDir();
-        Vector2 finalDir;
-        float speed;
 
-
-        // 스킬 사용하지 않을때, 평소 움직임
         Vector2 chaseDir = Vector2.zero;
-
         if (LockDir == false)
+            // 평소: 실시간 플레이어 추적
             chaseDir = GetChaseDIr();
         else
+            // 대쉬스킬 중: 고정된 방향 유지
             chaseDir = m_prevDirection;
 
-        finalDir = (chaseDir + separateDir).normalized;
-        speed = m_monster.Info.Speed;
+        // 플레이어 추적 + 타 몬스터 밀려남
+        Vector2 finalDir = (chaseDir + separateDir).normalized;
 
         // 움직임 최종 로직
-        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * speed * MoveWeight * Time.fixedDeltaTime);
+        m_monsterRb.MovePosition(m_monsterRb.position + finalDir * m_monster.Info.Speed * MoveWeight * Time.fixedDeltaTime);
 
         bool isMoving = finalDir.sqrMagnitude > 0.01f;
 
@@ -79,8 +76,8 @@ public class MonsterAIMove : MonoBehaviour
 
         if (m_animator != null)
         {
-            m_animator.SetFloat("Horizontal", finalDir.x);
-            m_animator.SetFloat("Vertical", finalDir.y);
+            m_animator.SetFloat("Horizontal", chaseDir.x);
+            m_animator.SetFloat("Vertical", chaseDir.y);
         }
 
         // 
@@ -92,17 +89,18 @@ public class MonsterAIMove : MonoBehaviour
     {
         Vector2 separation = Vector2.zero;
 
+        // 반경 내 몬스터 탐색
         int count = Physics2D.OverlapCircle(transform.position, m_checkRadius, m_contactFilter ,m_overlapBuffer);
 
         for (int i = 0; i< count; i++)  
         {
             Collider2D other = m_overlapBuffer[i];
 
+            // 자기 자신 제외
             if (other == m_myCollider) continue;
 
-            separation += new Vector2
-                (m_monsterRb.position.x - other.attachedRigidbody.position.x,
-                m_monsterRb.position.y - other.attachedRigidbody.position.y);
+            // 타 몬스터 -> 나 방향 벡터 누적
+            separation += m_monsterRb.position - other.attachedRigidbody.position;
         }
 
         return separation.normalized;
