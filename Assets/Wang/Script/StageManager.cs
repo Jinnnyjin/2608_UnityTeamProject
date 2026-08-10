@@ -245,7 +245,7 @@ public class StageManager : MonoBehaviour
             return;
         }
         m_spawnGameObject.Add(monster);
-        monster.UpdateStat(m_stageInfo.m_StageLevel+1);
+        monster.UpdateStat(1f + (m_stageInfo.m_StageLevel * 0.3f));
         //Debug.Log(m_spawnGameObject.Count);
     }
     // 그 스테이지의 일반 몬스터를 다 처치했을 때 호출: 마지막 스테이지면 보스 등장, 아니면 다음 스테이지로
