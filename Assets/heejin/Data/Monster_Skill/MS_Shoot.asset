@@ -20,5 +20,5 @@ MonoBehaviour:
   m_desc: 
   m_levelData: []
   m_Damage: 5
-  m_Speed: 3
+  m_Speed: 4
   m_ProjCount: 1
