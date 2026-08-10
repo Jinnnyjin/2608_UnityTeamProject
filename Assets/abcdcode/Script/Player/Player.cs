@@ -133,7 +133,7 @@ public class Player : BSObj, IDamageable,ISkillOwner,IStat
     public float HPGen => 0 + this.GetSKillStatValue<float>(0,(a,b)=> a+=b.HPGen);
 
     private const float BaseHp = 100;
-    private const float BaseSpeed = 3;
+    private const float BaseSpeed = 5;
     [SerializeField]private PlayerController m_Controller;
     [SerializeField]private SkillData TestSkill;
 }

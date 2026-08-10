@@ -45,6 +45,8 @@ public class SoundManager : MonoBehaviour
         BuildSfxPool();
 
         PlayBgm(m_BgmData);
+
+        DontDestroyOnLoad(gameObject);
     }
 
 
