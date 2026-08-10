@@ -15,8 +15,8 @@ MonoBehaviour:
   Name: Zork
   m_monsterType: 2
   m_maxHp: 100
-  m_baseSpeed: 3
-  m_baseAttack: 12
+  m_baseSpeed: 0.93
+  m_baseAttack: 1
   m_baseAttackRange: 1
   m_expReward: 100
   m_skills:
