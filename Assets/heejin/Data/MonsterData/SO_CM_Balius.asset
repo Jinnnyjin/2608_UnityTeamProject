@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: "\uC77C\uBC18\uB9D0"
   m_monsterType: 0
   m_maxHp: 5
-  m_baseSpeed: 1.5
+  m_baseSpeed: 1.2
   m_baseAttack: 3
   m_baseAttackRange: 1
   m_expReward: 40
