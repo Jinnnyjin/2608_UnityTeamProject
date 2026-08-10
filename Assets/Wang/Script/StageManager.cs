@@ -137,7 +137,7 @@ public class StageManager : MonoBehaviour
     private IEnumerator MoveNextStageCoroutine()
     {
         //다음으로 넘길 스테이지 시간
-        while(m_stageInfo.MaxStageLevel > m_stageInfo.m_StageLevel)
+        while(m_stageInfo.StageLevel < m_stageInfo.MaxStageLevel)
         {
             float fStageStepTime = m_stageInfo.StageStep;
 
@@ -148,8 +148,8 @@ public class StageManager : MonoBehaviour
 
             //시간이 끝났다면 다음 스테이지로
             ++m_stageInfo.m_StageLevel;
-            if (m_stageInfo.IsLastStage)
-            {
+            if(m_stageInfo.StageLevel >= m_stageInfo.MaxStageLevel)
+            { 
                 // 마지막 스테이지 도달 → 보스 한 번만
                 if (!m_bossSpawned)
                 {
@@ -164,7 +164,7 @@ public class StageManager : MonoBehaviour
     }
     private IEnumerator SpawnCoroutine()
     {
-        while (m_stageInfo.MaxStageLevel > m_stageInfo.m_StageLevel)
+        while (m_stageInfo.StageLevel < m_stageInfo.MaxStageLevel)
         {
             if (m_SpawnCount >= m_LimitSpanwer)
             {
@@ -255,5 +255,6 @@ public class StageManager : MonoBehaviour
         if (m_StargeBoss == null)
             return;
         m_spawner.AddSpawnObject(0.0f, m_StargeBoss, GetSpawnWrold());
+        Debug.Log("보스 스폰");
     }
 }
