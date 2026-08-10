@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: MS_Range
   m_EditorClassIdentifier: Assembly-CSharp::RangeSkill
   Name: Range
-  m_CoolTime: 8
+  m_CoolTime: 5
   Prefab: {fileID: 5368355735217208176, guid: 878f3b31837c998478303dc72b7f9e81, type: 3}
   m_icon: {fileID: 0}
   m_title: 
   m_desc: 
   m_levelData: []
-  m_range: 0
-  m_damage: 0
+  m_range: 1
+  m_damage: 2
   m_WarningDelay: 3
   m_audioRangeSkill: {fileID: 11400000, guid: f20f637af678175499254ecbc7273b19, type: 2}
