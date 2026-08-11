@@ -44,6 +44,12 @@ public class MonsterAIMove : MonoBehaviour
         m_prevDirection = GetChaseDIr();
     }
 
+    private void OnEnable()
+    {
+        LockDir = false;
+        MoveWeight = 1.0f;
+    }
+
     // 플레이어 따라가는 움직임 + 대쉬스킬 움직임
     private void FixedUpdate()
     {

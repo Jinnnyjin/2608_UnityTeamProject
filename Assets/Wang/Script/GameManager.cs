@@ -46,11 +46,12 @@ public class GameManager : MonoBehaviour
 
         TakeDamage(-1);
     }
-    //private void OnDestroy()
-    //{
-    //    Monster.onMonsterDied += MonsterDead;
-    //
-    //}
+    private void OnDestroy()
+    {
+        Monster.OnMonsterDied -= MonsterDead;
+    
+    }
+
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.E))
