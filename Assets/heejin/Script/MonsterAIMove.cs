@@ -40,7 +40,14 @@ public class MonsterAIMove : MonoBehaviour
 
     private void Start()
     {
-        m_player = GameManager.m_Instance.Player.transform;
+        Player player = GameManager.m_Instance.Player;
+        if (player == null)
+        {
+            Debug.LogWarning("[MonsterAIMove] Player를 찾을 수 없습니다.");
+            return;
+        }
+
+        m_player = player.transform;
         m_prevDirection = GetChaseDIr();
     }
 
