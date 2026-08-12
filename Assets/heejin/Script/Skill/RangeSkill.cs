@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class RangeSkill : SkillData
 {
+    private const string SKILL_ID = "Range_Skill";
+
     [SerializeField] private float m_range;
     [SerializeField] private float m_damage;
     public override float Damage => m_damage;
@@ -14,7 +16,7 @@ public class RangeSkill : SkillData
     public override void Init(Skill _skill)
     {
         base.Init(_skill);
-        _skill.CoolTimer.SetCool("Range_Skill", _skill.Data.CoolTime,0,false,null);
+        _skill.CoolTimer.SetCool(SKILL_ID, _skill.Data.CoolTime,0,false,null);
     }
 
     public override void GameUpdate(Skill _skill)
@@ -24,13 +26,13 @@ public class RangeSkill : SkillData
 
         float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
-        if(_skill.CoolTimer.IsCoolComp("Range_Skill") && distance <= m_range)
+        if(_skill.CoolTimer.IsCoolComp(SKILL_ID) && distance <= m_range)
         {
             if (!monster.TryStartSkill()) return;
 
             monster.MonsterMove.MonsterAttackSkill();
             monster.StartCoroutine(SkillCoroutine(monster));
-            _skill.CoolTimer.RefreshCool("Range_Skill");
+            _skill.CoolTimer.RefreshCool(SKILL_ID);
         }
     }
 
