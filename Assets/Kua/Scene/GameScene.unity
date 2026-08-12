@@ -312,7 +312,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 509394870}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 988519685}
+  m_LockImage: {fileID: 0}
 --- !u!114 &140237167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,8 +1150,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC548\uB155"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2a8d72a62047c9a43963776e094134a4, type: 2}
-  m_sharedMaterial: {fileID: 5630891859901730908, guid: 2a8d72a62047c9a43963776e094134a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d9ce8d49e3b2db4cba31be9b54fb2b0, type: 2}
+  m_sharedMaterial: {fileID: -7552700177704192226, guid: 0d9ce8d49e3b2db4cba31be9b54fb2b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1665,6 +1667,7 @@ MonoBehaviour:
       m_spawnStep: 1.7
     m_StageLevel: 0
   m_StargeBoss: {fileID: 0}
+  m_spawnGameObject: []
 --- !u!4 &511558173
 Transform:
   m_ObjectHideFlags: 0
@@ -2886,7 +2889,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 0}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 988519685}
+  m_LockImage: {fileID: 0}
 --- !u!114 &988519684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3143,7 +3148,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 0}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1056472327}
+  m_LockImage: {fileID: 0}
 --- !u!114 &1056472326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3426,7 +3433,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 341878236}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1056472327}
+  m_LockImage: {fileID: 0}
 --- !u!114 &1118211718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4418,12 +4427,18 @@ MonoBehaviour:
   - {fileID: 1866073752}
   - {fileID: 140237166}
   m_mainSkillSlots:
-  - {fileID: 1512424623}
-  - {fileID: 1182757722}
-  - {fileID: 732399026}
-  - {fileID: 960990679}
-  - {fileID: 2135716162}
-  - {fileID: 1946338356}
+  - Type: 0
+    Icon: {fileID: 0}
+  - Type: 0
+    Icon: {fileID: 0}
+  - Type: 0
+    Icon: {fileID: 0}
+  - Type: 0
+    Icon: {fileID: 0}
+  - Type: 0
+    Icon: {fileID: 0}
+  - Type: 0
+    Icon: {fileID: 0}
   m_preLoadSkill:
   - {fileID: 11400000, guid: 6057c169fa46d6941b95a3be80083a09, type: 2}
   - {fileID: 11400000, guid: 9f7cc41ac5fdf874b928a95b6864116c, type: 2}
@@ -4465,8 +4480,8 @@ MonoBehaviour:
   m_currentExp: 0
   m_maxExp: 200
   m_skillSelectUI: {fileID: 1359447628}
-  m_refPre: {fileID: 2667062276481925001, guid: 0d009c79af5853b47b7ac4da05faaeef, type: 3}
   m_player: {fileID: 1594642311}
+  m_GameOverView: {fileID: 0}
 --- !u!4 &1495853338
 Transform:
   m_ObjectHideFlags: 0
@@ -4535,7 +4550,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 0}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1501232172}
+  m_LockImage: {fileID: 0}
 --- !u!114 &1501232171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4660,13 +4677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   TimerText: {fileID: 2049106002}
-  ItemIcons:
-  - {fileID: 615938367}
-  - {fileID: 702554097}
-  - {fileID: 1152233391}
-  - {fileID: 180248912}
-  - {fileID: 1629325529}
-  - {fileID: 1521475139}
+  m_listSlot: []
 --- !u!4 &1503878924
 Transform:
   m_ObjectHideFlags: 0
@@ -6043,7 +6054,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardChoiceButton
   m_titleText: {fileID: 0}
   m_descText: {fileID: 1271110756}
+  m_levelText: {fileID: 0}
   m_iconImage: {fileID: 1501232172}
+  m_LockImage: {fileID: 0}
 --- !u!114 &1866073753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6919,13 +6932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   TimerText: {fileID: 0}
-  ItemIcons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_listSlot: []
 --- !u!4 &2099249850
 Transform:
   m_ObjectHideFlags: 0
