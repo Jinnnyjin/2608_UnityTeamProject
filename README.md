@@ -1,14 +1,17 @@
 # UnityTeamProject
 <img width="898" height="460" alt="image" src="https://github.com/user-attachments/assets/3779a815-494d-4b30-a2c2-fedd4541db69" />
 
+> **본 레포지토리는 4인 팀 프로젝트 중 몬스터(AI 이동, 스킬, 스탯) 파트를 담당한 개인 기록 포크입니다.**
+> 
+> 팀 프로젝트 원본 레포: [1조 Unity 팀프로젝트 원본 레포지토리 링크](https://github.com/Wanghyesung/UnityTeamProject)
+
 ## 프로젝트 소개
 
 - **프로젝트 명**: 뱀서류 모작
 - **소개**: 4인 팀 프로젝트로 진행하는 뱀파이어 서바이버즈 장르 모작
 - **기간**: 2026-08-01 ~ 2026-08-07
-
 - **노션 링크**: [1조 Unity 팀프로젝트 노션 링크](https://app.notion.com/p/1-178fe1fddf628207955501ec66e19fc8)
-
+  
 ## 프로젝트 셋팅
 
 - **Unity 버전**: 6000.3.6f1
@@ -19,9 +22,9 @@
 
 | 팀원 | 담당 |
 | --- | --- |
-| 혁찬 | 플레이어 & 스킬 |
+| 혁찬 | 플레이어 & 스킬|
 | 혜성 | 매니저 |
-| 희진 | 몬스터 |
+| 희진(본인) | 몬스터 |
 | 운암 | UI & 사운드(효과음, BGM), 맵 |
 
 ## 게임 플레이 방법
@@ -48,8 +51,8 @@
 
 | 대상 | 규칙 | 예시 |
 | --- | --- | --- |
-| `private` / `protected` 필드 | camelCase, 접두사 `m` | `mHealth`, `mMoveSpeed` |
-| `public` 필드 / 프로퍼티 | PascalCase | `Health`, `MoveSpeed` |
+| `private` / `protected` 필드 | camelCase, 접두사 `m_` | `m_health`, `m_moveSpeed` |
+| `public` 필드 / 프로퍼티 | PascalCase, 접두사 `m_`  | `m_Health`, `m_MoveSpeed` |
 | 매개변수(parameter) | 접두사 `_` | `_amount`, `_targetPosition` |
 | 함수(메서드) | 항상 PascalCase (접근 제한자 무관) | `TakeDamage()`, `moveSpeed` 아님 |
 
@@ -58,9 +61,9 @@
 ```csharp
 public class Player : MonoBehaviour
 {
-    public float Health;
-    private float mMoveSpeed;
-    protected int mLevel;
+    public float m_Health;
+    private float m_moveSpeed;
+    protected int m_level;
 
     public void TakeDamage(float _amount)
     {
