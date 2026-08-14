@@ -20,3 +20,4 @@ MonoBehaviour:
   m_desc: 
   m_levelData: []
   m_moveweight: 2
+  m_audioDashSkill: {fileID: 11400000, guid: 96d0c5cb02af1fe46a1649f814057c4c, type: 2}

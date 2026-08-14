@@ -39,13 +39,11 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
     // ======== 스킬 관련 ========
     private TrailRenderer m_trailRenderer;
     private GameObject m_activeIndicator;
-    private Coroutine m_dashCoroutine;
     private bool m_isUsingSkill = false;
 
     // ======== 오디오 관련 ========
     [SerializeField] private SOAudio m_audioDied;
     [SerializeField] private SOAudio m_audioDamaged;
-    [SerializeField] private SOAudio m_audioDashSkill;
 
 
     // ======== 초기화 ========
@@ -161,60 +159,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
         }
     }
 
-    // ======== 대쉬스킬 ========
-    public void MoveToPlayer(float _fWeight)
-    {
-        if (m_dashCoroutine != null)
-            StopCoroutine(m_dashCoroutine);
-        m_dashCoroutine = StartCoroutine(DashCoroutine(_fWeight));
-    }
-
-    private IEnumerator DashCoroutine(float _fWeight)
-    {
-        if (GameManager.m_Instance.Player == null) yield break;
-
-        float startWeight = MonsterMove.MoveWeight;
-        MonsterMove.MoveWeight = _fWeight;
-        MonsterMove.LockDir = true;
-
-        StartTrail();
-        SoundManager.m_Instance.PlaySfx(m_audioDashSkill);
-
-        float time = 0f;
-        float prevDist = (transform.position - GameManager.m_Instance.Player.Position).magnitude;
-
-        // 지속시간동안 스킬 
-        while (time < _fWeight)
-        {
-            float currentDist = (transform.position - GameManager.m_Instance.Player.Position).magnitude;
-
-            // 직전 거리보다 멀어졌다면?
-            if(currentDist > prevDist)
-            {
-                // 0.3f만큼만 더 가고 멈춤
-                yield return new WaitForSeconds(0.3f);
-                // 대쉬스킬 중단
-                break;
-            }
-
-            prevDist = currentDist;
-            time += Time.deltaTime;
-
-            // 1 프레임 쉬고 다음프레임에 while문 이어서
-            yield return null;
-        }
-
-        // 가중치 원래 값으로
-        MonsterMove.MoveWeight = startWeight;
-        MonsterMove.LockDir = false;
-
-        StopTrail();
-
-        EndSkill();
-
-        m_dashCoroutine = null;
-    }
-
+    // ======== 스킬 공용 이동/트레일 제어 ========
     public void StartTrail()
     {
         if (m_trailRenderer != null)
@@ -231,7 +176,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
         }
     }
 
-    // ======== 범위스킬 (인디케이터 및 움직임멈춤) ========
+    // ======== 스킬 공용 인디케이터/이동정지 제어 ========
     public void SetActiveIndicator(GameObject indicator)
     {
         m_activeIndicator = indicator;
