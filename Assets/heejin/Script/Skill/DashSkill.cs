@@ -1,36 +1,51 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class DashSkill : SkillData
+public class DashSkill : MonsterSkillData
 {
-    private const string SKILL_ID = "Dash_Skill";
+    protected override string SkillId => "Dash_Skill";
 
     [SerializeField] private float m_moveweight = 1.0f;
+    [SerializeField] private SOAudio m_audioDashSkill;
 
-   
-    public override void Init(Skill _skill)
+    protected override IEnumerator SkillRoutine(Monster monster, Skill skill)
     {
-        base.Init(_skill);
-        _skill.CoolTimer.SetCool(SKILL_ID, _skill.Data.CoolTime, 0, false, null);
-       
-    }
+        MonsterAIMove move = monster.MonsterMove;
+        float startWeight = move.MoveWeight;
+        move.MoveWeight = m_moveweight;
+        move.LockDir = true;
 
-    public override void GameUpdate(Skill _skill)
-    {
-        if (_skill.CoolTimer.IsCoolComp(SKILL_ID))
+        monster.StartTrail();
+        SoundManager.m_Instance.PlaySfx(m_audioDashSkill);
+
+        float time = 0f;
+        float prevDist = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
+
+        // 지속시간동안 스킬
+        while (time < m_moveweight)
         {
+            float currentDist = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
 
-            Monster monster = _skill.Owner as Monster;
-            if (monster == null) return;
+            // 직전 거리보다 멀어졌다면?
+            if (currentDist > prevDist)
+            {
+                // 0.3f만큼만 더 가고 멈춤
+                yield return new WaitForSeconds(0.3f);
+                // 대쉬스킬 중단
+                break;
+            }
 
-            if (!monster.TryStartSkill()) return;
+            prevDist = currentDist;
+            time += Time.deltaTime;
 
-            _skill.CoolTimer.RefreshCool(SKILL_ID);
-
-            monster.MoveToPlayer(m_moveweight);
-            
+            // 1 프레임 쉬고 다음프레임에 while문 이어서
+            yield return null;
         }
-    }
 
-    
+        // 가중치 원래 값으로
+        move.MoveWeight = startWeight;
+        move.LockDir = false;
+
+        monster.StopTrail();
+    }
 }

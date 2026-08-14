@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class RangeSkill : SkillData
+public class RangeSkill : MonsterSkillData
 {
-    private const string SKILL_ID = "Range_Skill";
+    protected override string SkillId => "Range_Skill";
 
     [SerializeField] private float m_range;
     [SerializeField] private float m_damage;
@@ -13,34 +13,22 @@ public class RangeSkill : SkillData
 
     [SerializeField] private SOAudio m_audioRangeSkill;
 
-    public override void Init(Skill _skill)
+    protected override bool CanUseSkill(Monster monster)
     {
-        base.Init(_skill);
-        _skill.CoolTimer.SetCool(SKILL_ID, _skill.Data.CoolTime,0,false,null);
+        Player player = GameManager.m_Instance.Player;
+        if (player == null) return false;
+
+        float distance = (monster.Position - player.Position).magnitude;
+        return distance <= m_range;
     }
 
-    public override void GameUpdate(Skill _skill)
+    protected override IEnumerator SkillRoutine(Monster monster, Skill skill)
     {
-        Monster monster = _skill.Owner as Monster;
-        if (monster == null) return;
 
-        float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
-        
-        if(_skill.CoolTimer.IsCoolComp(SKILL_ID) && distance <= m_range)
-        {
-            if (!monster.TryStartSkill()) return;
-
-            monster.MonsterMove.MonsterAttackSkill();
-            monster.StartCoroutine(SkillCoroutine(monster));
-            _skill.CoolTimer.RefreshCool(SKILL_ID);
-        }
-    }
-
-    private IEnumerator SkillCoroutine(Monster monster)
-    {
         // 스킬 중 이동 정지
+        monster.MonsterMove.MonsterAttackSkill();
         monster.StopMoving();
-        
+
         // 범위 반경 오브젝트 활성화
         GameObject indicator = ObjectPoolManager.m_Instance.GetObject(Prefab);
         indicator.transform.position = monster.Position;
@@ -48,7 +36,7 @@ public class RangeSkill : SkillData
 
         float scale = m_range / m_baseSpriteRadius;
         indicator.transform.localScale = Vector3.one * scale;
-       
+
         // 딜레이
         yield return new WaitForSeconds(m_WarningDelay);
         
@@ -57,7 +45,12 @@ public class RangeSkill : SkillData
         monster.ClearActiveIndicator();
         SoundManager.m_Instance.PlaySfx(m_audioRangeSkill);
 
-        
+        if (GameManager.m_Instance.Player == null)
+        {
+            monster.ResumeMoving();
+            yield break;
+        }
+
         // 데미지 판정
         float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
 
@@ -70,6 +63,5 @@ public class RangeSkill : SkillData
 
         // 이동 재개
         monster.ResumeMoving();
-        monster.EndSkill();
     }
 }
