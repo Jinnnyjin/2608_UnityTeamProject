@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class RangeSkill : SkillData
 {
+    private const string SKILL_ID = "Range_Skill";
+
     [SerializeField] private float m_range;
     [SerializeField] private float m_damage;
     public override float Damage => m_damage;
@@ -14,7 +16,7 @@ public class RangeSkill : SkillData
     public override void Init(Skill _skill)
     {
         base.Init(_skill);
-        _skill.CoolTimer.SetCool("Range_Skill", _skill.Data.CoolTime,0,false,null);
+        _skill.CoolTimer.SetCool(SKILL_ID, _skill.Data.CoolTime,0,false,null);
     }
 
     public override void GameUpdate(Skill _skill)
@@ -24,18 +26,19 @@ public class RangeSkill : SkillData
 
         float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
-        if(_skill.CoolTimer.IsCoolComp("Range_Skill") && distance <= m_range)
+        if(_skill.CoolTimer.IsCoolComp(SKILL_ID) && distance <= m_range)
         {
             if (!monster.TryStartSkill()) return;
 
             monster.MonsterMove.MonsterAttackSkill();
             monster.StartCoroutine(SkillCoroutine(monster));
-            _skill.CoolTimer.RefreshCool("Range_Skill");
+            _skill.CoolTimer.RefreshCool(SKILL_ID);
         }
     }
 
     private IEnumerator SkillCoroutine(Monster monster)
     {
+        // 스킬 중 이동 정지
         monster.StopMoving();
         
         // 범위 반경 오브젝트 활성화
@@ -45,7 +48,8 @@ public class RangeSkill : SkillData
 
         float scale = m_range / m_baseSpriteRadius;
         indicator.transform.localScale = Vector3.one * scale;
-        
+       
+        // 딜레이
         yield return new WaitForSeconds(m_WarningDelay);
         
         // 범위 오브젝트 반납
@@ -53,24 +57,18 @@ public class RangeSkill : SkillData
         monster.ClearActiveIndicator();
         SoundManager.m_Instance.PlaySfx(m_audioRangeSkill);
 
-        float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
         
+        // 데미지 판정
+        float distance = (monster.Position - GameManager.m_Instance.Player.Position).magnitude;
 
-        // TakeDamage 슬라이더바 오류로 코루틴 진행이안됨
-        // 테스트용 try
         if (distance <= m_range)
         {
-            try
-            {
-                DamageInfo info = new DamageInfo { Dmg = Damage };
-                GameManager.m_Instance.Player.TakeDamage(info);
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"TakeDamage 오류: {e.Message}");
-            }
+            Debug.Log($"[RangeSkill 데미지] 시각: {Time.time}");
+            DamageInfo info = new DamageInfo { Dmg = Damage };
+            GameManager.m_Instance.Player.TakeDamage(info);
         }
 
+        // 이동 재개
         monster.ResumeMoving();
         monster.EndSkill();
     }

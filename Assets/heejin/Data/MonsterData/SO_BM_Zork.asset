@@ -15,11 +15,11 @@ MonoBehaviour:
   Name: Zork
   m_monsterType: 2
   m_maxHp: 100
-  m_baseSpeed: 0.93
+  m_baseSpeed: 0.8
   m_baseAttack: 1
   m_baseAttackRange: 1
   m_expReward: 100
   m_skills:
   - {fileID: 11400000, guid: e23f89ef861d52d47a174ab4119ee9c3, type: 2}
   - {fileID: 11400000, guid: 9bd038b3ebb897346995c5359b098c97, type: 2}
-  - {fileID: 11400000, guid: 3c71c8086bcb54147abd73a9888cb892, type: 2}
+  - {fileID: 11400000, guid: f1e36cc921246c04e9b7555eec6ac6cc, type: 2}

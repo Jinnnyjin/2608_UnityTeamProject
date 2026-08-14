@@ -1,5 +1,4 @@
 using System;
-using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -142,6 +141,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
     private void CheckAttack()
     {
         Player target = GameManager.m_Instance.Player;
+        if (target == null) return;
         Vector2 fiff = target.Position - transform.position;
         float len = fiff.magnitude;
         if(len < m_SOMonsterInfo.BaseAttackRange)
@@ -150,6 +150,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
             if (m_curAttackTime >= m_baseAttackTime)
             {
                 m_baseDamageInfo.Dmg = m_monsterInfo.Attack;
+                Debug.Log($"[근접 공격 데미지] 시각: {Time.time}");
                 GameManager.m_Instance.Player.TakeDamage(m_baseDamageInfo);
                 m_curAttackTime = 0.0f;
             }
@@ -170,6 +171,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
 
     private IEnumerator DashCoroutine(float _fWeight)
     {
+        if (GameManager.m_Instance.Player == null) yield break;
+
         float startWeight = MonsterMove.MoveWeight;
         MonsterMove.MoveWeight = _fWeight;
         MonsterMove.LockDir = true;
@@ -266,7 +269,7 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
     // ======== IDamageable INTERFACE ========
     public void Heal(float value)
     {
-        throw new NotImplementedException();
+        m_monsterInfo.HP = Mathf.Min(m_monsterInfo.HP + value, Hp);
     }
 
 
@@ -312,6 +315,8 @@ public class Monster : BSObj, IDamageable, ISkillOwner, IStat
 
     public void RegisterSkill(string skillId)
     {
+        // Monster는 SOMonsterInfo.Skills(SkillData 리스트) 기반으로만 스킬을 초기화하며,
+        // 런타임에 id 문자열로 스킬을 조회/등록하는 흐름이 없어 미지원 처리함.
         throw new NotImplementedException();
     }
 
